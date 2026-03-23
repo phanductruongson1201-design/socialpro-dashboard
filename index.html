@@ -731,65 +731,177 @@ document.body.style.overflow = isOpen ? ‘hidden’ : ‘’;
 function toggleFaq(el){el.closest(’.faq-item’).classList.toggle(‘open’);}
 function submitG(btn){const o=btn.innerHTML;btn.innerHTML=’<i class="fas fa-spinner fa-spin"></i> Đang xử lý…’;btn.disabled=true;setTimeout(()=>{btn.innerHTML=’<i class="fas fa-check"></i> Thành công!’;btn.style.background=‘linear-gradient(135deg,var(–accent3),#00a876)’;setTimeout(()=>{btn.innerHTML=o;btn.style.background=’’;btn.disabled=false;},2500);},1500);}
 renderProducts();renderServices();
+
 </script>
 
-<!-- FIREBASE -->
+<!-- FIREBASE AUTH + FIRESTORE -->
 
-<script type="module">
-import{initializeApp}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged,updatePassword,sendPasswordResetEmail}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import{getFirestore,doc,setDoc,getDoc,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 
-// ⚠️ THAY CONFIG NÀY BẰNG CONFIG FIREBASE CỦA BẠN
-const firebaseConfig={apiKey:"YOUR_API_KEY",authDomain:"YOUR_PROJECT.firebaseapp.com",projectId:"YOUR_PROJECT_ID",storageBucket:"YOUR_PROJECT.appspot.com",messagingSenderId:"YOUR_SENDER_ID",appId:"YOUR_APP_ID"};
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-// Kiểm tra đã điền config chưa
-const FIREBASE_READY = firebaseConfig.apiKey !== "YOUR_API_KEY";
-if(!FIREBASE_READY){
-  console.warn("⚠️ Chưa cấu hình Firebase. Chế độ demo.");
-  // Fallback functions khi chưa có Firebase
-  window.doLogin = function(){
-    const email=document.getElementById('login-email').value;
-    const pass=document.getElementById('login-password').value;
-    if(!email||!pass){showAlertFallback('Vui lòng điền đầy đủ thông tin!','error');return;}
-    showAlertFallback('Chưa cấu hình Firebase. Vui lòng liên hệ admin!','error');
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAccwBvfUMMsrt4HHLB9EYJSKQq_nchtjA",
+  authDomain: "socialpro-db-c2654.firebaseapp.com",
+  projectId: "socialpro-db-c2654",
+  storageBucket: "socialpro-db-c2654.firebasestorage.app",
+  messagingSenderId: "821789877824",
+  appId: "1:821789877824:web:99d69aa828b4609babe1a5"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db   = firebase.firestore();
+
+// ── HELPERS ──
+function showAuthAlert(msg, type='error'){
+  const el = document.getElementById('auth-alert');
+  if(!el) return;
+  el.style.display = 'block';
+  el.style.background = type==='success' ? 'rgba(0,212,170,0.12)' : 'rgba(255,71,87,0.12)';
+  el.style.border = '1px solid '+(type==='success'?'rgba(0,212,170,0.3)':'rgba(255,71,87,0.3)');
+  el.style.color = type==='success' ? 'var(--accent3)' : 'var(--red)';
+  el.innerHTML = (type==='success'?'✅ ':'❌ ')+msg;
+  if(type==='success') setTimeout(()=>el.style.display='none', 3000);
+}
+function getErrMsg(code){
+  const m = {
+    'auth/email-already-in-use':'Email đã được đăng ký!',
+    'auth/invalid-email':'Email không hợp lệ!',
+    'auth/weak-password':'Mật khẩu quá yếu (tối thiểu 6 ký tự)!',
+    'auth/user-not-found':'Không tìm thấy tài khoản!',
+    'auth/wrong-password':'Mật khẩu không đúng!',
+    'auth/invalid-credential':'Email hoặc mật khẩu không đúng!',
+    'auth/too-many-requests':'Quá nhiều lần thử, thử lại sau!',
+    'auth/network-request-failed':'Lỗi kết nối mạng!'
   };
-  window.doRegister = function(){
-    showAlertFallback('Chưa cấu hình Firebase. Vui lòng liên hệ admin!','error');
+  return m[code] || 'Có lỗi xảy ra: ' + code;
+}
+function setBtnLoad(id, loading, label){
+  const b = document.getElementById(id);
+  if(!b) return;
+  b.disabled = loading;
+  b.innerHTML = loading
+    ? '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...'
+    : label;
+}
+function updateUI(user, data){
+  const g = document.getElementById('nav-actions-guest');
+  const l = document.getElementById('nav-actions-user');
+  if(!user){ if(g)g.style.display='flex'; if(l)l.style.display='none'; return; }
+  if(g) g.style.display='none';
+  if(l) l.style.display='flex';
+  const uname = (data && data.username) ? data.username : user.email.split('@')[0];
+  const bal   = (data && data.balance)  ? Number(data.balance).toLocaleString('vi-VN') : '0';
+  const els = {
+    'nav-username': uname,
+    'nav-avatar':   uname[0].toUpperCase(),
+    'nav-balance':  bal+'đ',
+    'profile-username': uname,
+    'profile-email':    user.email,
+    'profile-avatar':   uname[0].toUpperCase(),
+    'profile-balance':  bal
   };
-  window.doLogout = function(){ window.location.reload(); };
-  window.forgotPassword = function(){ showAlertFallback('Vui lòng liên hệ admin qua Zalo!','error'); };
-  window.doChangePassword = function(){ showAlertFallback('Chưa cấu hình Firebase!','error'); };
-  function showAlertFallback(msg,type){
-    const el=document.getElementById('auth-alert');
-    if(!el)return;
-    el.style.display='block';
-    el.style.background=type==='success'?'rgba(0,212,170,0.12)':'rgba(255,71,87,0.12)';
-    el.style.border='1px solid '+(type==='success'?'rgba(0,212,170,0.3)':'rgba(255,71,87,0.3)');
-    el.style.color=type==='success'?'var(--accent3)':'var(--red)';
-    el.innerHTML=(type==='success'?'✅ ':'❌ ')+msg;
-  }
-  throw new Error("Firebase chưa cấu hình - dừng load module");
+  Object.entries(els).forEach(([id,val])=>{ const e=document.getElementById(id); if(e)e.textContent=val; });
 }
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
+// ── ĐĂNG KÝ ──
+function doRegister(){
+  document.getElementById('auth-alert').style.display='none';
+  const username = document.getElementById('reg-username').value.trim();
+  const email    = document.getElementById('reg-email').value.trim();
+  const password = document.getElementById('reg-password').value;
+  if(!username||username.length<4) return showAuthAlert('Username tối thiểu 4 ký tự!');
+  if(!email)    return showAuthAlert('Vui lòng nhập email!');
+  if(!password||password.length<6) return showAuthAlert('Mật khẩu tối thiểu 6 ký tự!');
+  setBtnLoad('reg-btn', true);
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(cred => {
+      return db.collection('users').doc(cred.user.uid).set({
+        uid: cred.user.uid, username, email,
+        balance: 0, total_deposit: 0,
+        rank: 'Thành Viên', role: 'user',
+        created_at: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    })
+    .then(() => {
+      showAuthAlert('Đăng ký thành công! Chào mừng '+username, 'success');
+      setTimeout(()=>{
+        ['reg-username','reg-email','reg-password'].forEach(id=>document.getElementById(id).value='');
+        closeModal('authModal');
+      }, 1200);
+    })
+    .catch(e => {
+      showAuthAlert(getErrMsg(e.code));
+      setBtnLoad('reg-btn', false, '<i class="fas fa-user-plus"></i> Đăng Ký Ngay');
+    });
+}
 
-function showAlert(msg,type='error'){const el=document.getElementById('auth-alert');el.style.display='block';el.style.background=type==='success'?'rgba(0,212,170,0.12)':'rgba(255,71,87,0.12)';el.style.border='1px solid '+(type==='success'?'rgba(0,212,170,0.3)':'rgba(255,71,87,0.3)');el.style.color=type==='success'?'var(--accent3)':'var(--red)';el.innerHTML=(type==='success'?'✅ ':'❌ ')+msg;if(type==='success')setTimeout(()=>el.style.display='none',3000);}
-function getErr(c){const m={'auth/email-already-in-use':'Email đã được đăng ký!','auth/invalid-email':'Email không hợp lệ!','auth/weak-password':'Mật khẩu quá yếu!','auth/user-not-found':'Không tìm thấy tài khoản!','auth/wrong-password':'Mật khẩu không đúng!','auth/invalid-credential':'Email hoặc mật khẩu không đúng!','auth/too-many-requests':'Thử lại sau!','auth/network-request-failed':'Lỗi kết nối!'};return m[c]||'Lỗi: '+c;}
+// ── ĐĂNG NHẬP ──
+function doLogin(){
+  document.getElementById('auth-alert').style.display='none';
+  const email    = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  if(!email)    return showAuthAlert('Vui lòng nhập email!');
+  if(!password) return showAuthAlert('Vui lòng nhập mật khẩu!');
+  setBtnLoad('login-btn', true);
+  auth.signInWithEmailAndPassword(email, password)
+    .then(() => {
+      showAuthAlert('Đăng nhập thành công!', 'success');
+      setTimeout(()=>{
+        ['login-email','login-password'].forEach(id=>document.getElementById(id).value='');
+        closeModal('authModal');
+      }, 1000);
+    })
+    .catch(e => {
+      showAuthAlert(getErrMsg(e.code));
+      setBtnLoad('login-btn', false, '<i class="fas fa-sign-in-alt"></i> Đăng Nhập');
+    });
+}
 
-window.doRegister=async function(){document.getElementById('auth-alert').style.display='none';const u=document.getElementById('reg-username').value.trim(),e=document.getElementById('reg-email').value.trim(),p=document.getElementById('reg-password').value;if(!u||u.length<4)return showAlert('Username tối thiểu 4 ký tự!');if(!e)return showAlert('Vui lòng nhập email!');if(!p||p.length<6)return showAlert('Mật khẩu tối thiểu 6 ký tự!');const btn=document.getElementById('reg-btn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';try{const c=await createUserWithEmailAndPassword(auth,e,p);await setDoc(doc(db,'users',c.user.uid),{uid:c.user.uid,username:u,email:e,balance:0,total_deposit:0,rank:'Thành Viên',role:'user',created_at:serverTimestamp()});showAlert('Đăng ký thành công! Chào mừng '+u,'success');setTimeout(()=>{document.getElementById('reg-username').value='';document.getElementById('reg-email').value='';document.getElementById('reg-password').value='';document.getElementById('authModal').classList.remove('open');},1500);}catch(err){showAlert(getErr(err.code));btn.disabled=false;btn.innerHTML='<i class="fas fa-user-plus"></i> Đăng Ký Ngay';}};
+// ── ĐĂNG XUẤT ──
+function doLogout(){ auth.signOut().then(()=>showSection('home')); }
 
-window.doLogin=async function(){document.getElementById('auth-alert').style.display='none';const e=document.getElementById('login-email').value.trim(),p=document.getElementById('login-password').value;if(!e)return showAlert('Vui lòng nhập email!');if(!p)return showAlert('Vui lòng nhập mật khẩu!');const btn=document.getElementById('login-btn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';try{await signInWithEmailAndPassword(auth,e,p);showAlert('Đăng nhập thành công!','success');setTimeout(()=>{document.getElementById('login-email').value='';document.getElementById('login-password').value='';document.getElementById('authModal').classList.remove('open');},1000);}catch(err){showAlert(getErr(err.code));btn.disabled=false;btn.innerHTML='<i class="fas fa-sign-in-alt"></i> Đăng Nhập';}};
+// ── QUÊN MẬT KHẨU ──
+function forgotPassword(){
+  const email = document.getElementById('login-email').value.trim();
+  if(!email) return showAuthAlert('Nhập email vào ô trên trước!');
+  auth.sendPasswordResetEmail(email)
+    .then(()=>showAuthAlert('Đã gửi email đặt lại mật khẩu! Kiểm tra hộp thư.','success'))
+    .catch(e=>showAuthAlert(getErrMsg(e.code)));
+}
 
-window.doLogout=async function(){await signOut(auth);showSection('home');};
+// ── ĐỔI MẬT KHẨU ──
+function doChangePassword(btn){
+  const np = document.getElementById('new-password').value;
+  const cp = document.getElementById('confirm-password').value;
+  if(!np||np.length<6) return alert('Mật khẩu tối thiểu 6 ký tự!');
+  if(np!==cp) return alert('Mật khẩu xác nhận không khớp!');
+  const orig = btn.innerHTML;
+  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>'; btn.disabled=true;
+  auth.currentUser.updatePassword(np)
+    .then(()=>{
+      btn.innerHTML='<i class="fas fa-check"></i> Đổi thành công!';
+      btn.style.background='linear-gradient(135deg,var(--accent3),#00a876)';
+      document.getElementById('new-password').value='';
+      document.getElementById('confirm-password').value='';
+      setTimeout(()=>{ btn.innerHTML=orig; btn.style.background=''; btn.disabled=false; },2500);
+    })
+    .catch(e=>{ alert(getErrMsg(e.code)); btn.innerHTML=orig; btn.disabled=false; });
+}
 
-window.forgotPassword=async function(){const e=document.getElementById('login-email').value.trim();if(!e)return showAlert('Nhập email vào ô trên trước!');try{await sendPasswordResetEmail(auth,e);showAlert('Đã gửi email đặt lại mật khẩu!','success');}catch(err){showAlert(getErr(err.code));}};
-
-window.doChangePassword=async function(btn){const np=document.getElementById('new-password').value,cp=document.getElementById('confirm-password').value;if(!np||np.length<6)return alert('Mật khẩu tối thiểu 6 ký tự!');if(np!==cp)return alert('Mật khẩu xác nhận không khớp!');const o=btn.innerHTML;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';btn.disabled=true;try{await updatePassword(auth.currentUser,np);btn.innerHTML='<i class="fas fa-check"></i> Đổi thành công!';btn.style.background='linear-gradient(135deg,var(--accent3),#00a876)';document.getElementById('new-password').value='';document.getElementById('confirm-password').value='';setTimeout(()=>{btn.innerHTML=o;btn.style.background='';btn.disabled=false;},2500);}catch(err){alert(getErr(err.code));btn.innerHTML=o;btn.disabled=false;}};
-
-onAuthStateChanged(auth,async(user)=>{const g=document.getElementById('nav-actions-guest'),l=document.getElementById('nav-actions-user');if(user){g.style.display='none';l.style.display='flex';const s=await getDoc(doc(db,'users',user.uid));if(s.exists()){const d=s.data(),un=d.username||user.email.split('@')[0],bal=(d.balance||0).toLocaleString('vi-VN');document.getElementById('nav-username').textContent=un;document.getElementById('nav-avatar').textContent=un[0].toUpperCase();document.getElementById('nav-balance').textContent=bal+'đ';document.getElementById('profile-username').textContent=un;document.getElementById('profile-email').textContent=user.email;document.getElementById('profile-avatar').textContent=un[0].toUpperCase();document.getElementById('profile-balance').textContent=bal;}}else{g.style.display='flex';l.style.display='none';}});
+// ── THEO DÕI TRẠNG THÁI ──
+auth.onAuthStateChanged(user => {
+  if(user){
+    db.collection('users').doc(user.uid).get()
+      .then(snap => updateUI(user, snap.exists ? snap.data() : null))
+      .catch(()  => updateUI(user, null));
+  } else {
+    updateUI(null, null);
+  }
+});
 </script>
 
 </body>
