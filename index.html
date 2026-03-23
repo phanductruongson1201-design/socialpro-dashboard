@@ -48,18 +48,19 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .mobile-menu-item:hover,.mobile-menu-item:active{background:rgba(108,99,255,0.12);color:var(--text);border-color:var(--border2);}
 .mobile-close{background:rgba(255,255,255,0.08);border:1px solid var(--border);color:var(--text);font-size:18px;cursor:pointer;width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;}
 .mobile-section-title{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;padding:14px 4px 6px;}
-.support-float{position:fixed;right:16px;bottom:90px;display:flex;flex-direction:column;gap:10px;z-index:900;}
-.sfloat{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.4);transition:transform .2s;text-decoration:none;}
+.support-float{position:fixed;right:16px;bottom:24px;display:flex;flex-direction:column;gap:8px;z-index:800;}
+.sfloat{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.4);transition:transform .2s;text-decoration:none;pointer-events:auto;}
 .sfloat:hover{transform:scale(1.1);}
 .sfloat.zalo{background:#0068ff;}
 .sfloat.tele{background:#26a5e4;}
 .hero{padding:80px 24px 60px;text-align:center;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(108,99,255,0.2) 0%,transparent 70%);position:relative;overflow:hidden;width:100%;}
-.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%236c63ff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%236c63ff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.hero .hero-badge,.hero h1,.hero p,.hero-btns,.hero-stats{position:relative;z-index:1;}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(108,99,255,0.15);border:1px solid rgba(108,99,255,0.3);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:600;color:var(--accent);margin-bottom:20px;}
 .hero h1{font-size:clamp(32px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom:20px;}
 .hero h1 .gradient{background:linear-gradient(135deg,var(--accent),var(--accent2),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .hero p{font-size:17px;color:var(--text2);max-width:600px;margin:0 auto 36px;line-height:1.7;}
-.hero-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.hero-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;position:relative;z-index:2;}
 .hero-stats{display:flex;justify-content:center;gap:40px;margin-top:60px;flex-wrap:wrap;}
 .hero-stat-num{font-size:28px;font-weight:800;} .hero-stat-num span{color:var(--accent);}
 .hero-stat-label{font-size:13px;color:var(--text2);margin-top:2px;}
@@ -69,12 +70,12 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .trust-item{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--text2);white-space:nowrap;}
 .trust-item i{color:var(--accent3);}
-.section{padding:60px 24px;max-width:1300px;margin:0 auto;width:100%;}
+.section{padding:60px 24px;max-width:1300px;margin:0 auto;width:100%;position:relative;z-index:1;}
 .section-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
 .section-title{font-size:clamp(22px,4vw,34px);font-weight:800;margin-bottom:10px;}
 .section-sub{font-size:15px;color:var(--text2);max-width:540px;}
-.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
-.product-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:all .25s;display:flex;flex-direction:column;}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;position:relative;z-index:1;}
+.product-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:all .25s;display:flex;flex-direction:column;position:relative;z-index:1;}
 .product-card:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(108,99,255,0.2);}
 .product-img{aspect-ratio:16/9;background:var(--bg3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
 .product-img-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--bg3),var(--bg4));}
