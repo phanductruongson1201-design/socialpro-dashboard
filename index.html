@@ -447,6 +447,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
 /* ═══════════════════════ RESPONSIVE ═══════════════════════ */
 @media(max-width:900px){
   .nav-links{display:none;}
+  .nav-actions{display:none;}
   .nav-toggle{display:block;}
   .modal-body{grid-template-columns:1fr;}
   .modal-info{display:none;}
@@ -520,7 +521,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
   <div class="mobile-section-title" style="margin-top:16px">Liên hệ</div>
   <a class="mobile-menu-item" href="https://zalo.me/0376263452" target="_blank">💬 Zalo Hỗ Trợ</a>
   <a class="mobile-menu-item" href="https://t.me/support" target="_blank">✈️ Telegram</a>
-  <div style="display:flex;gap:10px;padding:16px 0">
+  <div style="display:flex;gap:10px;padding:16px 0" id="mobile-auth-btns">
     <button class="btn btn-ghost" style="flex:1" onclick="openAuth('login')">Đăng nhập</button>
     <button class="btn btn-primary" style="flex:1" onclick="openAuth('register')">Đăng ký</button>
   </div>
