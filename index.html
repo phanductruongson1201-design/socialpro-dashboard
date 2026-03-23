@@ -285,6 +285,10 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 }
 .form-input:focus{border-color:var(--accent);}
 .form-input::placeholder{color:var(--text3);}
+
+/* Thêm ô Textarea nhập bình luận */
+textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
+
 select.form-input{cursor:pointer;appearance:none;}
 /* Server options */
 .server-options{display:flex;flex-direction:column;gap:8px;}
@@ -744,7 +748,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
     <div class="cta-title">Bắt Đầu Ngay Hôm Nay 🚀</div>
     <div class="cta-sub">Đăng ký miễn phí, nạp tiền và sử dụng dịch vụ ngay lập tức. Hỗ trợ 24/7.</div>
     <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
-      <button class="btn btn-primary" style="padding:14px 32px;font-size:15px" onclick="openAuth('register')"><i class="fas fa-user-plus"></i> Đăng Ký Miễn Phí</button>
+      <button class="btn btn-primary" id="cta-register-btn" style="padding:14px 32px;font-size:15px" onclick="openAuth('register')"><i class="fas fa-user-plus"></i> Đăng Ký Miễn Phí</button>
       <a href="https://zalo.me/0935748199" target="_blank" class="btn btn-ghost" style="padding:14px 32px;font-size:15px"><i class="fas fa-comment"></i> Chat Zalo</a>
     </div>
   </div>
@@ -1107,7 +1111,7 @@ function switchPlatform(key,btn){
 }
 
 // ═══════════════════════════════════════════════
-// MODALS
+// MODALS & COMMENT BOX FEATURE
 // ═══════════════════════════════════════════════
 function openProductModal(name,icon,color){
   openAuth('login'); // Requires login
@@ -1115,9 +1119,25 @@ function openProductModal(name,icon,color){
 
 function openSvcModal(name,platKey,color){
   document.getElementById('svcModalTitle').innerHTML=`<span style="color:${color}">${name}</span>`;
+  
+  // KIỂM TRA XEM CÓ PHẢI DỊCH VỤ BÌNH LUẬN/ĐÁNH GIÁ KHÔNG ĐỂ CHÈN TEXTAREA
+  const isCmt = name.toLowerCase().includes('bình luận') || name.toLowerCase().includes('đánh giá');
+  let cmtField = '';
+  
+  if(isCmt) {
+    const cmtType = name.toLowerCase().includes('đánh giá') ? 'đánh giá' : 'bình luận';
+    cmtField = `
+    <div class="form-group">
+      <label class="form-label">Nội dung ${cmtType} <span style="color:var(--text3);font-weight:400">(mỗi dòng 1 nội dung)</span></label>
+      <textarea class="form-input" id="svc-comments" rows="4" placeholder="Nhập nội dung (mỗi dòng 1 nội dung). Để trống hệ thống sẽ tự random..."></textarea>
+      <div style="font-size:11.5px;color:var(--text3);margin-top:4px"><i class="fas fa-info-circle" style="color:var(--accent3)"></i> Hệ thống sẽ tự đếm số dòng để tính số lượng.</div>
+    </div>`;
+  }
+
   document.getElementById('svcModalForm').innerHTML=`
     <div class="form-group"><label class="form-label">Link hoặc ID cần tăng</label><input class="form-input" type="text" placeholder="Dán link vào đây..."></div>
-    <div class="form-group"><label class="form-label">Chọn gói</label>
+    
+    ${cmtField} <div class="form-group"><label class="form-label">Chọn gói</label>
       <div class="server-options">
         <div class="server-opt selected" onclick="selectOpt(this,12)"><input type="radio" name="sopt" checked><div class="server-opt-info"><div><span class="server-opt-name">Gói Tiêu Chuẩn</span><span class="server-opt-price">12đ</span><span class="server-opt-badge sopt-active">Hoạt động</span></div><div class="server-opt-desc">Tốc độ trung bình, ổn định. Tối thiểu 100.</div></div></div>
         <div class="server-opt" onclick="selectOpt(this,20)"><input type="radio" name="sopt"><div class="server-opt-info"><div><span class="server-opt-name">Gói Tốc Độ</span><span class="server-opt-price">20đ</span><span class="server-opt-badge sopt-active">Hoạt động</span></div><div class="server-opt-desc">Tốc độ nhanh, tăng trong vài giờ.</div></div></div>
@@ -1127,6 +1147,7 @@ function openSvcModal(name,platKey,color){
     <div class="form-group"><label class="form-label">Số lượng</label><input class="form-input" type="number" id="svc-qty" value="100" oninput="calcPrice()"></div>
     <div class="form-group"><label class="form-label">Giá tiền</label><div class="price-box"><span class="price-box-label">Tổng thanh toán</span><span class="price-box-value" id="svc-price">1,200 đ</span></div></div>
     <button class="submit-btn" onclick="submitGeneric(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>`;
+  
   document.getElementById('svcModalInfo').innerHTML=`
     <div class="info-card"><div class="info-card-title"><i class="fas fa-info-circle"></i> Lưu ý</div><ul class="info-list">
       <li>Link/trang phải <strong>công khai</strong></li>
@@ -1135,8 +1156,23 @@ function openSvcModal(name,platKey,color){
       <li>Hoàn tiền nếu hệ thống lỗi</li>
     </ul></div>
     <div class="info-card"><div class="info-card-title"><i class="fas fa-bolt"></i> Số dư</div><div style="font-size:22px;font-weight:800;color:var(--accent3)">0 đ</div><a href="#" onclick="closeModal('svcModal');showSection('deposit');return false" style="font-size:12px;color:var(--accent);text-decoration:none;display:block;margin-top:6px">+ Nạp thêm →</a></div>`;
+  
   document.getElementById('svcModal').classList.add('open');
   currentOpt = 12;
+  
+  // Tự động đếm số dòng bình luận để điền vào ô Số lượng
+  if(isCmt) {
+    const cmtInput = document.getElementById('svc-comments');
+    const qtyInput = document.getElementById('svc-qty');
+    cmtInput.addEventListener('input', function() {
+      // Đếm số dòng (bỏ qua dòng trống)
+      const lines = this.value.split('\n').filter(line => line.trim() !== '').length;
+      if(lines > 0) {
+        qtyInput.value = lines;
+        calcPrice();
+      }
+    });
+  }
 }
 
 let currentOpt = 12;
@@ -1380,7 +1416,8 @@ onAuthStateChanged(auth, async (user) => {
   const mobileAuthBtns = document.getElementById('mobile-auth-btns');
   const mainNavLinks = document.getElementById('main-nav-links');
   const navHamburger = document.getElementById('nav-hamburger');
-  const heroRegBtn = document.getElementById('hero-register-btn'); // <-- Lấy nút Đăng ký ở Hero
+  const heroRegBtn = document.getElementById('hero-register-btn');
+  const ctaRegBtn = document.getElementById('cta-register-btn'); // Lấy thêm nút đăng ký ở cuối trang
   
   if(user){
     // ---------------- ĐÃ ĐĂNG NHẬP ----------------
@@ -1392,8 +1429,9 @@ onAuthStateChanged(auth, async (user) => {
     if(navHamburger) navHamburger.style.display = 'none';
     if(mobileAuthBtns) mobileAuthBtns.style.display = 'none';
     
-    // Ẩn nút "Đăng Ký Miễn Phí" ở giữa màn hình
+    // Ẩn nút "Đăng Ký Miễn Phí"
     if(heroRegBtn) heroRegBtn.style.display = 'none';
+    if(ctaRegBtn) ctaRegBtn.style.display = 'none';
     
     // Lấy thông tin từ Firestore
     const snap = await getDoc(doc(db, 'users', user.uid));
@@ -1426,8 +1464,9 @@ onAuthStateChanged(auth, async (user) => {
     if(navHamburger) navHamburger.style.display = '';
     if(mobileAuthBtns) mobileAuthBtns.style.display = 'flex';
     
-    // Hiện lại nút "Đăng Ký Miễn Phí" ở giữa màn hình
+    // Hiện lại nút "Đăng Ký Miễn Phí"
     if(heroRegBtn) heroRegBtn.style.display = 'inline-flex';
+    if(ctaRegBtn) ctaRegBtn.style.display = 'inline-flex';
   }
 });
 
