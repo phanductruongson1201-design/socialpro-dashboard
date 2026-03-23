@@ -40,15 +40,15 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .btn-primary{background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff;box-shadow:0 4px 15px rgba(108,99,255,0.4);}
 .btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(108,99,255,0.5);}
 .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;padding:4px;}
-.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;background:#0d0f1a;z-index:9999;padding:0;flex-direction:column;overflow-y:auto;overflow-x:hidden;}
-.mobile-menu.open{display:flex;}
+.mobile-menu{visibility:hidden;opacity:0;pointer-events:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#0d0f1a;z-index:9999;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;transition:opacity .2s;}
+.mobile-menu.open{visibility:visible;opacity:1;pointer-events:all;}
 .mobile-menu-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border);min-height:64px;flex-shrink:0;background:#0d0f1a;position:sticky;top:0;z-index:1;}
 .mobile-menu-body{display:flex;flex-direction:column;gap:8px;padding:16px 20px;flex:1;}
 .mobile-menu-item{padding:14px 16px;border-radius:12px;font-size:15px;font-weight:500;color:var(--text2);text-decoration:none;border:1px solid var(--border);display:flex;align-items:center;gap:8px;transition:all .15s;}
 .mobile-menu-item:hover,.mobile-menu-item:active{background:rgba(108,99,255,0.12);color:var(--text);border-color:var(--border2);}
 .mobile-close{background:rgba(255,255,255,0.08);border:1px solid var(--border);color:var(--text);font-size:18px;cursor:pointer;width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;}
 .mobile-section-title{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;padding:14px 4px 6px;}
-.support-float{position:fixed;right:16px;bottom:24px;display:flex;flex-direction:column;gap:8px;z-index:800;}
+.support-float{position:fixed;right:16px;bottom:24px;display:flex;flex-direction:column;gap:8px;z-index:100;}
 .sfloat{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.4);transition:transform .2s;text-decoration:none;pointer-events:auto;}
 .sfloat:hover{transform:scale(1.1);}
 .sfloat.zalo{background:#0068ff;}
@@ -292,8 +292,8 @@ footer{padding:32px 20px 20px;}
 .footer-bottom{flex-direction:column;text-align:center;gap:6px;}
 
 /* SUPPORT FLOAT - đẩy sát trong */
-.support-float{right:12px;bottom:80px;}
-.sfloat{width:44px;height:44px;}
+.support-float{right:10px;bottom:16px;}
+.sfloat{width:40px;height:40px;}
 
 /* DEPOSIT / ACCOUNT … */
 #sec-deposit,#sec-account,#sec-orders,#sec-transactions,#sec-affiliate,#sec-api{padding:28px 20px;}
@@ -742,6 +742,35 @@ import{getFirestore,doc,setDoc,getDoc,serverTimestamp}from"https://www.gstatic.c
 
 // ⚠️ THAY CONFIG NÀY BẰNG CONFIG FIREBASE CỦA BẠN
 const firebaseConfig={apiKey:"YOUR_API_KEY",authDomain:"YOUR_PROJECT.firebaseapp.com",projectId:"YOUR_PROJECT_ID",storageBucket:"YOUR_PROJECT.appspot.com",messagingSenderId:"YOUR_SENDER_ID",appId:"YOUR_APP_ID"};
+
+// Kiểm tra đã điền config chưa
+const FIREBASE_READY = firebaseConfig.apiKey !== "YOUR_API_KEY";
+if(!FIREBASE_READY){
+  console.warn("⚠️ Chưa cấu hình Firebase. Chế độ demo.");
+  // Fallback functions khi chưa có Firebase
+  window.doLogin = function(){
+    const email=document.getElementById('login-email').value;
+    const pass=document.getElementById('login-password').value;
+    if(!email||!pass){showAlertFallback('Vui lòng điền đầy đủ thông tin!','error');return;}
+    showAlertFallback('Chưa cấu hình Firebase. Vui lòng liên hệ admin!','error');
+  };
+  window.doRegister = function(){
+    showAlertFallback('Chưa cấu hình Firebase. Vui lòng liên hệ admin!','error');
+  };
+  window.doLogout = function(){ window.location.reload(); };
+  window.forgotPassword = function(){ showAlertFallback('Vui lòng liên hệ admin qua Zalo!','error'); };
+  window.doChangePassword = function(){ showAlertFallback('Chưa cấu hình Firebase!','error'); };
+  function showAlertFallback(msg,type){
+    const el=document.getElementById('auth-alert');
+    if(!el)return;
+    el.style.display='block';
+    el.style.background=type==='success'?'rgba(0,212,170,0.12)':'rgba(255,71,87,0.12)';
+    el.style.border='1px solid '+(type==='success'?'rgba(0,212,170,0.3)':'rgba(255,71,87,0.3)');
+    el.style.color=type==='success'?'var(--accent3)':'var(--red)';
+    el.innerHTML=(type==='success'?'✅ ':'❌ ')+msg;
+  }
+  throw new Error("Firebase chưa cấu hình - dừng load module");
+}
 
 const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
