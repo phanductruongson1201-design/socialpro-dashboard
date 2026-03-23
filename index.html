@@ -653,7 +653,7 @@ const PLATFORMS={
 };
 
 function renderProducts(){
-  document.getElementById('products-grid').innerHTML=PRODUCTS.map(p=>`
+  document.getElementById('products-grid').innerHTML=PRODUCTS.map(function(p){ return `
     <div class="product-card" onclick="openAuth('login')">
       <div class="product-img"><div class="product-img-bg"></div><div class="product-img-icon">${p.icon}</div>${p.badge?`<div class="product-badge badge-${p.badge}">${p.badge==='hot'?'🔥 HOT':p.badge==='new'?'✨ MỚI':'💥 SALE'}</div>`:''}</div>
       <div class="product-body"><div class="product-name">${p.name}</div><div class="product-desc">${p.desc}</div>
@@ -662,16 +662,16 @@ function renderProducts(){
 }
 
 function renderServices(){
-  document.getElementById('services-tabs').innerHTML=Object.entries(PLATFORMS).map(([k,p],i)=>`<div class="svc-tab-btn${i===0?' active':''}" onclick="switchPlatform('${k}',this)"><span>${p.flag}</span> ${p.name}</div>`).join('');
-  document.getElementById('services-content').innerHTML=Object.entries(PLATFORMS).map(([k,p],i)=>`
+  document.getElementById('services-tabs').innerHTML=Object.entries(PLATFORMS).map(function(entry,i){ var k=entry[0],p=entry[1]; return `<div class="svc-tab-btn${i===0?' active':''}" onclick="switchPlatform('${k}',this)"><span>${p.flag}</span> ${p.name}</div>`).join('');
+  document.getElementById('services-content').innerHTML=Object.entries(PLATFORMS).map(function(entry,i){ var k=entry[0],p=entry[1]; return `
     <div class="svc-platform-content${i===0?' active':''}" id="plat-${k}">
-      ${p.services.map(s=>`<div class="svc-card" onclick="openSvcModal('${s.name}','${k}','${s.color}')"><div class="svc-card-icon" style="background:${s.color}22;color:${s.color}"><i class="${s.icon}"></i></div><div style="flex:1"><div class="svc-card-name">${s.name}</div><div class="svc-card-meta">Tối thiểu: ${s.min}</div></div><div class="svc-card-price">${s.price}</div></div>`).join('')}
+      ${p.services.map(function(s){ return `<div class="svc-card" onclick="openSvcModal('${s.name}','${k}','${s.color}')"><div class="svc-card-icon" style="background:${s.color}22;color:${s.color}"><i class="${s.icon}"></i></div><div style="flex:1"><div class="svc-card-name">${s.name}</div><div class="svc-card-meta">Tối thiểu: ${s.min}</div></div><div class="svc-card-price">${s.price}</div></div>`).join('')}
     </div>`).join('');
 }
 
 function switchPlatform(key,btn){
-  document.querySelectorAll('.svc-tab-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.svc-platform-content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.svc-tab-btn').forEach(function(b){b.classList.remove('active');});
+  document.querySelectorAll('.svc-platform-content').forEach(function(c){c.classList.remove('active');});
   btn.classList.add('active');
   document.getElementById('plat-'+key)?.classList.add('active');
 }
@@ -715,13 +715,13 @@ document.getElementById(‘svcModalInfo’).innerHTML=` <div class="info-card"><
 cPrice=12;
 document.getElementById(‘svcModal’).classList.add(‘open’);
 }
-function selOpt(el,p){document.querySelectorAll(’.server-opt’).forEach(o=>{o.classList.remove(‘selected’);o.querySelector(‘input’).checked=false;});el.classList.add(‘selected’);el.querySelector(‘input’).checked=true;cPrice=p;calcP();}
+function selOpt(el,p){document.querySelectorAll(’.server-opt’).forEach(function(o){o.classList.remove(‘selected’);o.querySelector(‘input’).checked=false;});el.classList.add(‘selected’);el.querySelector(‘input’).checked=true;cPrice=p;calcP();}
 function calcP(){const q=parseInt(document.getElementById(‘svc-qty’)?.value)||0;const el=document.getElementById(‘svc-price’);if(el)el.textContent=Math.round(q*cPrice).toLocaleString(‘vi-VN’)+’ đ’;}
 function openAuth(tab){document.getElementById(‘authModal’).classList.add(‘open’);switchAuth(tab);}
 function closeModal(id){document.getElementById(id).classList.remove(‘open’);}
-document.querySelectorAll(’.modal-overlay’).forEach(o=>o.addEventListener(‘click’,e=>{if(e.target===o)o.classList.remove(‘open’);}));
-function switchAuth(tab){document.querySelectorAll(’.auth-tab’).forEach(t=>t.classList.remove(‘active’));document.querySelectorAll(’.auth-content’).forEach(c=>c.classList.remove(‘active’));document.querySelector(`.auth-tab:nth-child(${tab==='login'?1:2})`).classList.add(‘active’);document.getElementById(‘auth-’+tab).classList.add(‘active’);}
-function showSection(name){document.getElementById(‘sec-home’).style.display=name===‘home’?‘block’:‘none’;[‘deposit’,‘account’,‘orders’,‘transactions’,‘affiliate’,‘api’].forEach(s=>{const el=document.getElementById(‘sec-’+s);if(el)el.style.display=s===name?‘block’:‘none’;});window.scrollTo(0,0);}
+document.querySelectorAll(’.modal-overlay’).forEach(function(o){o.addEventListener(‘click’,function(e){if(e.target===o)o.classList.remove(‘open’);});});
+function switchAuth(tab){document.querySelectorAll(’.auth-tab’).forEach(function(t){t.classList.remove(‘active’);});document.querySelectorAll(’.auth-content’).forEach(function(c){c.classList.remove(‘active’);});document.querySelector(’.auth-tab:nth-child(’+(tab===‘login’?1:2)+’)’).classList.add(‘active’);document.getElementById(‘auth-’+tab).classList.add(‘active’);}
+function showSection(name){document.getElementById(‘sec-home’).style.display=name===‘home’?‘block’:‘none’;[‘deposit’,‘account’,‘orders’,‘transactions’,‘affiliate’,‘api’].forEach(function(s){var el=document.getElementById(‘sec-’+s);if(el)el.style.display=s===name?‘block’:‘none’;});window.scrollTo(0,0);}
 function toggleMobileMenu(){
 const menu = document.getElementById(‘mobileMenu’);
 const isOpen = menu.classList.toggle(‘open’);
@@ -729,179 +729,170 @@ const isOpen = menu.classList.toggle(‘open’);
 document.body.style.overflow = isOpen ? ‘hidden’ : ‘’;
 }
 function toggleFaq(el){el.closest(’.faq-item’).classList.toggle(‘open’);}
-function submitG(btn){const o=btn.innerHTML;btn.innerHTML=’<i class="fas fa-spinner fa-spin"></i> Đang xử lý…’;btn.disabled=true;setTimeout(()=>{btn.innerHTML=’<i class="fas fa-check"></i> Thành công!’;btn.style.background=‘linear-gradient(135deg,var(–accent3),#00a876)’;setTimeout(()=>{btn.innerHTML=o;btn.style.background=’’;btn.disabled=false;},2500);},1500);}
+function submitG(btn){const o=btn.innerHTML;btn.innerHTML=’<i class="fas fa-spinner fa-spin"></i> Đang xử lý…’;btn.disabled=true;setTimeout(function(){btn.innerHTML=’<i class="fas fa-check"></i> Thành công!’;btn.style.background=‘linear-gradient(135deg,var(–accent3),#00a876)’;setTimeout(function(){btn.innerHTML=o;btn.style.background=’’;btn.disabled=false;},2500);},1500);}
 renderProducts();renderServices();
 
 </script>
-
-<!-- FIREBASE AUTH + FIRESTORE -->
-
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyAccwBvfUMMsrt4HHLB9EYJSKQq_nchtjA",
-  authDomain: "socialpro-db-c2654.firebaseapp.com",
-  projectId: "socialpro-db-c2654",
-  storageBucket: "socialpro-db-c2654.firebasestorage.app",
-  messagingSenderId: "821789877824",
-  appId: "1:821789877824:web:99d69aa828b4609babe1a5"
+// ══════════════════════════════════════
+// HỆ THỐNG AUTH - LOCALSTORAGE
+// ══════════════════════════════════════
+
+function showAuthAlert(msg, type){
+type = type || ‘error’;
+var el = document.getElementById(‘auth-alert’);
+if(!el) return;
+el.style.display = ‘block’;
+el.style.background = type===‘success’ ? ‘rgba(0,212,170,0.12)’ : ‘rgba(255,71,87,0.12)’;
+el.style.border = ’1px solid ’+(type===‘success’ ? ‘rgba(0,212,170,0.3)’ : ‘rgba(255,71,87,0.3)’);
+el.style.color = type===‘success’ ? ‘var(–accent3)’ : ‘var(–red)’;
+el.innerHTML = (type===‘success’ ? ’✅ ’ : ’❌ ’) + msg;
+if(type===‘success’) setTimeout(function(){ el.style.display=‘none’; }, 3000);
+}
+
+function hideAuthAlert(){
+var el = document.getElementById(‘auth-alert’);
+if(el) el.style.display=‘none’;
+}
+
+function updateUI(user){
+var g = document.getElementById(‘nav-actions-guest’);
+var l = document.getElementById(‘nav-actions-user’);
+if(!user){
+if(g) g.style.display=‘flex’;
+if(l) l.style.display=‘none’;
+return;
+}
+if(g) g.style.display=‘none’;
+if(l) l.style.display=‘flex’;
+var bal = Number(user.balance||0).toLocaleString(‘vi-VN’);
+var fields = {
+‘nav-username’: user.username,
+‘nav-avatar’:   user.username.charAt(0).toUpperCase(),
+‘nav-balance’:  bal+‘đ’,
+‘profile-username’: user.username,
+‘profile-email’:    user.email,
+‘profile-avatar’:   user.username.charAt(0).toUpperCase(),
+‘profile-balance’:  bal
 };
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db   = firebase.firestore();
-
-// ── HELPERS ──
-function showAuthAlert(msg, type='error'){
-  const el = document.getElementById('auth-alert');
-  if(!el) return;
-  el.style.display = 'block';
-  el.style.background = type==='success' ? 'rgba(0,212,170,0.12)' : 'rgba(255,71,87,0.12)';
-  el.style.border = '1px solid '+(type==='success'?'rgba(0,212,170,0.3)':'rgba(255,71,87,0.3)');
-  el.style.color = type==='success' ? 'var(--accent3)' : 'var(--red)';
-  el.innerHTML = (type==='success'?'✅ ':'❌ ')+msg;
-  if(type==='success') setTimeout(()=>el.style.display='none', 3000);
-}
-function getErrMsg(code){
-  const m = {
-    'auth/email-already-in-use':'Email đã được đăng ký!',
-    'auth/invalid-email':'Email không hợp lệ!',
-    'auth/weak-password':'Mật khẩu quá yếu (tối thiểu 6 ký tự)!',
-    'auth/user-not-found':'Không tìm thấy tài khoản!',
-    'auth/wrong-password':'Mật khẩu không đúng!',
-    'auth/invalid-credential':'Email hoặc mật khẩu không đúng!',
-    'auth/too-many-requests':'Quá nhiều lần thử, thử lại sau!',
-    'auth/network-request-failed':'Lỗi kết nối mạng!'
-  };
-  return m[code] || 'Có lỗi xảy ra: ' + code;
-}
-function setBtnLoad(id, loading, label){
-  const b = document.getElementById(id);
-  if(!b) return;
-  b.disabled = loading;
-  b.innerHTML = loading
-    ? '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...'
-    : label;
-}
-function updateUI(user, data){
-  const g = document.getElementById('nav-actions-guest');
-  const l = document.getElementById('nav-actions-user');
-  if(!user){ if(g)g.style.display='flex'; if(l)l.style.display='none'; return; }
-  if(g) g.style.display='none';
-  if(l) l.style.display='flex';
-  const uname = (data && data.username) ? data.username : user.email.split('@')[0];
-  const bal   = (data && data.balance)  ? Number(data.balance).toLocaleString('vi-VN') : '0';
-  const els = {
-    'nav-username': uname,
-    'nav-avatar':   uname[0].toUpperCase(),
-    'nav-balance':  bal+'đ',
-    'profile-username': uname,
-    'profile-email':    user.email,
-    'profile-avatar':   uname[0].toUpperCase(),
-    'profile-balance':  bal
-  };
-  Object.entries(els).forEach(([id,val])=>{ const e=document.getElementById(id); if(e)e.textContent=val; });
-}
-
-// ── ĐĂNG KÝ ──
-function doRegister(){
-  document.getElementById('auth-alert').style.display='none';
-  const username = document.getElementById('reg-username').value.trim();
-  const email    = document.getElementById('reg-email').value.trim();
-  const password = document.getElementById('reg-password').value;
-  if(!username||username.length<4) return showAuthAlert('Username tối thiểu 4 ký tự!');
-  if(!email)    return showAuthAlert('Vui lòng nhập email!');
-  if(!password||password.length<6) return showAuthAlert('Mật khẩu tối thiểu 6 ký tự!');
-  setBtnLoad('reg-btn', true);
-  auth.createUserWithEmailAndPassword(email, password)
-    .then(cred => {
-      return db.collection('users').doc(cred.user.uid).set({
-        uid: cred.user.uid, username, email,
-        balance: 0, total_deposit: 0,
-        rank: 'Thành Viên', role: 'user',
-        created_at: firebase.firestore.FieldValue.serverTimestamp()
-      });
-    })
-    .then(() => {
-      showAuthAlert('Đăng ký thành công! Chào mừng '+username, 'success');
-      setTimeout(()=>{
-        ['reg-username','reg-email','reg-password'].forEach(id=>document.getElementById(id).value='');
-        closeModal('authModal');
-      }, 1200);
-    })
-    .catch(e => {
-      showAuthAlert(getErrMsg(e.code));
-      setBtnLoad('reg-btn', false, '<i class="fas fa-user-plus"></i> Đăng Ký Ngay');
-    });
-}
-
-// ── ĐĂNG NHẬP ──
-function doLogin(){
-  document.getElementById('auth-alert').style.display='none';
-  const email    = document.getElementById('login-email').value.trim();
-  const password = document.getElementById('login-password').value;
-  if(!email)    return showAuthAlert('Vui lòng nhập email!');
-  if(!password) return showAuthAlert('Vui lòng nhập mật khẩu!');
-  setBtnLoad('login-btn', true);
-  auth.signInWithEmailAndPassword(email, password)
-    .then(() => {
-      showAuthAlert('Đăng nhập thành công!', 'success');
-      setTimeout(()=>{
-        ['login-email','login-password'].forEach(id=>document.getElementById(id).value='');
-        closeModal('authModal');
-      }, 1000);
-    })
-    .catch(e => {
-      showAuthAlert(getErrMsg(e.code));
-      setBtnLoad('login-btn', false, '<i class="fas fa-sign-in-alt"></i> Đăng Nhập');
-    });
-}
-
-// ── ĐĂNG XUẤT ──
-function doLogout(){ auth.signOut().then(()=>showSection('home')); }
-
-// ── QUÊN MẬT KHẨU ──
-function forgotPassword(){
-  const email = document.getElementById('login-email').value.trim();
-  if(!email) return showAuthAlert('Nhập email vào ô trên trước!');
-  auth.sendPasswordResetEmail(email)
-    .then(()=>showAuthAlert('Đã gửi email đặt lại mật khẩu! Kiểm tra hộp thư.','success'))
-    .catch(e=>showAuthAlert(getErrMsg(e.code)));
-}
-
-// ── ĐỔI MẬT KHẨU ──
-function doChangePassword(btn){
-  const np = document.getElementById('new-password').value;
-  const cp = document.getElementById('confirm-password').value;
-  if(!np||np.length<6) return alert('Mật khẩu tối thiểu 6 ký tự!');
-  if(np!==cp) return alert('Mật khẩu xác nhận không khớp!');
-  const orig = btn.innerHTML;
-  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>'; btn.disabled=true;
-  auth.currentUser.updatePassword(np)
-    .then(()=>{
-      btn.innerHTML='<i class="fas fa-check"></i> Đổi thành công!';
-      btn.style.background='linear-gradient(135deg,var(--accent3),#00a876)';
-      document.getElementById('new-password').value='';
-      document.getElementById('confirm-password').value='';
-      setTimeout(()=>{ btn.innerHTML=orig; btn.style.background=''; btn.disabled=false; },2500);
-    })
-    .catch(e=>{ alert(getErrMsg(e.code)); btn.innerHTML=orig; btn.disabled=false; });
-}
-
-// ── THEO DÕI TRẠNG THÁI ──
-auth.onAuthStateChanged(user => {
-  if(user){
-    db.collection('users').doc(user.uid).get()
-      .then(snap => updateUI(user, snap.exists ? snap.data() : null))
-      .catch(()  => updateUI(user, null));
-  } else {
-    updateUI(null, null);
-  }
+Object.keys(fields).forEach(function(id){
+var e = document.getElementById(id);
+if(e) e.textContent = fields[id];
 });
+}
+
+function getUsers(){
+try { return JSON.parse(localStorage.getItem(‘sp_users’) || ‘[]’); }
+catch(e){ return []; }
+}
+function saveUsers(users){
+try { localStorage.setItem(‘sp_users’, JSON.stringify(users)); } catch(e){}
+}
+function getCurrentUser(){
+try { return JSON.parse(localStorage.getItem(‘sp_current’) || ‘null’); }
+catch(e){ return null; }
+}
+function saveCurrentUser(user){
+try { localStorage.setItem(‘sp_current’, JSON.stringify(user)); } catch(e){}
+}
+
+function doRegister(){
+hideAuthAlert();
+var username = document.getElementById(‘reg-username’).value.trim();
+var email    = document.getElementById(‘reg-email’).value.trim();
+var password = document.getElementById(‘reg-password’).value;
+if(!username || username.length < 4) return showAuthAlert(‘Username tối thiểu 4 ký tự!’);
+if(!email || email.indexOf(’@’) < 0) return showAuthAlert(‘Email không hợp lệ!’);
+if(!password || password.length < 6) return showAuthAlert(‘Mật khẩu tối thiểu 6 ký tự!’);
+var users = getUsers();
+if(users.some(function(u){ return u.email === email; })) return showAuthAlert(‘Email đã được đăng ký!’);
+if(users.some(function(u){ return u.username === username; })) return showAuthAlert(‘Username đã tồn tại!’);
+var btn = document.getElementById(‘reg-btn’);
+if(btn){ btn.disabled=true; btn.innerHTML=’<i class="fas fa-spinner fa-spin"></i> Đang xử lý…’; }
+var newUser = { username:username, email:email, password:password, balance:0, rank:‘Thành Viên’, created: new Date().toLocaleDateString(‘vi-VN’) };
+users.push(newUser);
+saveUsers(users);
+showAuthAlert(‘Đăng ký thành công! Chào mừng ‘+username, ‘success’);
+setTimeout(function(){
+document.getElementById(‘reg-username’).value=’’;
+document.getElementById(‘reg-email’).value=’’;
+document.getElementById(‘reg-password’).value=’’;
+if(btn){ btn.disabled=false; btn.innerHTML=’<i class="fas fa-user-plus"></i> Đăng Ký Ngay’; }
+closeModal(‘authModal’);
+saveCurrentUser(newUser);
+updateUI(newUser);
+}, 1200);
+}
+
+function doLogin(){
+hideAuthAlert();
+var email    = document.getElementById(‘login-email’).value.trim();
+var password = document.getElementById(‘login-password’).value;
+if(!email) return showAuthAlert(‘Vui lòng nhập email!’);
+if(!password) return showAuthAlert(‘Vui lòng nhập mật khẩu!’);
+var btn = document.getElementById(‘login-btn’);
+if(btn){ btn.disabled=true; btn.innerHTML=’<i class="fas fa-spinner fa-spin"></i> Đang xử lý…’; }
+var users = getUsers();
+var user = null;
+for(var i=0; i<users.length; i++){
+if(users[i].email===email && users[i].password===password){ user=users[i]; break; }
+}
+if(!user){
+showAuthAlert(‘Email hoặc mật khẩu không đúng!’);
+if(btn){ btn.disabled=false; btn.innerHTML=’<i class="fas fa-sign-in-alt"></i> Đăng Nhập’; }
+return;
+}
+showAuthAlert(‘Đăng nhập thành công!’, ‘success’);
+setTimeout(function(){
+document.getElementById(‘login-email’).value=’’;
+document.getElementById(‘login-password’).value=’’;
+if(btn){ btn.disabled=false; btn.innerHTML=’<i class="fas fa-sign-in-alt"></i> Đăng Nhập’; }
+closeModal(‘authModal’);
+saveCurrentUser(user);
+updateUI(user);
+}, 1000);
+}
+
+function doLogout(){
+try{ localStorage.removeItem(‘sp_current’); }catch(e){}
+updateUI(null);
+showSection(‘home’);
+}
+
+function forgotPassword(){
+var email = document.getElementById(‘login-email’).value.trim();
+if(!email) return showAuthAlert(‘Nhập email vào ô trên trước!’);
+showAuthAlert(‘Liên hệ Zalo 0935748199 để được hỗ trợ đặt lại mật khẩu!’, ‘success’);
+}
+
+function doChangePassword(btn){
+var np = document.getElementById(‘new-password’).value;
+var cp = document.getElementById(‘confirm-password’).value;
+if(!np || np.length<6) return alert(‘Mật khẩu tối thiểu 6 ký tự!’);
+if(np!==cp) return alert(‘Mật khẩu xác nhận không khớp!’);
+var user = getCurrentUser();
+if(!user) return alert(‘Vui lòng đăng nhập lại!’);
+var users = getUsers();
+for(var i=0; i<users.length; i++){
+if(users[i].email===user.email){ users[i].password=np; break; }
+}
+saveUsers(users);
+user.password=np; saveCurrentUser(user);
+var orig = btn.innerHTML;
+btn.innerHTML=’<i class="fas fa-check"></i> Đổi thành công!’;
+btn.style.background=‘linear-gradient(135deg,var(–accent3),#00a876)’;
+document.getElementById(‘new-password’).value=’’;
+document.getElementById(‘confirm-password’).value=’’;
+setTimeout(function(){ btn.innerHTML=orig; btn.style.background=’’; }, 2500);
+}
+
+// Tự động load user khi mở trang
+(function(){
+try{
+var user = getCurrentUser();
+if(user) updateUI(user);
+}catch(e){}
+})();
 </script>
 
 </body>
