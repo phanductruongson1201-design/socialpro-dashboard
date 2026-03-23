@@ -40,12 +40,14 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .btn-primary{background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff;box-shadow:0 4px 15px rgba(108,99,255,0.4);}
 .btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(108,99,255,0.5);}
 .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;padding:4px;}
-.mobile-menu{display:none;position:fixed;inset:0;background:rgba(13,15,26,0.98);z-index:999;padding:80px 24px 24px;flex-direction:column;gap:8px;overflow-y:auto;}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;background:#0d0f1a;z-index:9999;padding:0;flex-direction:column;overflow-y:auto;overflow-x:hidden;}
 .mobile-menu.open{display:flex;}
-.mobile-menu-item{padding:12px 16px;border-radius:10px;font-size:15px;font-weight:500;color:var(--text2);text-decoration:none;border:1px solid var(--border);}
-.mobile-menu-item:hover{background:rgba(108,99,255,0.1);color:var(--text);}
-.mobile-close{position:absolute;top:16px;right:20px;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;}
-.mobile-section-title{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;padding:12px 16px 4px;}
+.mobile-menu-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border);min-height:64px;flex-shrink:0;background:#0d0f1a;position:sticky;top:0;z-index:1;}
+.mobile-menu-body{display:flex;flex-direction:column;gap:8px;padding:16px 20px;flex:1;}
+.mobile-menu-item{padding:14px 16px;border-radius:12px;font-size:15px;font-weight:500;color:var(--text2);text-decoration:none;border:1px solid var(--border);display:flex;align-items:center;gap:8px;transition:all .15s;}
+.mobile-menu-item:hover,.mobile-menu-item:active{background:rgba(108,99,255,0.12);color:var(--text);border-color:var(--border2);}
+.mobile-close{background:rgba(255,255,255,0.08);border:1px solid var(--border);color:var(--text);font-size:18px;cursor:pointer;width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;}
+.mobile-section-title{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;padding:14px 4px 6px;}
 .support-float{position:fixed;right:16px;bottom:90px;display:flex;flex-direction:column;gap:10px;z-index:900;}
 .sfloat{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.4);transition:transform .2s;text-decoration:none;}
 .sfloat:hover{transform:scale(1.1);}
@@ -355,18 +357,34 @@ footer{padding:32px 20px 20px;}
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" onclick="toggleMobileMenu()"><i class="fas fa-times"></i></button>
-  <div class="mobile-section-title">Menu chính</div>
-  <a class="mobile-menu-item" href="#" onclick="showSection('home');toggleMobileMenu();return false">🏠 Trang Chủ</a>
-  <a class="mobile-menu-item" href="#" onclick="showSection('deposit');toggleMobileMenu();return false">💰 Nạp Tiền</a>
-  <a class="mobile-menu-item" href="#" onclick="showSection('orders');toggleMobileMenu();return false">📦 Đơn Hàng</a>
-  <a class="mobile-menu-item" href="#" onclick="showSection('account');toggleMobileMenu();return false">👤 Tài Khoản</a>
-  <div class="mobile-section-title" style="margin-top:16px">Liên hệ</div>
-  <a class="mobile-menu-item" href="https://zalo.me/0935748199" target="_blank">💬 Zalo: 0935748199</a>
-  <a class="mobile-menu-item" href="https://t.me/BulkMail_Pro" target="_blank">✈️ Telegram: @BulkMail_Pro</a>
-  <div style="display:flex;gap:10px;padding:16px 0">
-    <button class="btn btn-ghost" style="flex:1" onclick="openAuth('login')">Đăng nhập</button>
-    <button class="btn btn-primary" style="flex:1" onclick="openAuth('register')">Đăng ký</button>
+  <!-- Header menu -->
+  <div class="mobile-menu-header">
+    <a href="#" class="nav-logo" onclick="showSection('home');toggleMobileMenu();return false" style="font-size:18px">
+      <div class="nav-logo-icon" style="width:32px;height:32px;font-size:15px">⚡</div>
+      Social<span>Pro</span>.VN
+    </a>
+    <button class="mobile-close" onclick="toggleMobileMenu()"><i class="fas fa-times"></i></button>
+  </div>
+  <!-- Body menu -->
+  <div class="mobile-menu-body">
+    <div class="mobile-section-title">Menu chính</div>
+    <a class="mobile-menu-item" href="#" onclick="showSection('home');toggleMobileMenu();return false"><i class="fas fa-home" style="color:var(--accent);width:18px;text-align:center"></i> Trang Chủ</a>
+    <a class="mobile-menu-item" href="#" onclick="showSection('deposit');toggleMobileMenu();return false"><i class="fas fa-coins" style="color:var(--accent3);width:18px;text-align:center"></i> Nạp Tiền</a>
+    <a class="mobile-menu-item" href="#" onclick="showSection('orders');toggleMobileMenu();return false"><i class="fas fa-receipt" style="color:var(--accent);width:18px;text-align:center"></i> Đơn Hàng</a>
+    <a class="mobile-menu-item" href="#" onclick="showSection('account');toggleMobileMenu();return false"><i class="fas fa-user-circle" style="color:var(--accent);width:18px;text-align:center"></i> Tài Khoản</a>
+    <a class="mobile-menu-item" href="#" onclick="showSection('affiliate');toggleMobileMenu();return false"><i class="fas fa-store" style="color:var(--gold);width:18px;text-align:center"></i> Tạo Site Đại Lý</a>
+
+```
+<div class="mobile-section-title">Liên hệ hỗ trợ</div>
+<a class="mobile-menu-item" href="https://zalo.me/0935748199" target="_blank"><i class="fas fa-comment-dots" style="color:#0068ff;width:18px;text-align:center"></i> Zalo: 0935748199</a>
+<a class="mobile-menu-item" href="https://t.me/BulkMail_Pro" target="_blank"><i class="fab fa-telegram" style="color:#26a5e4;width:18px;text-align:center"></i> Telegram: @BulkMail_Pro</a>
+
+<div style="display:flex;gap:10px;margin-top:16px">
+  <button class="btn btn-ghost" style="flex:1;justify-content:center" onclick="openAuth('login');toggleMobileMenu()"><i class="fas fa-sign-in-alt"></i> Đăng nhập</button>
+  <button class="btn btn-primary" style="flex:1;justify-content:center" onclick="openAuth('register');toggleMobileMenu()"><i class="fas fa-user-plus"></i> Đăng ký</button>
+</div>
+```
+
   </div>
 </div>
 
@@ -659,35 +677,58 @@ function switchPlatform(key,btn){
 
 let cPrice=12;
 function openSvcModal(name,k,color){
+  // Kiểm tra có phải dịch vụ bình luận không
+  const isComment = name.toLowerCase().includes('bình luận') || name.toLowerCase().includes('comment');
+  const isReview  = name.toLowerCase().includes('đánh giá') || name.toLowerCase().includes('review');
+  const needContent = isComment || isReview;
+
   document.getElementById('svcModalTitle').innerHTML=`<span style="color:${color}">${name}</span>`;
   document.getElementById('svcModalForm').innerHTML=`
     <div class="form-group"><label class="form-label">Link hoặc ID cần tăng</label><input class="form-input" type="text" placeholder="Dán link vào đây..."></div>
-    <div class="form-group"><label class="form-label">Chọn gói</label>
-      <div class="server-options">
-        <div class="server-opt selected" onclick="selOpt(this,12)"><input type="radio" name="so" checked><div><div><span class="server-opt-name">Gói Tiêu Chuẩn</span><span class="server-opt-price">12đ</span><span class="server-opt-badge">Hoạt động</span></div><div class="server-opt-desc">Tốc độ trung bình, ổn định.</div></div></div>
-        <div class="server-opt" onclick="selOpt(this,20)"><input type="radio" name="so"><div><div><span class="server-opt-name">Gói Tốc Độ</span><span class="server-opt-price">20đ</span><span class="server-opt-badge">Hoạt động</span></div></div></div>
-        <div class="server-opt" onclick="selOpt(this,35)"><input type="radio" name="so"><div><div><span class="server-opt-name">Gói VIP Bảo Hành</span><span class="server-opt-price">35đ</span><span class="server-opt-badge">Hoạt động</span></div><div class="server-opt-desc">Chất lượng cao, bảo hành 30 ngày.</div></div></div>
-      </div>
-    </div>
-    <div class="form-group"><label class="form-label">Số lượng</label><input class="form-input" type="number" id="svc-qty" value="100" oninput="calcP()"></div>
-    <div class="form-group"><label class="form-label">Giá tiền</label><div class="price-box"><span class="price-box-label">Tổng thanh toán</span><span class="price-box-value" id="svc-price">1,200 đ</span></div></div>
-    <button class="submit-btn" onclick="submitG(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>`;
-  document.getElementById('svcModalInfo').innerHTML=`
-    <div class="info-card"><div class="info-card-title"><i class="fas fa-info-circle"></i> Lưu ý</div><ul class="info-list"><li>Link/trang phải <strong>công khai</strong></li><li>Không đặt 2 đơn cùng lúc</li><li>Kết quả tăng dần, không đột ngột</li><li>Hoàn tiền nếu hệ thống lỗi</li></ul></div>
-    <div class="info-card"><div class="info-card-title"><i class="fas fa-bolt"></i> Số dư</div><div style="font-size:22px;font-weight:800;color:var(--accent3)">0 đ</div><a href="#" onclick="closeModal('svcModal');showSection('deposit');return false" style="font-size:12px;color:var(--accent);text-decoration:none;display:block;margin-top:6px">+ Nạp thêm →</a></div>`;
-  cPrice=12;
-  document.getElementById('svcModal').classList.add('open');
+    ${needContent ? `<div class="form-group">
+      <label class="form-label">${isReview ? 'Nội dung đánh giá mẫu' : 'Nội dung bình luận'} <span style="color:var(--text3);font-weight:400">(mỗi dòng 1 nội dung)</span></label>
+      <textarea class="form-input" id="comment-content" rows="4" placeholder="${isReview
+        ? 'VD: Sản phẩm tốt, đúng mô tả, giao hàng nhanh...
+Shop nhiệt tình, đóng gói cẩn thận...'
+        : 'VD: Hay quá!
+Nội dung tuyệt vời!
+Ung hộ bạn nha!'
+      }" style="resize:vertical;min-height:100px;line-height:1.6"></textarea>
+
+```
+  <div style="font-size:11.5px;color:var(--text3);margin-top:4px"><i class="fas fa-info-circle" style="color:var(--accent3)"></i> Để trống = hệ thống tự tạo nội dung ngẫu nhiên phù hợp</div>
+</div>` : ''}
+<div class="form-group"><label class="form-label">Chọn gói</label>
+  <div class="server-options">
+    <div class="server-opt selected" onclick="selOpt(this,12)"><input type="radio" name="so" checked><div><div><span class="server-opt-name">Gói Tiêu Chuẩn</span><span class="server-opt-price">12đ</span><span class="server-opt-badge">Hoạt động</span></div><div class="server-opt-desc">Tốc độ trung bình, ổn định.</div></div></div>
+    <div class="server-opt" onclick="selOpt(this,20)"><input type="radio" name="so"><div><div><span class="server-opt-name">Gói Tốc Độ</span><span class="server-opt-price">20đ</span><span class="server-opt-badge">Hoạt động</span></div></div></div>
+    <div class="server-opt" onclick="selOpt(this,35)"><input type="radio" name="so"><div><div><span class="server-opt-name">Gói VIP Bảo Hành</span><span class="server-opt-price">35đ</span><span class="server-opt-badge">Hoạt động</span></div><div class="server-opt-desc">Chất lượng cao, bảo hành 30 ngày.</div></div></div>
+  </div>
+</div>
+<div class="form-group"><label class="form-label">Số lượng</label><input class="form-input" type="number" id="svc-qty" value="100" oninput="calcP()"></div>
+<div class="form-group"><label class="form-label">Giá tiền</label><div class="price-box"><span class="price-box-label">Tổng thanh toán</span><span class="price-box-value" id="svc-price">1,200 đ</span></div></div>
+<button class="submit-btn" onclick="submitG(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>`;
+```
+
+document.getElementById(‘svcModalInfo’).innerHTML=` <div class="info-card"><div class="info-card-title"><i class="fas fa-info-circle"></i> Lưu ý</div><ul class="info-list"><li>Link/trang phải <strong>công khai</strong></li><li>Không đặt 2 đơn cùng lúc</li><li>Kết quả tăng dần, không đột ngột</li><li>Hoàn tiền nếu hệ thống lỗi</li></ul></div> <div class="info-card"><div class="info-card-title"><i class="fas fa-bolt"></i> Số dư</div><div style="font-size:22px;font-weight:800;color:var(--accent3)">0 đ</div><a href="#" onclick="closeModal('svcModal');showSection('deposit');return false" style="font-size:12px;color:var(--accent);text-decoration:none;display:block;margin-top:6px">+ Nạp thêm →</a></div>`;
+cPrice=12;
+document.getElementById(‘svcModal’).classList.add(‘open’);
 }
-function selOpt(el,p){document.querySelectorAll('.server-opt').forEach(o=>{o.classList.remove('selected');o.querySelector('input').checked=false;});el.classList.add('selected');el.querySelector('input').checked=true;cPrice=p;calcP();}
-function calcP(){const q=parseInt(document.getElementById('svc-qty')?.value)||0;const el=document.getElementById('svc-price');if(el)el.textContent=Math.round(q*cPrice).toLocaleString('vi-VN')+' đ';}
-function openAuth(tab){document.getElementById('authModal').classList.add('open');switchAuth(tab);}
-function closeModal(id){document.getElementById(id).classList.remove('open');}
-document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
-function switchAuth(tab){document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.auth-content').forEach(c=>c.classList.remove('active'));document.querySelector(`.auth-tab:nth-child(${tab==='login'?1:2})`).classList.add('active');document.getElementById('auth-'+tab).classList.add('active');}
-function showSection(name){document.getElementById('sec-home').style.display=name==='home'?'block':'none';['deposit','account','orders','transactions','affiliate','api'].forEach(s=>{const el=document.getElementById('sec-'+s);if(el)el.style.display=s===name?'block':'none';});window.scrollTo(0,0);}
-function toggleMobileMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
-function toggleFaq(el){el.closest('.faq-item').classList.toggle('open');}
-function submitG(btn){const o=btn.innerHTML;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';btn.disabled=true;setTimeout(()=>{btn.innerHTML='<i class="fas fa-check"></i> Thành công!';btn.style.background='linear-gradient(135deg,var(--accent3),#00a876)';setTimeout(()=>{btn.innerHTML=o;btn.style.background='';btn.disabled=false;},2500);},1500);}
+function selOpt(el,p){document.querySelectorAll(’.server-opt’).forEach(o=>{o.classList.remove(‘selected’);o.querySelector(‘input’).checked=false;});el.classList.add(‘selected’);el.querySelector(‘input’).checked=true;cPrice=p;calcP();}
+function calcP(){const q=parseInt(document.getElementById(‘svc-qty’)?.value)||0;const el=document.getElementById(‘svc-price’);if(el)el.textContent=Math.round(q*cPrice).toLocaleString(‘vi-VN’)+’ đ’;}
+function openAuth(tab){document.getElementById(‘authModal’).classList.add(‘open’);switchAuth(tab);}
+function closeModal(id){document.getElementById(id).classList.remove(‘open’);}
+document.querySelectorAll(’.modal-overlay’).forEach(o=>o.addEventListener(‘click’,e=>{if(e.target===o)o.classList.remove(‘open’);}));
+function switchAuth(tab){document.querySelectorAll(’.auth-tab’).forEach(t=>t.classList.remove(‘active’));document.querySelectorAll(’.auth-content’).forEach(c=>c.classList.remove(‘active’));document.querySelector(`.auth-tab:nth-child(${tab==='login'?1:2})`).classList.add(‘active’);document.getElementById(‘auth-’+tab).classList.add(‘active’);}
+function showSection(name){document.getElementById(‘sec-home’).style.display=name===‘home’?‘block’:‘none’;[‘deposit’,‘account’,‘orders’,‘transactions’,‘affiliate’,‘api’].forEach(s=>{const el=document.getElementById(‘sec-’+s);if(el)el.style.display=s===name?‘block’:‘none’;});window.scrollTo(0,0);}
+function toggleMobileMenu(){
+const menu = document.getElementById(‘mobileMenu’);
+const isOpen = menu.classList.toggle(‘open’);
+// Khoá scroll body khi menu mở
+document.body.style.overflow = isOpen ? ‘hidden’ : ‘’;
+}
+function toggleFaq(el){el.closest(’.faq-item’).classList.toggle(‘open’);}
+function submitG(btn){const o=btn.innerHTML;btn.innerHTML=’<i class="fas fa-spinner fa-spin"></i> Đang xử lý…’;btn.disabled=true;setTimeout(()=>{btn.innerHTML=’<i class="fas fa-check"></i> Thành công!’;btn.style.background=‘linear-gradient(135deg,var(–accent3),#00a876)’;setTimeout(()=>{btn.innerHTML=o;btn.style.background=’’;btn.disabled=false;},2500);},1500);}
 renderProducts();renderServices();
 </script>
 
