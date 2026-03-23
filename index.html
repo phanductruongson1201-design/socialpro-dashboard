@@ -460,6 +460,18 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
   .footer-grid{grid-template-columns:1fr;}
   .cta-section{padding:40px 20px;margin:40px 16px;}
 }
+
+/* ═══════════════════════ KIỂU DÁNG TÀI KHOẢN MỚI ═══════════════════════ */
+.nav-user-wrap { display: flex; align-items: center; gap: 12px; }
+.nav-icon-circle { width: 38px; height: 38px; border-radius: 50%; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text2); cursor: pointer; position: relative; transition: all 0.2s; }
+.nav-icon-circle:hover { color: var(--text); background: var(--bg4); border-color: var(--accent); }
+.noti-dot { position: absolute; top: -2px; right: -2px; background: #61baf4; color: #fff; font-size: 10px; font-weight: 900; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(13,15,26,0.95); }
+.nav-user-box { display: flex; align-items: center; gap: 10px; cursor: pointer; transition: all 0.2s; padding: 4px; border-radius: 12px; }
+.nav-user-box:hover { opacity: 0.8; }
+.nav-avatar-square { width: 38px; height: 38px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #fff; }
+.nav-user-text { display: flex; flex-direction: column; justify-content: center; }
+.nu-name { font-size: 14.5px; font-weight: 700; color: var(--text); line-height: 1.2; margin-bottom: 2px; }
+.nu-bal { font-size: 12px; font-weight: 500; color: var(--text2); line-height: 1; }
 </style>
 </head>
 <body>
@@ -492,22 +504,34 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
         <a class="nav-dropdown-item" href="#" onclick="showSection('api');return false"><i class="fas fa-code"></i> Tài liệu API</a>
       </div>
     </div>
-    <a class="nav-link" href="https://zalo.me/0376263452" target="_blank"><i class="fas fa-headset"></i> Hỗ Trợ</a>
+    <a class="nav-link" href="https://zalo.me/0935748199" target="_blank"><i class="fas fa-headset"></i> Hỗ Trợ</a>
   </div>
   <div class="nav-spacer"></div>
+  
   <div class="nav-actions" id="nav-actions-guest">
     <button class="btn btn-ghost" onclick="openAuth('login')"><i class="fas fa-sign-in-alt"></i> Đăng nhập</button>
     <button class="btn btn-primary" onclick="openAuth('register')"><i class="fas fa-user-plus"></i> Đăng ký</button>
   </div>
+  
   <div class="nav-actions" id="nav-actions-user" style="display:none">
-    <div onclick="showSection('deposit')" style="display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9px;background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.2);cursor:pointer;font-size:13px;font-weight:600;color:var(--accent3)">
-      <i class="fas fa-coins"></i> <span id="nav-balance">0đ</span>
-    </div>
-    <div onclick="showSection('account')" style="display:flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:9px;background:rgba(108,99,255,0.12);border:1px solid rgba(108,99,255,0.2);cursor:pointer">
-      <div id="nav-avatar" style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff">U</div>
-      <span id="nav-username" style="font-size:13px;font-weight:600;color:var(--text)">User</span>
+    <div class="nav-user-wrap">
+      <div class="nav-icon-circle" onclick="showSection('orders')">
+        <i class="fas fa-bell"></i>
+        <span class="noti-dot">!</span>
+      </div>
+      <div class="nav-icon-circle">
+        <i class="fas fa-adjust"></i>
+      </div>
+      <div class="nav-user-box" onclick="showSection('account')">
+        <div id="nav-avatar" class="nav-avatar-square">U</div>
+        <div class="nav-user-text">
+          <div id="nav-username" class="nu-name">User</div>
+          <div class="nu-bal">Số dư: <span id="nav-balance">0đ</span></div>
+        </div>
+      </div>
     </div>
   </div>
+  
   <button class="nav-toggle" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
 </nav>
 
@@ -519,8 +543,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
   <a class="mobile-menu-item" href="#" onclick="showSection('orders');toggleMobileMenu();return false">📦 Đơn Hàng</a>
   <a class="mobile-menu-item" href="#" onclick="showSection('account');toggleMobileMenu();return false">👤 Tài Khoản</a>
   <div class="mobile-section-title" style="margin-top:16px">Liên hệ</div>
-  <a class="mobile-menu-item" href="https://zalo.me/0376263452" target="_blank">💬 Zalo Hỗ Trợ</a>
-  <a class="mobile-menu-item" href="https://t.me/support" target="_blank">✈️ Telegram</a>
+  <a class="mobile-menu-item" href="https://zalo.me/0935748199" target="_blank">💬 Zalo Hỗ Trợ</a>
+  <a class="mobile-menu-item" href="https://t.me/BulkMail_Pro" target="_blank">✈️ Telegram</a>
   <div style="display:flex;gap:10px;padding:16px 0" id="mobile-auth-btns">
     <button class="btn btn-ghost" style="flex:1" onclick="openAuth('login')">Đăng nhập</button>
     <button class="btn btn-primary" style="flex:1" onclick="openAuth('register')">Đăng ký</button>
@@ -528,8 +552,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
 </div>
 
 <div class="support-float">
-  <a href="https://zalo.me/0376263452" target="_blank" class="support-btn zalo" title="Chat Zalo"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" style="width:24px;height:24px;filter:brightness(10)"></a>
-  <a href="https://t.me/support" target="_blank" class="support-btn tele" title="Telegram"><i class="fab fa-telegram" style="color:#fff;font-size:22px"></i></a>
+  <a href="https://zalo.me/0935748199" target="_blank" class="support-btn zalo" title="Chat Zalo"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" style="width:24px;height:24px;filter:brightness(10)"></a>
+  <a href="https://t.me/BulkMail_Pro" target="_blank" class="support-btn tele" title="Telegram"><i class="fab fa-telegram" style="color:#fff;font-size:22px"></i></a>
 </div>
 
 <div id="sec-home">
@@ -685,7 +709,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
     <div class="cta-sub">Đăng ký miễn phí, nạp tiền và sử dụng dịch vụ ngay lập tức. Hỗ trợ 24/7.</div>
     <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
       <button class="btn btn-primary" style="padding:14px 32px;font-size:15px" onclick="openAuth('register')"><i class="fas fa-user-plus"></i> Đăng Ký Miễn Phí</button>
-      <a href="https://zalo.me/0376263452" target="_blank" class="btn btn-ghost" style="padding:14px 32px;font-size:15px"><i class="fas fa-comment"></i> Chat Zalo</a>
+      <a href="https://zalo.me/0935748199" target="_blank" class="btn btn-ghost" style="padding:14px 32px;font-size:15px"><i class="fas fa-comment"></i> Chat Zalo</a>
     </div>
   </div>
 </div>
@@ -755,8 +779,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
 <div id="sec-affiliate" style="display:none;padding:40px 24px;max-width:700px;margin:0 auto">
   <h2 style="font-size:26px;font-weight:800;margin-bottom:24px">🏪 Tạo Website Đại Lý</h2>
   <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px">
-    <div style="font-size:14px;color:var(--text2);line-height:1.8">Tạo website đại lý riêng với tên miền của bạn, hưởng chiết khấu 10–30%. Liên hệ Zalo: <strong style="color:var(--accent3)">0376263452</strong> để được hỗ trợ.</div>
-    <a href="https://zalo.me/0376263452" target="_blank" class="submit-btn" style="text-decoration:none;justify-content:center"><i class="fas fa-comment"></i> Liên Hệ Ngay</a>
+    <div style="font-size:14px;color:var(--text2);line-height:1.8">Tạo website đại lý riêng với tên miền của bạn, hưởng chiết khấu 10–30%. Liên hệ Zalo: <strong style="color:var(--accent3)">0935748199</strong> để được hỗ trợ.</div>
+    <a href="https://zalo.me/0935748199" target="_blank" class="submit-btn" style="text-decoration:none;justify-content:center"><i class="fas fa-comment"></i> Liên Hệ Ngay</a>
   </div>
 </div>
 <div id="sec-api" style="display:none;padding:40px 24px;max-width:800px;margin:0 auto">
@@ -778,7 +802,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
       <div class="footer-brand-desc">Nền tảng dịch vụ mạng xã hội và tài khoản premium uy tín hàng đầu Việt Nam. Hỗ trợ 24/7, bảo hành rõ ràng.</div>
       <div class="footer-socials">
         <a href="#" class="footer-social"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="footer-social"><i class="fab fa-telegram"></i></a>
+        <a href="https://t.me/BulkMail_Pro" target="_blank" class="footer-social"><i class="fab fa-telegram"></i></a>
         <a href="#" class="footer-social"><i class="fab fa-tiktok"></i></a>
         <a href="#" class="footer-social"><i class="fab fa-youtube"></i></a>
       </div>
@@ -808,8 +832,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
     <div>
       <div class="footer-col-title">Hỗ Trợ</div>
       <div class="footer-links">
-        <a class="footer-link" href="https://zalo.me/0376263452" target="_blank">Zalo: 0376263452</a>
-        <a class="footer-link" href="https://t.me/support" target="_blank">Telegram</a>
+        <a class="footer-link" href="https://zalo.me/0935748199" target="_blank">Zalo: 0935748199</a>
+        <a class="footer-link" href="https://t.me/BulkMail_Pro" target="_blank">Telegram</a>
         <a class="footer-link" href="#">Câu hỏi thường gặp</a>
         <a class="footer-link" href="#">Chính sách hoàn tiền</a>
         <a class="footer-link" href="#">Điều khoản sử dụng</a>
@@ -1302,12 +1326,12 @@ window.doChangePassword = async function(btn){
 onAuthStateChanged(auth, async (user) => {
   const guest = document.getElementById('nav-actions-guest');
   const loggedIn = document.getElementById('nav-actions-user');
-  const mobileAuth = document.getElementById('mobile-auth-btns'); // Ẩn nút đăng nhập trong menu đt
+  const mobileAuth = document.getElementById('mobile-auth-btns');
   
   if(user){
     // Đã đăng nhập
     guest.style.display='none';
-    loggedIn.style.display='flex'; // Bỏ !important đi
+    loggedIn.style.display='flex';
     if(mobileAuth) mobileAuth.style.display='none';
     
     // Lấy thông tin từ Firestore
@@ -1316,10 +1340,12 @@ onAuthStateChanged(auth, async (user) => {
       const data = snap.data();
       const uname = data.username || user.email.split('@')[0];
       const bal   = (data.balance||0).toLocaleString('vi-VN');
-      // Cập nhật navbar
+      
+      // Cập nhật navbar (Giao diện mới)
       document.getElementById('nav-username').textContent = uname;
       document.getElementById('nav-avatar').textContent = uname[0].toUpperCase();
-      document.getElementById('nav-balance').textContent = bal+'đ';
+      document.getElementById('nav-balance').textContent = bal+'đ'; // Sẽ tự chui vào thẻ span trong class nu-bal
+      
       // Cập nhật profile page
       document.getElementById('profile-username').textContent = uname;
       document.getElementById('profile-email').textContent = user.email;
