@@ -444,9 +444,41 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
 .auth-content{display:none;}
 .auth-content.active{display:flex;flex-direction:column;gap:16px;}
 
+/* ═══════════════════════ KIỂU DÁNG TÀI KHOẢN MỚI & DROPDOWN ═══════════════════════ */
+.nav-user-wrap { display: flex; align-items: center; gap: 12px; }
+.nav-icon-circle { width: 38px; height: 38px; border-radius: 50%; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text2); cursor: pointer; position: relative; transition: all 0.2s; }
+.nav-icon-circle:hover { color: var(--text); background: var(--bg4); border-color: var(--accent); }
+.noti-dot { position: absolute; top: -2px; right: -2px; background: #61baf4; color: #fff; font-size: 10px; font-weight: 900; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(13,15,26,0.95); }
+.nav-user-box { display: flex; align-items: center; gap: 10px; cursor: pointer; transition: all 0.2s; padding: 4px; border-radius: 12px; }
+.nav-user-box:hover { opacity: 0.8; }
+.nav-avatar-square { width: 38px; height: 38px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #fff; }
+.nav-user-text { display: flex; flex-direction: column; justify-content: center; }
+.nu-name { font-size: 14.5px; font-weight: 700; color: var(--text); line-height: 1.2; margin-bottom: 2px; display:flex; align-items:center; }
+.nu-bal { font-size: 12px; font-weight: 500; color: var(--text2); line-height: 1; }
+
+/* Dropdown Menu của User */
+.nav-user-dropdown-container { position: relative; }
+.user-dropdown-menu {
+  position: absolute; top: calc(100% + 15px); right: 0;
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 14px; padding: 8px; min-width: 220px;
+  opacity: 0; pointer-events: none; transform: translateY(-10px);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2000;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+.user-dropdown-menu.show { opacity: 1; pointer-events: all; transform: translateY(0); }
+.user-dropdown-menu a {
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  color: var(--text); text-decoration: none; font-size: 13.5px; font-weight: 500;
+  border-radius: 8px; transition: all 0.2s;
+}
+.user-dropdown-menu a:hover { background: rgba(108,99,255,0.1); color: var(--accent); }
+.user-dropdown-menu a i { width: 16px; text-align: center; color: var(--text2); font-size:14px; }
+.user-dropdown-menu a:hover i { color: var(--accent); }
+
 /* ═══════════════════════ RESPONSIVE ═══════════════════════ */
 @media(max-width:900px){
-  .nav-links{display:none;}
+  .nav-links{display:none !important;} /* Cập nhật ẩn luôn thanh link cũ nếu màn hình nhỏ */
   .nav-actions{display:none !important;}
   .nav-toggle{display:block;}
   .modal-body{grid-template-columns:1fr;}
@@ -460,18 +492,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
   .footer-grid{grid-template-columns:1fr;}
   .cta-section{padding:40px 20px;margin:40px 16px;}
 }
-
-/* ═══════════════════════ KIỂU DÁNG TÀI KHOẢN MỚI ═══════════════════════ */
-.nav-user-wrap { display: flex; align-items: center; gap: 12px; }
-.nav-icon-circle { width: 38px; height: 38px; border-radius: 50%; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text2); cursor: pointer; position: relative; transition: all 0.2s; }
-.nav-icon-circle:hover { color: var(--text); background: var(--bg4); border-color: var(--accent); }
-.noti-dot { position: absolute; top: -2px; right: -2px; background: #61baf4; color: #fff; font-size: 10px; font-weight: 900; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(13,15,26,0.95); }
-.nav-user-box { display: flex; align-items: center; gap: 10px; cursor: pointer; transition: all 0.2s; padding: 4px; border-radius: 12px; }
-.nav-user-box:hover { opacity: 0.8; }
-.nav-avatar-square { width: 38px; height: 38px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #fff; }
-.nav-user-text { display: flex; flex-direction: column; justify-content: center; }
-.nu-name { font-size: 14.5px; font-weight: 700; color: var(--text); line-height: 1.2; margin-bottom: 2px; }
-.nu-bal { font-size: 12px; font-weight: 500; color: var(--text2); line-height: 1; }
 </style>
 </head>
 <body>
@@ -485,7 +505,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
     <div class="nav-logo-icon">⚡</div>
     Social<span>Pro</span>.VN
   </a>
-  <div class="nav-links">
+  
+  <div class="nav-links" id="main-nav-links">
     <a class="nav-link active" href="#" onclick="showSection('home');return false"><i class="fas fa-home"></i> Trang Chủ</a>
     <div class="nav-dropdown">
       <div class="nav-link">Tài Khoản <i class="fas fa-chevron-down"></i></div>
@@ -506,6 +527,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
     </div>
     <a class="nav-link" href="https://zalo.me/0935748199" target="_blank"><i class="fas fa-headset"></i> Hỗ Trợ</a>
   </div>
+  
   <div class="nav-spacer"></div>
   
   <div class="nav-actions" id="nav-actions-guest">
@@ -515,24 +537,38 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
   
   <div class="nav-actions" id="nav-actions-user" style="display:none">
     <div class="nav-user-wrap">
-      <div class="nav-icon-circle" onclick="showSection('orders')">
+      <div class="nav-icon-circle" onclick="showSection('orders')" title="Thông báo">
         <i class="fas fa-bell"></i>
         <span class="noti-dot">!</span>
       </div>
-      <div class="nav-icon-circle">
-        <i class="fas fa-adjust"></i>
-      </div>
-      <div class="nav-user-box" onclick="showSection('account')">
-        <div id="nav-avatar" class="nav-avatar-square">U</div>
-        <div class="nav-user-text">
-          <div id="nav-username" class="nu-name">User</div>
-          <div class="nu-bal">Số dư: <span id="nav-balance">0đ</span></div>
+      
+      <div class="nav-user-dropdown-container">
+        <div class="nav-user-box" onclick="toggleUserDropdown(event)">
+          <div id="nav-avatar" class="nav-avatar-square">U</div>
+          <div class="nav-user-text">
+            <div class="nu-name"><span id="nav-username">User</span> <i class="fas fa-chevron-down" style="font-size:10px;margin-left:4px;color:var(--text2)"></i></div>
+            <div class="nu-bal">Số dư: <span id="nav-balance">0đ</span></div>
+          </div>
+        </div>
+        
+        <div class="user-dropdown-menu" id="userDropdown">
+          <a href="#" onclick="showSection('home'); return false;"><i class="fas fa-home"></i> Trang Chủ</a>
+          <a href="#" onclick="showSection('account'); return false;"><i class="fas fa-user-circle"></i> Quản Lý Tài Khoản</a>
+          <a href="#" onclick="showSection('deposit'); return false;"><i class="fas fa-coins"></i> Nạp Tiền Hệ Thống</a>
+          <a href="#" onclick="showSection('orders'); return false;"><i class="fas fa-receipt"></i> Lịch Sử Đơn Hàng</a>
+          <a href="#" onclick="showSection('transactions'); return false;"><i class="fas fa-wallet"></i> Biến Động Số Dư</a>
+          <div style="height:1px; background:var(--border); margin:8px 0;"></div>
+          <a href="#" onclick="showSection('affiliate'); return false;"><i class="fas fa-store"></i> Đại Lý & API</a>
+          <a href="https://zalo.me/0935748199" target="_blank"><i class="fas fa-headset"></i> Hỗ Trợ Khách Hàng</a>
+          <div style="height:1px; background:var(--border); margin:8px 0;"></div>
+          <a href="#" onclick="doLogout(); return false;" style="color:var(--red)"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a>
         </div>
       </div>
+      
     </div>
   </div>
   
-  <button class="nav-toggle" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+  <button class="nav-toggle" id="nav-hamburger" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
@@ -1130,7 +1166,7 @@ function switchAuth(tab){
 }
 
 // ═══════════════════════════════════════════════
-// NAVIGATION
+// NAVIGATION & USER DROPDOWN
 // ═══════════════════════════════════════════════
 function showSection(name){
   document.getElementById('sec-home').style.display = name==='home'?'block':'none';
@@ -1139,12 +1175,27 @@ function showSection(name){
     if(el)el.style.display=s===name?'block':'none';
   });
   document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  // Đóng menu nếu đang mở
+  document.getElementById('userDropdown')?.classList.remove('show');
   window.scrollTo(0,0);
 }
 
 function toggleMobileMenu(){
   document.getElementById('mobileMenu').classList.toggle('open');
 }
+
+window.toggleUserDropdown = function(e) {
+  e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
+  document.getElementById('userDropdown').classList.toggle('show');
+};
+
+// Đóng menu khi bấm ra ngoài
+window.addEventListener('click', function(e) {
+  const dropdown = document.getElementById('userDropdown');
+  if (dropdown && dropdown.classList.contains('show')) {
+    dropdown.classList.remove('show');
+  }
+});
 
 // ═══════════════════════════════════════════════
 // MISC
@@ -1236,9 +1287,7 @@ window.doRegister = async function(){
   if(!password || password.length < 6) return showAlert('Mật khẩu tối thiểu 6 ký tự!');
   setBtnLoading('reg-btn', true);
   try {
-    // Tạo tài khoản Firebase Auth
     const cred = await createUserWithEmailAndPassword(auth, email, password);
-    // Lưu thêm thông tin vào Firestore
     await setDoc(doc(db, 'users', cred.user.uid), {
       uid: cred.user.uid,
       username,
@@ -1326,13 +1375,21 @@ window.doChangePassword = async function(btn){
 onAuthStateChanged(auth, async (user) => {
   const guest = document.getElementById('nav-actions-guest');
   const loggedIn = document.getElementById('nav-actions-user');
-  const mobileAuth = document.getElementById('mobile-auth-btns');
+  
+  // Element ẩn/hiện tuỳ trạng thái
+  const mobileAuthBtns = document.getElementById('mobile-auth-btns');
+  const mainNavLinks = document.getElementById('main-nav-links');
+  const navHamburger = document.getElementById('nav-hamburger');
   
   if(user){
-    // Đã đăng nhập
-    guest.style.display='none';
-    loggedIn.style.display='flex';
-    if(mobileAuth) mobileAuth.style.display='none';
+    // ---------------- ĐÃ ĐĂNG NHẬP ----------------
+    guest.style.display = 'none';
+    loggedIn.style.display = 'flex';
+    
+    // Ẩn Menu ngang và Hamburger vì đã có Dropdown
+    if(mainNavLinks) mainNavLinks.style.display = 'none';
+    if(navHamburger) navHamburger.style.display = 'none';
+    if(mobileAuthBtns) mobileAuthBtns.style.display = 'none';
     
     // Lấy thông tin từ Firestore
     const snap = await getDoc(doc(db, 'users', user.uid));
@@ -1341,10 +1398,10 @@ onAuthStateChanged(auth, async (user) => {
       const uname = data.username || user.email.split('@')[0];
       const bal   = (data.balance||0).toLocaleString('vi-VN');
       
-      // Cập nhật navbar (Giao diện mới)
+      // Cập nhật navbar (Dropdown mới)
       document.getElementById('nav-username').textContent = uname;
       document.getElementById('nav-avatar').textContent = uname[0].toUpperCase();
-      document.getElementById('nav-balance').textContent = bal+'đ'; // Sẽ tự chui vào thẻ span trong class nu-bal
+      document.getElementById('nav-balance').textContent = bal+'đ';
       
       // Cập nhật profile page
       document.getElementById('profile-username').textContent = uname;
@@ -1356,10 +1413,14 @@ onAuthStateChanged(auth, async (user) => {
       if(data.created_at?.toDate){ document.getElementById('stat-joined').textContent = data.created_at.toDate().toLocaleDateString('vi-VN'); }
     }
   } else {
-    // Chưa đăng nhập
-    guest.style.display='flex';
-    loggedIn.style.display='none';
-    if(mobileAuth) mobileAuth.style.display='flex';
+    // ---------------- CHƯA ĐĂNG NHẬP ----------------
+    guest.style.display = 'flex';
+    loggedIn.style.display = 'none';
+    
+    // Khôi phục lại hiển thị mặc định của CSS
+    if(mainNavLinks) mainNavLinks.style.display = '';
+    if(navHamburger) navHamburger.style.display = '';
+    if(mobileAuthBtns) mobileAuthBtns.style.display = 'flex';
   }
 });
 
