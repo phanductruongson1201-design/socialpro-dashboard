@@ -123,7 +123,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .product-card:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(108,99,255,0.2);}
 .product-img{aspect-ratio:16/9;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:44px;position:relative;overflow:hidden;}
 .product-img-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--bg3),var(--bg4));}
-.product-img-icon{position:relative;z-index:1;}
+.product-img-icon{position:relative;z-index:1;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3));}
 .product-badge{position:absolute;top:10px;right:10px;z-index:2;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;}
 .badge-hot{background:rgba(255,71,87,0.9);color:#fff;}
 .badge-new{background:rgba(0,212,170,0.9);color:#fff;}
@@ -195,7 +195,7 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .info-card-title i{color:var(--accent);}
 .info-list{list-style:none;display:flex;flex-direction:column;gap:7px;}
 .info-list li{font-size:12.5px;color:var(--text2);display:flex;align-items:flex-start;gap:7px;line-height:1.5;}
-.info-list li::before{content:'✓';color:var(--accent3);font-weight:700;}
+.info-list li::before{content:'✓';color:var(--accent3);font-weight:700;flex-shrink:0;}
 
 /* ================= PREMIUM PRODUCT MODAL (NEW UI) ================= */
 #prodModal .modal { max-width: 900px; }
@@ -235,7 +235,7 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .auth-content{display:none;}
 .auth-content.active{display:flex;flex-direction:column;gap:16px;}
 
-/* ═══════════════════════ FEATURES ═══════════════════════ */
+/* FEATURES */
 .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
 .feature-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;transition:all .2s;}
 .feature-card:hover{border-color:var(--border2);transform:translateY(-3px);}
@@ -243,7 +243,7 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .feature-title{font-size:16px;font-weight:700;margin-bottom:8px;}
 .feature-desc{font-size:13.5px;color:var(--text2);line-height:1.6;}
 
-/* ═══════════════════════ PRICING TIERS ═══════════════════════ */
+/* TIERS */
 .tiers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
 .tier-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;transition:all .2s;position:relative;overflow:hidden;}
 .tier-card.popular{border-color:var(--accent);background:rgba(108,99,255,0.06);}
@@ -256,7 +256,7 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .tier-perks li{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:7px;}
 .tier-perks li i{color:var(--accent3);width:14px;}
 
-/* ═══════════════════════ TESTIMONIALS ═══════════════════════ */
+/* REVIEWS */
 .reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
 .review-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:20px;}
 .review-stars{color:var(--gold);font-size:14px;margin-bottom:10px;}
@@ -266,35 +266,35 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .review-name{font-size:13.5px;font-weight:700;}
 .review-meta{font-size:12px;color:var(--text2);}
 
-/* ═══════════════════════ FAQ ═══════════════════════ */
+/* FAQ */
 .faq-list{display:flex;flex-direction:column;gap:10px;max-width:800px;}
 .faq-item{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
 .faq-q{padding:16px 20px;font-size:14px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .15s;}
 .faq-q:hover{background:var(--bg3);}
-.faq-q i{color:var(--accent);transition:transform .2s;font-size:12px;}
+.faq-q i{color:var(--accent);transition:transform .2s;font-size:12px;flex-shrink:0;}
 .faq-item.open .faq-q i{transform:rotate(180deg);}
 .faq-a{padding:0 20px;max-height:0;overflow:hidden;font-size:13.5px;color:var(--text2);line-height:1.7;transition:max-height .3s ease, padding .3s ease;}
 .faq-item.open .faq-a{max-height:300px;padding:0 20px 16px;}
 
-/* ═══════════════════════ CTA ═══════════════════════ */
+/* CTA */
 .cta-section{background:linear-gradient(135deg,rgba(108,99,255,0.15),rgba(255,107,157,0.1));border:1px solid var(--border2);border-radius:24px;padding:60px 40px;text-align:center;margin:60px 24px;}
 .cta-title{font-size:clamp(24px,4vw,40px);font-weight:900;margin-bottom:14px;}
 .cta-sub{font-size:16px;color:var(--text2);margin-bottom:32px;}
 
-/* ═══════════════════════ FOOTER ═══════════════════════ */
+/* FOOTER */
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24px 24px;}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1300px;margin:0 auto 40px;}
 .footer-brand-desc{font-size:13.5px;color:var(--text2);line-height:1.7;margin:14px 0;}
 .footer-socials{display:flex;gap:10px;margin-top:16px;}
 .footer-social{width:36px;height:36px;border-radius:9px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--text2);text-decoration:none;transition:all .2s;}
-.footer-social:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+.footer-social:hover{background:var(--accent);color:#fff;}
 .footer-col-title{font-size:13px;font-weight:700;color:var(--text);letter-spacing:0.5px;margin-bottom:14px;text-transform:uppercase;}
 .footer-links{display:flex;flex-direction:column;gap:8px;}
 .footer-link{font-size:13px;color:var(--text2);text-decoration:none;transition:color .15s;}
 .footer-link:hover{color:var(--accent);}
 .footer-bottom{border-top:1px solid var(--border);padding-top:20px;display:flex;justify-content:space-between;align-items:center;max-width:1300px;margin:0 auto;flex-wrap:wrap;gap:10px;font-size:12.5px;color:var(--text3);}
 
-/* ═══════════════════════ RESPONSIVE ═══════════════════════ */
+/* RESPONSIVE */
 @media(max-width:900px){
   .nav-links{display:none !important;} 
   .nav-actions{display:none !important;}
@@ -312,13 +312,14 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
   .cta-section{padding:40px 20px;margin:40px 16px;}
   .pkg-card { flex-direction:column; align-items:flex-start; gap:10px; }
   .pkg-price-col { align-self:flex-end; }
+  .dep-grid { grid-template-columns:1fr !important; }
 }
 </style>
 </head>
 <body>
 
 <div class="topbar-announcement">
-  🔥 Ưu đãi đặc biệt: Nạp từ 500k tặng thêm 5% · <a href="#deposit">Nạp ngay</a> · Hỗ trợ 24/7
+  🔥 Ưu đãi đặc biệt: Nạp từ 500k tặng thêm 5% · <a href="#deposit" onclick="showSection('deposit'); return false;">Nạp ngay</a> · Hỗ trợ 24/7
 </div>
 
 <nav class="navbar">
@@ -571,19 +572,38 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
   </div>
 </div>
 
-</div><div id="sec-deposit" style="display:none;padding:40px 24px;max-width:800px;margin:0 auto">
-  <h2 style="font-size:26px;font-weight:800;margin-bottom:24px"><i class="fas fa-coins" style="color:var(--accent3)"></i> Nạp Tiền</h2>
-  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:24px;margin-bottom:20px">
-    <div style="font-size:14px;font-weight:700;color:var(--accent3);margin-bottom:14px"><i class="fas fa-building-columns"></i> Thông tin chuyển khoản</div>
-    <div style="display:grid;gap:10px;font-size:14px">
-      <div style="display:flex;justify-content:space-between;padding:10px 14px;background:var(--bg);border-radius:8px"><span style="color:var(--text2)">Ngân hàng</span><strong>MB Bank</strong></div>
-      <div style="display:flex;justify-content:space-between;padding:10px 14px;background:var(--bg);border-radius:8px"><span style="color:var(--text2)">Số tài khoản</span><strong style="color:var(--gold)">0123456789</strong></div>
-      <div style="display:flex;justify-content:space-between;padding:10px 14px;background:var(--bg);border-radius:8px"><span style="color:var(--text2)">Chủ tài khoản</span><strong>NGUYEN VAN A</strong></div>
-      <div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(255,71,87,0.1);border-radius:8px;border:1px solid rgba(255,71,87,0.2)"><span style="color:var(--text2)">Nội dung CK</span><strong style="color:var(--red)">DVPRO [username của bạn]</strong></div>
+</div>
+
+<div id="sec-deposit" style="display:none;padding:40px 24px;max-width:800px;margin:0 auto">
+  <h2 style="font-size:26px;font-weight:800;margin-bottom:24px"><i class="fas fa-coins" style="color:var(--accent3)"></i> Nạp Tiền Tự Động</h2>
+  
+  <div class="dep-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+    <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:24px;">
+      <div style="font-size:14px;font-weight:700;color:var(--accent3);margin-bottom:14px"><i class="fas fa-magic"></i> Tạo mã QR nạp tiền</div>
+      
+      <div class="form-group">
+        <label class="form-label">Số tiền cần nạp (VNĐ)</label>
+        <input class="form-input" type="number" id="deposit-amount" placeholder="VD: 50000" oninput="updateVietQR()">
+      </div>
+      
+      <div style="background:rgba(108,99,255,0.1);border:1px solid rgba(108,99,255,0.2);border-radius:12px;padding:16px;margin-top:20px;">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:4px">Nội dung chuyển khoản (Tự động):</div>
+        <div style="font-size:16px;font-weight:800;color:var(--text);letter-spacing:1px" id="deposit-syntax">DVPRO ...</div>
+      </div>
+      <div style="font-size:12px;color:var(--text3);margin-top:14px;line-height:1.5;">
+        <i class="fas fa-info-circle" style="color:var(--accent3)"></i> Hệ thống tự động (SePay) cộng tiền trong 1–3 phút sau khi chuyển khoản thành công. Tối thiểu nạp 20,000đ.
+      </div>
     </div>
-  </div>
-  <div style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:12px;padding:16px;font-size:13.5px;color:var(--text2)">
-    <i class="fas fa-info-circle" style="color:var(--accent3)"></i> Hệ thống tự động cộng tiền trong 1–3 phút sau khi chuyển khoản thành công. Tối thiểu nạp 20,000đ. Nạp từ 500,000đ được tặng thêm 5%.
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <div style="font-size:14px;font-weight:700;margin-bottom:16px">Quét mã bằng App Ngân Hàng</div>
+      <div class="qr-container" style="background:#fff;padding:10px;border-radius:12px;display:inline-block;width:200px;height:200px;margin-bottom:16px;">
+        <img id="vietqr-img" src="https://img.vietqr.io/image/MB-0123456789-compact2.png" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">
+      </div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.5;">
+        Quét mã QR để chuyển khoản nhanh. Không cần nhập tay số tài khoản & nội dung.
+      </div>
+    </div>
   </div>
 </div>
 
@@ -791,6 +811,24 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
 </div>
 
 <script>
+// ═══════════════════════════════════════════════
+// HÀM TẠO MÃ VIETQR TỰ ĐỘNG
+// ═══════════════════════════════════════════════
+window.updateVietQR = function() {
+  const amount = document.getElementById('deposit-amount').value || 0;
+  const username = window.currentUserData ? window.currentUserData.username : 'KHACH';
+  const syntax = `DVPRO ${username}`;
+  
+  document.getElementById('deposit-syntax').textContent = syntax;
+  
+  const bankID = 'MB'; 
+  const bankAcc = '0123456789';
+  const accountName = 'NGUYEN VAN A';
+  
+  const qrUrl = `https://img.vietqr.io/image/${bankID}-${bankAcc}-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(syntax)}&accountName=${encodeURIComponent(accountName)}`;
+  document.getElementById('vietqr-img').src = qrUrl;
+}
+
 // ═══════════════════════════════════════════════
 // DATA SẢN PHẨM & DỊCH VỤ CẬP NHẬT MỚI
 // ═══════════════════════════════════════════════
@@ -1364,6 +1402,8 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById('nav-actions-guest').style.display='none';
     document.getElementById('nav-actions-user').style.display='flex';
     if(document.getElementById('hero-register-btn')) document.getElementById('hero-register-btn').style.display='none';
+    if(document.getElementById('cta-register-btn')) document.getElementById('cta-register-btn').style.display='none';
+    if(document.getElementById('mobile-auth-btns')) document.getElementById('mobile-auth-btns').style.display='none';
     
     const snap = await getDoc(doc(db, 'users', user.uid));
     if(snap.exists()){
@@ -1374,12 +1414,26 @@ onAuthStateChanged(auth, async (user) => {
       document.getElementById('nav-username').textContent = uname;
       document.getElementById('nav-avatar').textContent = uname[0].toUpperCase();
       document.getElementById('nav-balance').textContent = bal+'đ';
+      
+      // Update UI in Account Section
+      document.getElementById('profile-username').textContent = uname;
+      document.getElementById('profile-email').textContent = user.email;
+      document.getElementById('profile-avatar').textContent = uname[0].toUpperCase();
+      document.getElementById('profile-balance').textContent = bal;
+      document.getElementById('stat-orders').textContent = window.currentUserData.total_orders||0;
+      document.getElementById('stat-deposit').textContent = (window.currentUserData.total_deposit||0).toLocaleString('vi-VN')+'đ';
+      if(window.currentUserData.created_at?.toDate){ document.getElementById('stat-joined').textContent = window.currentUserData.created_at.toDate().toLocaleDateString('vi-VN'); }
+      
+      // Call QR generation function if it exists and we're logged in
+      if(typeof window.updateVietQR === 'function') window.updateVietQR();
     }
   } else {
     window.currentUserData = null;
     document.getElementById('nav-actions-guest').style.display='flex';
     document.getElementById('nav-actions-user').style.display='none';
     if(document.getElementById('hero-register-btn')) document.getElementById('hero-register-btn').style.display='inline-flex';
+    if(document.getElementById('cta-register-btn')) document.getElementById('cta-register-btn').style.display='inline-flex';
+    if(document.getElementById('mobile-auth-btns')) document.getElementById('mobile-auth-btns').style.display='flex';
   }
 });
 window.togglePwd = function(id){ const i = document.getElementById(id); i.type = i.type==='password'?'text':'password'; };
