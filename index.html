@@ -5,7 +5,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>SocialPro.VN | Dịch Vụ Mạng Xã Hội – Tài Khoản Premium Uy Tín</title>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -942,10 +943,18 @@ document.getElementById(‘confirm-password’).value=’’;
 setTimeout(function(){btn.innerHTML=orig;btn.style.background=’’;},2500);
 }
 
-// INIT
-renderProducts();
-renderServices();
-(function(){try{var u=getCurrent();if(u)updateUI(u);}catch(e){}}());
+// INIT - chạy sau khi DOM load xong
+function init() {
+try { renderProducts(); } catch(e) { console.error(‘renderProducts error:’, e); }
+try { renderServices(); } catch(e) { console.error(‘renderServices error:’, e); }
+try { var u=getCurrent(); if(u) updateUI(u); } catch(e) {}
+}
+
+if(document.readyState === ‘loading’) {
+document.addEventListener(‘DOMContentLoaded’, init);
+} else {
+init();
+}
 </script>
 
 </body>
