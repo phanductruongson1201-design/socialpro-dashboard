@@ -14,6 +14,7 @@
   --gold:#f5c842;--red:#ff4757;
   --text:#e8eaf6;--text2:#9fa8c7;--text3:#5c6488;
   --border:rgba(255,255,255,0.07);--border2:rgba(108,99,255,0.25);
+  --card:rgba(26,30,51,0.8);
   --nav-h:68px;
 }
 html{scroll-behavior:smooth; overflow-x:hidden; max-width:100vw;}
@@ -24,7 +25,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px;}
 
-/* TOPBAR */
+/* TOPBAR ANNOUNCEMENT */
 .topbar-announcement{background:linear-gradient(90deg,var(--accent),var(--accent2));padding:8px 20px;font-size:12.5px;font-weight:600;text-align:center;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;}
 .topbar-announcement a{color:#fff;text-decoration:underline;}
 
@@ -37,8 +38,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .nav-link{padding:8px 14px;border-radius:8px;font-size:13.5px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .2s;text-decoration:none;display:flex;align-items:center;gap:5px;position:relative;white-space:nowrap;}
 .nav-link:hover,.nav-link.active{background:rgba(108,99,255,0.12);color:var(--text);}
 .nav-link i{font-size:11px;}
-
-/* DROPDOWN */
 .nav-dropdown{position:relative;}
 .nav-dropdown-menu{position:absolute;top:calc(100% + 8px);left:0;background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:8px;min-width:220px;opacity:0;pointer-events:none;transform:translateY(-8px);transition:all .2s;z-index:500;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
 .nav-dropdown:hover .nav-dropdown-menu{opacity:1;pointer-events:all;transform:translateY(0);}
@@ -46,16 +45,16 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .nav-dropdown-item:hover{background:rgba(108,99,255,0.1);color:var(--text);}
 .nav-dropdown-item i{width:16px;text-align:center;color:var(--accent);font-size:13px;}
 .nav-spacer{flex:1;}
+.nav-actions{display:flex;align-items:center;gap:10px;}
 
-/* BUTTONS */
+/* Buttons */
 .btn{padding:9px 20px;border-radius:9px;font-size:13.5px;font-weight:600;cursor:pointer;transition:all .2s;border:none;font-family:'Be Vietnam Pro',sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;}
 .btn-ghost{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid var(--border);}
 .btn-ghost:hover{background:rgba(255,255,255,0.1);}
 .btn-primary{background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff;box-shadow:0 4px 15px rgba(108,99,255,0.4);}
 .btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(108,99,255,0.5);}
 
-/* USER DROPDOWN */
-.nav-actions{display:flex;align-items:center;gap:10px;}
+/* USER DROPDOWN (NEW) */
 .nav-user-wrap{display:flex;align-items:center;gap:12px;}
 .nav-icon-circle{width:38px;height:38px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text2);cursor:pointer;position:relative;transition:all 0.2s;}
 .nav-icon-circle:hover{color:var(--text);background:var(--bg4);border-color:var(--accent);}
@@ -74,7 +73,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .user-dropdown-menu a i{width:16px;text-align:center;color:var(--text2);font-size:14px;}
 .user-dropdown-menu a:hover i{color:var(--accent);}
 
-/* MOBILE HAMBURGER */
+/* Mobile hamburger */
 .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;padding:4px;}
 .mobile-menu{display:none;position:fixed;inset:0;background:rgba(13,15,26,0.98);z-index:1001;padding:80px 24px 24px;flex-direction:column;gap:8px;overflow-y:auto;}
 .mobile-menu.open{display:flex;}
@@ -104,7 +103,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .hero-stat-label{font-size:13px;color:var(--text2);margin-top:2px;}
 
 /* TRUST BAR */
-.trust-bar{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 24px;overflow:hidden;}
+.trust-bar{background:var(--bg2);border:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 24px;overflow:hidden;}
 .trust-track{display:flex;gap:40px;animation:marquee 20s linear infinite;width:max-content;}
 .trust-track:hover{animation-play-state:paused;}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -288,7 +287,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
 .footer-brand-desc{font-size:13.5px;color:var(--text2);line-height:1.7;margin:14px 0;}
 .footer-socials{display:flex;gap:10px;margin-top:16px;}
 .footer-social{width:36px;height:36px;border-radius:9px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--text2);text-decoration:none;transition:all .2s;}
-.footer-social:hover{background:var(--accent);color:#fff;}
+.footer-social:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
 .footer-col-title{font-size:13px;font-weight:700;color:var(--text);letter-spacing:0.5px;margin-bottom:14px;text-transform:uppercase;}
 .footer-links{display:flex;flex-direction:column;gap:8px;}
 .footer-link{font-size:13px;color:var(--text2);text-decoration:none;transition:color .15s;}
@@ -797,7 +796,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
 // ═══════════════════════════════════════════════
 const PRODUCTS = [
   {
-    name: 'YouTube Premium', icon: '▶️', color: '#ff0000', badge: 'hot', 
+    name: 'YouTube Premium', icon: '<i class="fab fa-youtube"></i>', color: '#ff0000', badge: 'hot', 
     desc: 'Nâng Cấp Tài Khoản Youtube Premium Chính Chủ Đăng Ký Gmail Của Bạn + Tặng Kèm Canva Pro 1 Năm',
     note: 'Vui Lòng Nhập Gmail Cần Đăng Kí Gói Youtube Premium của bạn (Không yêu cầu Password) - Gia Hạn Vui Lòng Note Mail + Gia Hạn Để Tránh Bị Lỗi Mail - Ví Dụ: aaa@gmail.com gia hạn',
     price: 37800, oldPrice: '129,000',
@@ -811,7 +810,7 @@ const PRODUCTS = [
     ]
   },
   {
-    name: 'ChatGPT Plus', icon: '🤖', color: '#10a37f', badge: 'hot', 
+    name: 'ChatGPT Plus', icon: '<i class="fas fa-robot"></i>', color: '#10a37f', badge: 'hot', 
     desc: 'Tài khoản ChatGPT Plus Chính Chủ dùng GPT-4o, DALL-E 3',
     note: 'Nhập email để nhận tài khoản ChatGPT Plus. Đảm bảo email chưa từng vi phạm chính sách của OpenAI.',
     price: 91800, oldPrice: '500,000',
@@ -827,7 +826,7 @@ const PRODUCTS = [
     ]
   },
   {
-    name: 'Netflix Ultra 4K', icon: '🎬', color: '#e50914', badge: 'sale', 
+    name: 'Netflix Ultra 4K', icon: '<i class="fas fa-play-circle"></i>', color: '#e50914', badge: 'sale', 
     desc: 'Tài Khoản Netflix Ultra 4K Profile Riêng + Pin Riêng',
     note: 'Tài khoản cấp mới hoàn toàn. Vui lòng điền Zalo/Email để nhận thông tin đăng nhập.',
     price: 125550, oldPrice: '260,000',
@@ -838,8 +837,8 @@ const PRODUCTS = [
     ]
   },
   {
-    name: 'Canva Pro', icon: '🎨', color: '#7d2ae8', badge: 'new',
-    desc: 'Nâng Cấp Tài Khoản Canva Pro Education Chính Chủ Đăng Ký Bằng Mail Của Bạn - Canva Pro Full Có Quyền Up Bộ Thương Hiệu (Font Chữ, Logo...)',
+    name: 'Canva Pro', icon: '<i class="fas fa-palette"></i>', color: '#7d2ae8', badge: 'new',
+    desc: 'Nâng Cấp Tài Khoản Canva Pro Education Chính Chủ Đăng Ký Bằng Mail Của Bạn - Canva Pro Full Có Quyền Up Bộ Thương Hiệu',
     note: 'Vui lòng điền Email của bạn để nâng cấp.',
     price: 24300, oldPrice: '200,000',
     packages: [
@@ -852,7 +851,7 @@ const PRODUCTS = [
     ]
   },
   {
-    name: 'Spotify Premium', icon: '🎵', color: '#1db954', badge: '',
+    name: 'Spotify Premium', icon: '<i class="fab fa-spotify"></i>', color: '#1db954', badge: '',
     desc: 'Tài Khoản Spotify Premium Giá Rẻ',
     note: 'Vui lòng điền Email của bạn.',
     price: 189000, oldPrice: '59,000',
@@ -862,7 +861,7 @@ const PRODUCTS = [
     ]
   },
   {
-    name: 'Adobe Full Apps', icon: '🖌️', color: '#ff0000', badge: 'hot',
+    name: 'Adobe Full Apps', icon: '<i class="fas fa-file-image"></i>', color: '#ff0000', badge: 'hot',
     desc: 'Tài Khoản Adobe Full 20+ Apps + 100GB Cloud Lưu Trữ Dùng Trên 2 Thiết Bị Chính Chủ',
     note: 'Nhập Mail Adobe Cần Nâng Cấp Hoặc Mail Cần Cấp Tài Khoản Mới Của Bạn.',
     price: 216000, oldPrice: '900,000',
@@ -872,8 +871,8 @@ const PRODUCTS = [
     ]
   },
   {
-    name: 'Microsoft Office 365', icon: '📊', color: '#d83b01', badge: '',
-    desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 Copilot (Bộ Cung Cụ Exel, Work, Powerpoin..) + Copilot + One Driver 1 Tb',
+    name: 'Microsoft Office 365', icon: '<i class="fas fa-chart-pie"></i>', color: '#d83b01', badge: '',
+    desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 Copilot (Bộ Cung Cụ Exel, Work, Powerpoin..) + One Driver 1 Tb',
     note: 'Vui lòng điền Email Microsoft của bạn.',
     price: 148500, oldPrice: '300,000',
     packages: [
@@ -883,7 +882,7 @@ const PRODUCTS = [
     ]
   },
   {
-    name: 'Cursor Pro AI', icon: '💻', color: '#000000', badge: 'new',
+    name: 'Cursor Pro AI', icon: '<i class="fas fa-laptop-code"></i>', color: '#000000', badge: 'new',
     desc: 'Tài Khoản Cursor Pro AI + Cursor Pro Plus',
     note: 'Tài khoản cấp sẵn.',
     price: 513000, oldPrice: '400,000',
@@ -892,7 +891,7 @@ const PRODUCTS = [
     ]
   },
   {
-    name: 'Google Gemini Pro', icon: '✨', color: '#4285f4', badge: 'new',
+    name: 'Google Gemini Pro', icon: '<i class="fas fa-sparkles"></i>', color: '#4285f4', badge: 'new',
     desc: 'Tài Khoản Gemini Pro AI + Google One Drive 2 TB +Google Antigravity Chính Chủ',
     note: 'Nhập Mail cần nâng cấp của bạn.',
     price: 148500, oldPrice: '350,000',
@@ -903,8 +902,8 @@ const PRODUCTS = [
     ]
   },
   {
-    name: 'Capcut Pro', icon: '🎞️', color: '#000', badge: '',
-    desc: 'Tài Khoản CapCut Pro Dùng Riêng Biệt (Đăng Nhập Được 3-4 Máy) - Loại Tài Khoản Cá Nhân 6 Tháng Có Kèm 1000-1600 Credit AI',
+    name: 'Capcut Pro', icon: '<i class="fas fa-video"></i>', color: '#fff', badge: '',
+    desc: 'Tài Khoản CapCut Pro Dùng Riêng Biệt (Đăng Nhập Được 3-4 Máy) - Loại Cá Nhân 6 Tháng Có Kèm Credit AI',
     note: 'Tài khoản cấp sẵn dùng riêng tư.',
     price: 45900, oldPrice: '150,000',
     packages: [
@@ -917,7 +916,7 @@ const PRODUCTS = [
     ]
   },
   {
-    name: 'Super Grok AI', icon: '🧠', color: '#1a1a1a', badge: 'new',
+    name: 'Super Grok AI', icon: '<i class="fas fa-brain"></i>', color: '#1a1a1a', badge: 'new',
     desc: 'Tài Khoản Super Grok AI Có Sẵn Dùng Riêng Tư',
     note: 'Nhập thông tin Zalo để nhận.',
     price: 89100, oldPrice: '600,000',
@@ -927,7 +926,7 @@ const PRODUCTS = [
     ]
   },
   {
-    name: 'Meitu SVip', icon: '📸', color: '#ff4d9e', badge: '',
+    name: 'Meitu SVip', icon: '<i class="fas fa-camera-retro"></i>', color: '#ff4d9e', badge: '',
     desc: 'Tài Khoản Meitu SVip Svip Cấp Sẵn Dùng Riêng Giá Rẻ',
     note: 'Cấp sẵn tài khoản.',
     price: 91800, oldPrice: '120,000',
@@ -939,320 +938,365 @@ const PRODUCTS = [
 
 const PLATFORMS = {
   'tiktok': {
-    name:'TikTok',flag:'🇻🇳',color:'#000',icon:'fab fa-tiktok',
+    name:'TikTok',icon:'fab fa-tiktok',color:'#000',
     services:[
-      {name:'Tăng Lượt Xem Video',price:'2đ/view',min:'1,000',icon:'fas fa-eye',c:'#ff0050'},
-      {name:'Tăng Thả Tim Video',price:'10đ/tim',min:'50',icon:'fas fa-heart',c:'#ff0050'},
-      {name:'Tăng Người Theo Dõi',price:'20đ/follow',min:'100',icon:'fas fa-users',c:'#69c9d0'},
-      {name:'Tăng Mắt Livestream',price:'15đ/mắt',min:'100',icon:'fas fa-broadcast-tower',c:'#ff0050'},
-      {name:'Tăng Lượt Lưu Video',price:'15đ/lưu',min:'50',icon:'fas fa-bookmark',c:'#69c9d0'},
-      {name:'Tăng Chia Sẻ Video',price:'8đ/share',min:'100',icon:'fas fa-share',c:'#69c9d0'},
-      {name:'Tăng Bình Luận',price:'80đ/cmt',min:'5',icon:'fas fa-comment',c:'#ff0050'},
-      {name:'Mua Gói Tim Tháng',price:'30đ/tim/ngày',min:'200',icon:'fas fa-crown',c:'#f5c842'}
+      {name:'Tăng Lượt Xem Video',price:'2đ',min:'1,000',icon:'fas fa-eye',c:'#ff0050'},
+      {name:'Tăng Thả Tim Video',price:'10đ',min:'50',icon:'fas fa-heart',c:'#ff0050'},
+      {name:'Tăng Người Theo Dõi',price:'20đ',min:'100',icon:'fas fa-users',c:'#69c9d0'},
+      {name:'Tăng Mắt Livestream',price:'15đ',min:'100',icon:'fas fa-broadcast-tower',c:'#ff0050'},
+      {name:'Tăng Lượt Lưu Video',price:'15đ',min:'50',icon:'fas fa-bookmark',c:'#69c9d0'},
+      {name:'Tăng Chia Sẻ Video',price:'8đ',min:'100',icon:'fas fa-share',c:'#69c9d0'},
+      {name:'Tăng Bình Luận',price:'80đ',min:'5',icon:'fas fa-comment',c:'#ff0050'},
+      {name:'Mua Gói Tim Tháng',price:'30đ',min:'200',icon:'fas fa-crown',c:'#f5c842'},
     ]
   },
   'facebook': {
-    name:'Facebook',flag:'🇻🇳',color:'#1877f2',icon:'fab fa-facebook-f',
+    name:'Facebook',icon:'fab fa-facebook-f',color:'#1877f2',
     services:[
-      {name:'Tăng Like Bài Viết',price:'15đ/like',min:'50',icon:'fas fa-thumbs-up',c:'#1877f2'},
-      {name:'Mua Gói Like Tháng',price:'55đ/like/ngày',min:'200',icon:'fas fa-crown',c:'#f5c842'},
-      {name:'Tăng Người Theo Dõi',price:'25đ/follow',min:'100',icon:'fas fa-users',c:'#1877f2'},
-      {name:'Tăng Like Fanpage',price:'20đ/like',min:'100',icon:'fas fa-flag',c:'#1877f2'},
-      {name:'Tăng Mắt Livestream',price:'12đ/mắt',min:'100',icon:'fas fa-broadcast-tower',c:'#00c896'},
-      {name:'Tăng Lượt Chia Sẻ',price:'20đ/share',min:'10',icon:'fas fa-share',c:'#1877f2'},
-      {name:'Tăng Member Nhóm',price:'8đ/member',min:'100',icon:'fas fa-user-group',c:'#8b5cf6'},
-      {name:'Tăng Đánh Giá Page',price:'5,000đ/đánh giá',min:'5',icon:'fas fa-star',c:'#f5c842'},
-      {name:'Tăng View Video/Reel',price:'3đ/view',min:'1,000',icon:'fas fa-play',c:'#1877f2'},
-      {name:'Tăng Bình Luận',price:'150đ/cmt',min:'5',icon:'fas fa-comment',c:'#1877f2'}
+      {name:'Tăng Like Bài Viết',price:'15đ',min:'50',icon:'fas fa-thumbs-up',c:'#1877f2'},
+      {name:'Mua Gói Like Tháng',price:'55đ',min:'200',icon:'fas fa-crown',c:'#f5c842'},
+      {name:'Tăng Người Theo Dõi',price:'25đ',min:'100',icon:'fas fa-users',c:'#1877f2'},
+      {name:'Tăng Like Fanpage',price:'20đ',min:'100',icon:'fas fa-flag',c:'#1877f2'},
+      {name:'Tăng Mắt Livestream',price:'12đ',min:'100',icon:'fas fa-broadcast-tower',c:'#00c896'},
+      {name:'Tăng Lượt Chia Sẻ',price:'20đ',min:'10',icon:'fas fa-share',c:'#1877f2'},
+      {name:'Tăng Member Nhóm',price:'8đ',min:'100',icon:'fas fa-user-group',c:'#8b5cf6'},
+      {name:'Tăng Đánh Giá Page',price:'5,000đ',min:'5',icon:'fas fa-star',c:'#f5c842'},
+      {name:'Tăng View Video/Reel',price:'3đ',min:'1,000',icon:'fas fa-play',c:'#1877f2'},
+      {name:'Tăng Bình Luận',price:'150đ',min:'5',icon:'fas fa-comment',c:'#1877f2'},
     ]
   },
   'instagram': {
-    name:'Instagram',flag:'🇻🇳',color:'#c13584',icon:'fab fa-instagram',
+    name:'Instagram',icon:'fab fa-instagram',color:'#c13584',
     services:[
-      {name:'Tăng Tim Bài Viết',price:'18đ/tim',min:'50',icon:'fas fa-heart',c:'#e1306c'},
-      {name:'Tăng Người Theo Dõi',price:'25đ/follow',min:'100',icon:'fas fa-users',c:'#c13584'},
-      {name:'Tăng Bình Luận',price:'200đ/cmt',min:'5',icon:'fas fa-comment',c:'#8b5cf6'},
-      {name:'Mua Gói Like Tháng',price:'50đ/like/ngày',min:'100',icon:'fas fa-crown',c:'#f5c842'},
-      {name:'Tăng Lượt Xem Video',price:'5đ/view',min:'100',icon:'fas fa-play',c:'#c13584'},
-      {name:'Tăng Mắt Livestream',price:'15đ/mắt',min:'100',icon:'fas fa-broadcast-tower',c:'#e1306c'}
+      {name:'Tăng Tim Bài Viết',price:'18đ',min:'50',icon:'fas fa-heart',c:'#e1306c'},
+      {name:'Tăng Người Theo Dõi',price:'25đ',min:'100',icon:'fas fa-users',c:'#c13584'},
+      {name:'Tăng Bình Luận',price:'200đ',min:'5',icon:'fas fa-comment',c:'#8b5cf6'},
+      {name:'Mua Gói Like Tháng',price:'50đ',min:'100',icon:'fas fa-crown',c:'#f5c842'},
+      {name:'Tăng Lượt Xem Video',price:'5đ',min:'100',icon:'fas fa-play',c:'#c13584'},
     ]
   },
   'youtube': {
-    name:'YouTube',flag:'🇻🇳',color:'#ff0000',icon:'fab fa-youtube',
+    name:'YouTube',icon:'fab fa-youtube',color:'#ff0000',
     services:[
-      {name:'Tăng View Video',price:'3đ/view',min:'1,000',icon:'fas fa-eye',c:'#ff0000'},
-      {name:'Tăng Đăng Ký Kênh',price:'30đ/sub',min:'100',icon:'fas fa-users',c:'#ff0000'},
-      {name:'Tăng Lượt Like',price:'30đ/like',min:'50',icon:'fas fa-thumbs-up',c:'#ff0000'},
-      {name:'Tăng Bình Luận',price:'300đ/cmt',min:'5',icon:'fas fa-comment',c:'#f5c842'},
-      {name:'Tăng Mắt Livestream',price:'12đ/mắt',min:'100',icon:'fas fa-broadcast-tower',c:'#ff0000'},
-      {name:'Tăng 4000H Xem',price:'1,000,000đ/gói',min:'1 gói',icon:'fas fa-clock',c:'#f5c842'}
+      {name:'Tăng View Video',price:'3đ',min:'1,000',icon:'fas fa-eye',c:'#ff0000'},
+      {name:'Tăng Đăng Ký Kênh',price:'30đ',min:'100',icon:'fas fa-users',c:'#ff0000'},
+      {name:'Tăng Lượt Like',price:'30đ',min:'50',icon:'fas fa-thumbs-up',c:'#ff0000'},
+      {name:'Tăng Bình Luận',price:'300đ',min:'5',icon:'fas fa-comment',c:'#f5c842'},
+      {name:'Tăng Mắt Livestream',price:'12đ',min:'100',icon:'fas fa-broadcast-tower',c:'#ff0000'},
     ]
   },
   'googlemaps': {
-    name:'Google Maps',flag:'🇻🇳',color:'#4285f4',icon:'fas fa-map-marker-alt',
+    name:'Google Maps',icon:'fas fa-map-marker-alt',color:'#4285f4',
     services:[
-      {name:'Tăng Đánh Giá Google Maps',price:'8,000đ/đánh giá',min:'5',icon:'fas fa-star',c:'#f5c842'}
+      {name:'Tăng Đánh Giá Google Maps',price:'8,000đ',min:'5',icon:'fas fa-star',c:'#f5c842'},
     ]
   },
   'threads': {
-    name:'Threads',flag:'🇻🇳',color:'#eee',icon:'fab fa-threads',
+    name:'Threads',icon:'fab fa-threads',color:'#eee',
     services:[
-      {name:'Tăng Like Bài Viết',price:'10đ/like',min:'50',icon:'fas fa-heart',c:'#aaa'},
-      {name:'Tăng Người Theo Dõi',price:'15đ/follow',min:'100',icon:'fas fa-users',c:'#aaa'},
-      {name:'Tăng Bình Luận',price:'150đ/cmt',min:'5',icon:'fas fa-comment',c:'#aaa'}
+      {name:'Tăng Like Bài Viết',price:'10đ',min:'50',icon:'fas fa-heart',c:'#aaa'},
+      {name:'Tăng Người Theo Dõi',price:'15đ',min:'100',icon:'fas fa-users',c:'#aaa'},
+      {name:'Tăng Bình Luận',price:'150đ',min:'5',icon:'fas fa-comment',c:'#aaa'},
     ]
   },
   'shopee': {
-    name:'Shopee',flag:'🇻🇳',color:'#ee4d2d',icon:'fas fa-shopping-bag',
+    name:'Shopee',icon:'fas fa-shopping-bag',color:'#ee4d2d',
     services:[
-      {name:'Tăng Lượt Thích Sản Phẩm',price:'400đ/like',min:'50',icon:'fas fa-heart',c:'#ee4d2d'},
-      {name:'Tăng Theo Dõi Gian Hàng',price:'500đ/follow',min:'50',icon:'fas fa-store',c:'#ee4d2d'},
-      {name:'Tăng Người Xem Livestream',price:'15đ/người',min:'100',icon:'fas fa-broadcast-tower',c:'#ee4d2d'}
+      {name:'Tăng Lượt Thích Sản Phẩm',price:'400đ',min:'50',icon:'fas fa-heart',c:'#ee4d2d'},
+      {name:'Tăng Theo Dõi Gian Hàng',price:'500đ',min:'50',icon:'fas fa-store',c:'#ee4d2d'},
+      {name:'Tăng Người Xem Livestream',price:'15đ',min:'100',icon:'fas fa-broadcast-tower',c:'#ee4d2d'},
     ]
   },
   'spotify': {
-    name:'Spotify',flag:'🇻🇳',color:'#1db954',icon:'fab fa-spotify',
+    name:'Spotify',icon:'fab fa-spotify',color:'#1db954',
     services:[
-      {name:'Tăng Lượt Nghe Bài Hát',price:'5đ/nghe',min:'1,000',icon:'fas fa-music',c:'#1db954'},
-      {name:'Tăng Người Nghe Hàng Tháng',price:'50đ/người',min:'100',icon:'fas fa-headphones',c:'#1db954'},
-      {name:'Tăng Người Theo Dõi',price:'20đ/follow',min:'100',icon:'fas fa-users',c:'#1db954'}
+      {name:'Tăng Lượt Nghe Bài Hát',price:'5đ',min:'1,000',icon:'fas fa-music',c:'#1db954'},
+      {name:'Tăng Người Nghe Hàng Tháng',price:'50đ',min:'100',icon:'fas fa-headphones',c:'#1db954'},
+      {name:'Tăng Người Theo Dõi',price:'20đ',min:'100',icon:'fas fa-users',c:'#1db954'},
     ]
   },
   'twitter': {
-    name:'Twitter/X',flag:'🌍',color:'#1da1f2',icon:'fab fa-twitter',
+    name:'Twitter/X',icon:'fab fa-twitter',color:'#1da1f2',
     services:[
-      {name:'Tăng Like Tweet',price:'8đ/like',min:'50',icon:'fas fa-heart',c:'#1da1f2'},
-      {name:'Tăng Người Theo Dõi',price:'10đ/follow',min:'100',icon:'fas fa-users',c:'#1da1f2'},
-      {name:'Tăng Bình Luận',price:'200đ/cmt',min:'5',icon:'fas fa-comment',c:'#1da1f2'},
-      {name:'Tăng Retweet',price:'12đ/rt',min:'50',icon:'fas fa-retweet',c:'#1da1f2'}
+      {name:'Tăng Like Tweet',price:'8đ',min:'50',icon:'fas fa-heart',c:'#1da1f2'},
+      {name:'Tăng Người Theo Dõi',price:'10đ',min:'100',icon:'fas fa-users',c:'#1da1f2'},
+      {name:'Tăng Bình Luận',price:'200đ',min:'5',icon:'fas fa-comment',c:'#1da1f2'},
+      {name:'Tăng Retweet',price:'12đ',min:'50',icon:'fas fa-retweet',c:'#1da1f2'},
     ]
   }
 };
 
-// ═══════════ RENDER ═══════════
-function renderProducts() {
-  var g = document.getElementById('products-grid');
-  if(!g) return;
-  var h = '';
-  for(var i=0;i<PRODUCTS.length;i++) {
-    var p=PRODUCTS[i];
-    var b = p.badge==='hot'?'<div class="product-badge badge-hot">🔥 HOT</div>':p.badge==='new'?'<div class="product-badge badge-new">✨ MỚI</div>':p.badge==='sale'?'<div class="product-badge badge-sale">💥 SALE</div>':'';
-    h+='<div class="product-card" onclick="openProdModal('+i+')">';
-    h+='<div class="product-img"><div class="product-img-bg"></div><div class="product-img-icon" style="font-size:48px;color:'+(p.color||'#fff')+'">'+p.icon+'</div>'+b+'</div>';
-    h+='<div class="product-body"><div class="product-name">'+p.name+'</div><div class="product-desc">'+p.desc+'</div>';
-    h+='<div class="product-footer"><div><span class="product-price">'+p.price.toLocaleString('vi-VN')+'đ</span><span class="product-price-old">'+p.oldPrice+'đ</span></div>';
-    h+='<button class="product-btn" onclick="event.stopPropagation(); openProdModal('+i+')">Mua</button></div></div></div>';
-  }
-  g.innerHTML = h;
+// ═══════════════════════════════════════════════
+// RENDER GIAO DIỆN
+// ═══════════════════════════════════════════════
+function renderProducts(){
+  const grid = document.getElementById('products-grid');
+  grid.innerHTML = PRODUCTS.map((p, idx) => `
+    <div class="product-card" onclick="openProdModal(${idx})">
+      <div class="product-img">
+        <div class="product-img-bg"></div>
+        <div class="product-img-icon" style="color:${p.color}; font-size:48px;">${p.icon}</div>
+        ${p.badge?`<div class="product-badge badge-${p.badge}">${p.badge==='hot'?'🔥 HOT':p.badge==='new'?'✨ MỚI':'💥 SALE'}</div>`:''}
+      </div>
+      <div class="product-body">
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc.substring(0, 60)}...</div>
+        <div class="product-footer">
+          <div><span class="product-price">${p.price.toLocaleString('vi-VN')}đ</span></div>
+          <button class="product-btn" onclick="event.stopPropagation();openProdModal(${idx})">Mua</button>
+        </div>
+      </div>
+    </div>`).join('');
 }
 
-function renderServices() {
-  var tabs=document.getElementById('services-tabs');
-  var cont=document.getElementById('services-content');
-  if(!tabs||!cont) return;
-  var th='', ch='';
-  var pKeys = Object.keys(PLATFORMS);
-  for(var i=0;i<pKeys.length;i++) {
-    var key = pKeys[i];
-    var p = PLATFORMS[key];
-    var act=i===0?' active':'';
-    th+='<div class="svc-tab-btn'+act+'" onclick="switchPlatform(\''+key+'\',this)"><i class="'+p.icon+'"></i> '+p.name+'</div>';
-    ch+='<div class="svc-platform-content'+act+'" id="plat-'+key+'">';
-    for(var j=0;j<p.services.length;j++) {
-      var s=p.services[j];
-      var isCmt = s.name.indexOf('Bình Luận')>-1||s.name.indexOf('Đánh Giá')>-1;
-      ch+='<div class="svc-card" onclick="openSvcModal(\''+s.name+'\',\''+key+'\',\''+s.c+'\','+isCmt+')">';
-      ch+='<div class="svc-card-icon" style="background:'+s.c+'22;color:'+s.c+'"><i class="'+s.icon+'"></i></div>';
-      ch+='<div class="svc-card-info"><div class="svc-card-name">'+s.name+'</div><div class="svc-card-meta">Tối thiểu: '+s.min+'</div></div>';
-      ch+='<div class="svc-card-price">'+s.price+'</div></div>';
-    }
-    ch+='</div>';
-  }
-  tabs.innerHTML=th; cont.innerHTML=ch;
+function renderServices(){
+  const tabs = document.getElementById('services-tabs');
+  const content = document.getElementById('services-content');
+  tabs.innerHTML = Object.entries(PLATFORMS).map(([key,p],i)=>`
+    <div class="svc-tab-btn${i===0?' active':''}" onclick="switchPlatform('${key}',this)"><i class="${p.icon}"></i> ${p.name}</div>`).join('');
+  content.innerHTML = Object.entries(PLATFORMS).map(([key,p],i)=>`
+    <div class="svc-platform-content${i===0?' active':''}" id="plat-${key}">
+      ${p.services.map(s=>`
+        <div class="svc-card" onclick="openSvcModal('${s.name}','${key}','${s.c}','${s.min}','${s.price}')">
+          <div class="svc-card-icon" style="background:${s.c}22;color:${s.c}"><i class="${s.icon}"></i></div>
+          <div class="svc-card-info"><div class="svc-card-name">${s.name}</div><div class="svc-card-meta">Tối thiểu: ${s.min}</div></div>
+          <div class="svc-card-price">${s.price}</div>
+        </div>`).join('')}
+    </div>`).join('');
 }
 
-function switchPlatform(key,btn) {
-  var tabs=document.querySelectorAll('.svc-tab-btn');
-  var grids=document.querySelectorAll('.svc-platform-content');
-  for(var i=0;i<tabs.length;i++) tabs[i].classList.remove('active');
-  for(var i=0;i<grids.length;i++) grids[i].classList.remove('active');
+function switchPlatform(key,btn){
+  document.querySelectorAll('.svc-tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.svc-platform-content').forEach(c=>c.classList.remove('active'));
   btn.classList.add('active');
-  var g=document.getElementById('plat-'+key);
-  if(g) g.classList.add('active');
+  document.getElementById('plat-'+key)?.classList.add('active');
 }
 
-// ═══════════ NAVIGATION ═══════════
-function showSection(name) {
-  var home=document.getElementById('sec-home');
-  if(home) home.style.display=name==='home'?'block':'none';
-  var secs=['deposit','account','orders','transactions','affiliate','api'];
-  for(var i=0;i<secs.length;i++) {
-    var el=document.getElementById('sec-'+secs[i]);
-    if(el) el.style.display=secs[i]===name?'block':'none';
-  }
-  window.scrollTo(0,0);
-}
+// ═══════════════════════════════════════════════
+// LOGIC SẢN PHẨM PREMIUM (GIAO DIỆN MỚI)
+// ═══════════════════════════════════════════════
+let selectedProdPackagePrice = 0;
 
-function toggleMM() {
-  var m=document.getElementById('mobileMenu');
-  m.classList.toggle('open');
-  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
-}
-function closeMM() {
-  document.getElementById('mobileMenu').classList.remove('open');
-  document.body.style.overflow='';
-}
-
-// ═══════════ MODALS & LOGIC MUA HÀNG ═══════════
-var curOpt=12;
-function openSvcModal(name,key,color,isCmt) {
-  if(!window.firebaseAuth || !window.firebaseAuth.currentUser) { openAuth('login'); return; }
-  document.getElementById('svcModalTitle').innerHTML='<span style="color:'+color+'">'+name+'</span>';
-  var cmtField='';
-  if(isCmt) {
-    cmtField='<div class="form-group"><label class="form-label">Nội dung '+(name.indexOf('Đánh Giá')>-1?'đánh giá':'bình luận')+' <span style="color:var(--text3);font-weight:400">(mỗi dòng 1 nội dung)</span></label>'
-      +'<textarea class="form-input" rows="3" id="svc-comments" placeholder="Để trống = hệ thống tự tạo ngẫu nhiên..."></textarea>'
-      +'<div style="font-size:11px;color:var(--text3);margin-top:4px"><i class="fas fa-info-circle" style="color:var(--accent3)"></i> Hệ thống tự đếm số dòng để tính số lượng.</div></div>';
-  }
-  document.getElementById('svcModalForm').innerHTML=
-    '<div class="form-group"><label class="form-label">Link hoặc ID cần tăng</label><input class="form-input" type="text" placeholder="Dán link vào đây..."></div>'
-    +cmtField
-    +'<div class="form-group"><label class="form-label">Chọn gói</label><div class="server-options">'
-    +'<div class="server-opt selected" onclick="selOpt(this,12)"><input type="radio" name="sopt" checked><div class="server-opt-info"><div><span class="server-opt-name">Gói Tiêu Chuẩn</span><span class="server-opt-price">12đ</span><span class="server-opt-badge">Hoạt động</span></div><div class="server-opt-desc">Tốc độ trung bình, ổn định.</div></div></div>'
-    +'<div class="server-opt" onclick="selOpt(this,20)"><input type="radio" name="sopt"><div class="server-opt-info"><div><span class="server-opt-name">Gói Tốc Độ</span><span class="server-opt-price">20đ</span><span class="server-opt-badge">Hoạt động</span></div></div></div>'
-    +'<div class="server-opt" onclick="selOpt(this,35)"><input type="radio" name="sopt"><div class="server-opt-info"><div><span class="server-opt-name">Gói VIP Bảo Hành</span><span class="server-opt-price">35đ</span><span class="server-opt-badge">Hoạt động</span></div><div class="server-opt-desc">Chất lượng cao, bảo hành 30 ngày.</div></div></div>'
-    +'</div></div>'
-    +'<div class="form-group"><label class="form-label">Số lượng</label><input class="form-input" type="number" id="svc-qty" value="100" oninput="calcPrice()"></div>'
-    +'<div class="form-group"><label class="form-label">Giá tiền</label><div class="price-box"><span class="price-box-label">Tổng thanh toán</span><span class="price-box-value" id="svc-price">1,200 đ</span></div></div>'
-    +'<button class="submit-btn" onclick="submitGeneric(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>';
+window.openProdModal = function(idx) {
+  // BẮT ĐĂNG NHẬP
+  if(!window.currentUserData) { openAuth('login'); return; }
   
-  let curBalance = window.currentUserData ? (window.currentUserData.balance||0).toLocaleString('vi-VN') : 0;
-  document.getElementById('svcModalInfo').innerHTML=
-    '<div class="info-card"><div class="info-card-title"><i class="fas fa-info-circle"></i> Lưu ý</div><ul class="info-list">'
-    +'<li>Link/trang phải <strong>công khai</strong></li>'
-    +'<li>Không đặt 2 đơn cùng lúc cho 1 link</li>'
-    +'<li>Kết quả tăng dần, <strong>không đột ngột</strong></li>'
-    +'<li>Hoàn tiền nếu hệ thống lỗi</li>'
-    +'</ul></div>'
-    +'<div class="info-card"><div class="info-card-title"><i class="fas fa-bolt"></i> Số dư hiện tại</div>'
-    +'<div style="font-size:22px;font-weight:800;color:var(--accent3)">'+curBalance+' đ</div>'
-    +'</div>';
-  curOpt=12;
-  document.getElementById('svcModal').classList.add('open');
-
-  if(isCmt) {
-    var cInp = document.getElementById('svc-comments');
-    var qInp = document.getElementById('svc-qty');
-    cInp.addEventListener('input', function() {
-      var lines = this.value.split('\n').filter(function(l){return l.trim()!==''}).length;
-      if(lines > 0) { qInp.value = lines; calcPrice(); }
-    });
-  }
-}
-
-function selOpt(el,price) {
-  var opts=document.querySelectorAll('.server-opt');
-  for(var i=0;i<opts.length;i++){opts[i].classList.remove('selected');opts[i].querySelector('input').checked=false;}
-  el.classList.add('selected');el.querySelector('input').checked=true;
-  curOpt=price;calcPrice();
-}
-function calcPrice() {
-  var qty=parseInt(document.getElementById('svc-qty').value)||0;
-  var el=document.getElementById('svc-price');
-  if(el) el.textContent=Math.round(qty*curOpt).toLocaleString('vi-VN')+' đ';
-}
-
-var curProdPrice = 0;
-function openProdModal(idx) {
-  if(!window.firebaseAuth || !window.firebaseAuth.currentUser) { openAuth('login'); return; }
-
-  var p = PRODUCTS[idx];
-  document.getElementById('pm-icon').innerHTML = p.icon;
-  document.getElementById('pm-icon').style.color = p.color || '#fff';
-  document.getElementById('pm-title').textContent = p.name;
-  document.getElementById('pm-desc').textContent = p.desc;
-  document.getElementById('pm-note').textContent = p.note || 'Vui lòng nhập thông tin tài khoản (Tên đăng nhập, Email, sđt Zalo...) để Admin liên hệ hỗ trợ nâng cấp.';
-
-  var pkgs = p.packages || [{name:'Gói 1 Tháng', desc:'Gói mặc định', price: parseInt(p.price), tags:['Giao ngay']}];
-
-  var html = '';
-  for(var i=0; i<pkgs.length; i++) {
-    var pkg = pkgs[i];
-    var tagsHtml = '';
-    if(pkg.tags) {
-      for(var j=0; j<pkg.tags.length; j++){
-        var t = pkg.tags[j];
-        var c = 'ptag-bao', icon='♻️';
-        if(t==='Giao ngay'){ c='ptag-giao'; icon='⚡'; }
-        if(t==='Bán chạy'){ c='ptag-hot'; icon='🔥'; }
-        tagsHtml += '<div class="ptag '+c+'">'+icon+' '+t+'</div>';
-      }
-    }
-    html += '<div class="pkg-card '+(i===0?'active':'')+'" onclick="selProdPkg(this, '+pkg.price+')">'
-          + '<div class="pkg-info"><h4>'+pkg.name+'</h4><p>'+pkg.desc+'</p><div class="pkg-tags">'+tagsHtml+'</div></div>'
-          + '<div class="pkg-price-col">'+pkg.price.toLocaleString('vi-VN')+'đ</div></div>';
-  }
-  document.getElementById('pm-packages').innerHTML = html;
+  const prod = PRODUCTS[idx];
+  document.getElementById('pm-icon').innerHTML = prod.icon;
+  document.getElementById('pm-icon').style.color = prod.color;
+  document.getElementById('pm-title').textContent = prod.name;
+  document.getElementById('pm-desc').textContent = prod.desc;
+  document.getElementById('pm-note').innerHTML = prod.note;
+  
+  // Render danh sách gói
+  const pkgContainer = document.getElementById('pm-packages');
+  pkgContainer.innerHTML = prod.packages.map((pkg, i) => {
+    let tagsHtml = pkg.tags.map(t => {
+      let c = 'ptag-bao';
+      if(t === 'Giao ngay') c = 'ptag-giao';
+      if(t === 'Bán chạy') c = 'ptag-hot';
+      let icon = t==='Giao ngay'?'⚡':t==='Bán chạy'?'🔥':'♻️';
+      return `<div class="ptag ${c}">${icon} ${t}</div>`;
+    }).join('');
+    
+    return `
+    <div class="pkg-card ${i===0?'active':''}" onclick="selProdPkg(this, ${pkg.price})">
+      <div class="pkg-info">
+        <h4>${pkg.name}</h4>
+        <p>${pkg.desc}</p>
+        <div class="pkg-tags">${tagsHtml}</div>
+      </div>
+      <div class="pkg-price-col">${pkg.price.toLocaleString('vi-VN')}đ</div>
+    </div>`;
+  }).join('');
+  
+  selectedProdPackagePrice = prod.packages[0].price;
+  document.getElementById('pm-total').textContent = selectedProdPackagePrice.toLocaleString('vi-VN') + 'đ';
   document.getElementById('pm-input').value = '';
-
-  curProdPrice = pkgs[0].price;
-  document.getElementById('pm-total').textContent = curProdPrice.toLocaleString('vi-VN')+'đ';
-
   document.getElementById('prodModal').classList.add('open');
 }
 
-function selProdPkg(el, price) {
-  var cards = document.querySelectorAll('.pkg-card');
-  for(var i=0; i<cards.length; i++) cards[i].classList.remove('active');
+window.selProdPkg = function(el, price) {
+  document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
-  curProdPrice = price;
-  document.getElementById('pm-total').textContent = curProdPrice.toLocaleString('vi-VN')+'đ';
+  selectedProdPackagePrice = price;
+  document.getElementById('pm-total').textContent = selectedProdPackagePrice.toLocaleString('vi-VN') + 'đ';
 }
 
-function openAuth(tab) {
-  document.getElementById('authModal').classList.add('open');
-  switchAuth(tab);
+// ═══════════════════════════════════════════════
+// LOGIC DỊCH VỤ SMM (TỰ ĐỘNG CHUYỂN GÓI THÁNG HOẶC THƯỜNG)
+// ═══════════════════════════════════════════════
+let currentOpt = 12;
+
+window.openSvcModal = function(name, platKey, color, minAmount, priceStr) {
+  if(!window.currentUserData) { openAuth('login'); return; }
+  document.getElementById('svcModalTitle').innerHTML=`<span style="color:${color}">${name}</span>`;
+
+  let numericPrice = parseInt(priceStr.replace(/[^\d]/g, '')) || 12;
+  let minQty = parseInt(minAmount.replace(/[^\d]/g, '')) || 100;
+  const isCmt = name.toLowerCase().includes('bình luận') || name.toLowerCase().includes('đánh giá');
+  const isThang = name.toLowerCase().includes('tháng') || name.toLowerCase().includes('vip');
+  
+  let formHtml = '';
+  
+  if(isThang) {
+    // GIAO DIỆN GÓI THÁNG
+    formHtml = `
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:16px;">
+        <strong style="color:var(--text); font-size:14px; display:block; margin-bottom:8px;">${name}</strong>
+        - Min - Max: ${minAmount} - 10,000<br>
+        - Thời gian xử lý: 00:00:00<br>
+        Máy chủ sử dụng nguồn tài khoản Việt Nam - Người dùng bấm tay.
+      </div>
+      
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px;">
+        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.2); color:var(--accent3); padding:10px; border-radius:10px; font-size:12px; font-weight:600; display:flex; flex-direction:column; gap:4px;"><span style="color:var(--text2);font-weight:400;font-size:11px">Trạng thái</span><span><i class="fas fa-check-circle"></i> Hoạt Động</span></div>
+        <div style="background:rgba(108,99,255,0.08); border:1px solid rgba(108,99,255,0.2); color:var(--accent); padding:10px; border-radius:10px; font-size:12px; font-weight:600; display:flex; flex-direction:column; gap:4px;"><span style="color:var(--text2);font-weight:400;font-size:11px">Thời gian trung bình</span><span><i class="fas fa-clock"></i> 00:00:00</span></div>
+        <div style="background:rgba(255,71,87,0.08); border:1px solid rgba(255,71,87,0.2); color:var(--red); padding:10px; border-radius:10px; font-size:12px; font-weight:600; display:flex; flex-direction:column; gap:4px;"><span style="color:var(--text2);font-weight:400;font-size:11px">Hoàn tiền</span><span><i class="fas fa-ban"></i> Không hoàn tiền</span></div>
+        <div style="background:rgba(255,107,157,0.08); border:1px solid rgba(255,107,157,0.2); color:var(--accent2); padding:10px; border-radius:10px; font-size:12px; font-weight:600; display:flex; flex-direction:column; gap:4px;"><span style="color:var(--text2);font-weight:400;font-size:11px">Bảo hành</span><span><i class="fas fa-sync-alt"></i> Không bảo hành</span></div>
+      </div>
+
+      <div class="form-group"><label class="form-label">Link Profile/Page cần cài đặt</label><input class="form-input" type="text" placeholder="Dán link vào đây..."></div>
+
+      <div class="form-group">
+          <label class="form-label">Thời gian (Ngày)</label>
+          <select class="form-input" id="svc-days" onchange="calcPriceThang(${numericPrice})">
+              <option value="7">7 Ngày</option>
+              <option value="15">15 Ngày</option>
+              <option value="30" selected>30 Ngày</option>
+              <option value="60">60 Ngày</option>
+              <option value="90">90 Ngày</option>
+          </select>
+      </div>
+      <div class="form-group">
+          <label class="form-label">Số bài viết / Ngày</label>
+          <input class="form-input" type="number" id="svc-posts" value="5" oninput="calcPriceThang(${numericPrice})">
+      </div>
+      <div class="form-group">
+          <label class="form-label">Số lượng (${minAmount} ~ 10,000)</label>
+          <input class="form-input" type="number" id="svc-qty" value="${minQty}" oninput="calcPriceThang(${numericPrice})">
+      </div>
+      <div class="form-group"><label class="form-label">Giá tiền</label><div class="price-box"><span class="price-box-label">Tổng thanh toán</span><span class="price-box-value" id="svc-price">0 đ</span></div></div>
+      <button class="submit-btn" onclick="submitGeneric(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>
+    `;
+  } else {
+    // GIAO DIỆN GÓI THƯỜNG
+    let cmtField = '';
+    if(isCmt) {
+      const cmtType = name.toLowerCase().includes('đánh giá') ? 'đánh giá' : 'bình luận';
+      cmtField = `
+      <div class="form-group">
+        <label class="form-label">Nội dung ${cmtType} <span style="color:var(--text3);font-weight:400">(mỗi dòng 1 nội dung)</span></label>
+        <textarea class="form-input" id="svc-comments" rows="4" placeholder="Nhập nội dung (mỗi dòng 1 nội dung). Để trống hệ thống sẽ tự random..."></textarea>
+        <div style="font-size:11.5px;color:var(--text3);margin-top:4px"><i class="fas fa-info-circle" style="color:var(--accent3)"></i> Hệ thống tự đếm số dòng để tính số lượng.</div>
+      </div>`;
+    }
+
+    formHtml = `
+      <div class="form-group"><label class="form-label">Link hoặc ID cần tăng</label><input class="form-input" type="text" placeholder="Dán link vào đây..."></div>
+      ${cmtField}
+      <div class="form-group"><label class="form-label">Chọn máy chủ (Server)</label>
+        <div class="server-options">
+          <div class="server-opt selected" onclick="selectOpt(this,${numericPrice})"><input type="radio" name="sopt" checked><div class="server-opt-info"><div><span class="server-opt-name">Gói Tiêu Chuẩn</span><span class="server-opt-price">${numericPrice}đ</span><span class="server-opt-badge sopt-active">Hoạt động</span></div><div class="server-opt-desc">Tốc độ trung bình, ổn định. Tối thiểu ${minAmount}.</div></div></div>
+          <div class="server-opt" onclick="selectOpt(this,${Math.round(numericPrice*1.5)})"><input type="radio" name="sopt"><div class="server-opt-info"><div><span class="server-opt-name">Gói Tốc Độ</span><span class="server-opt-price">${Math.round(numericPrice*1.5)}đ</span><span class="server-opt-badge sopt-active">Hoạt động</span></div><div class="server-opt-desc">Tốc độ nhanh, tăng trong vài giờ.</div></div></div>
+          <div class="server-opt" onclick="selectOpt(this,${numericPrice*2})"><input type="radio" name="sopt"><div class="server-opt-info"><div><span class="server-opt-name">Gói VIP Bảo Hành</span><span class="server-opt-price">${numericPrice*2}đ</span><span class="server-opt-badge sopt-active">Hoạt động</span></div><div class="server-opt-desc">Chất lượng cao, bảo hành 30 ngày.</div></div></div>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">Số lượng</label><input class="form-input" type="number" id="svc-qty" value="${minQty}" oninput="calcPrice()"></div>
+      <div class="form-group"><label class="form-label">Giá tiền</label><div class="price-box"><span class="price-box-label">Tổng thanh toán</span><span class="price-box-value" id="svc-price">0 đ</span></div></div>
+      <button class="submit-btn" onclick="submitGeneric(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>`;
+  }
+
+  document.getElementById('svcModalForm').innerHTML = formHtml;
+  
+  let curBalance = window.currentUserData ? (window.currentUserData.balance||0).toLocaleString('vi-VN') : 0;
+  document.getElementById('svcModalInfo').innerHTML=`
+    <div class="info-card"><div class="info-card-title"><i class="fas fa-info-circle"></i> Lưu ý</div><ul class="info-list">
+      <li>Link/trang phải <strong>công khai</strong></li>
+      <li>Không đặt 2 đơn cùng lúc cho 1 link</li>
+      <li>Kết quả tăng dần, <strong>không đột ngột</strong></li>
+    </ul></div>
+    <div class="info-card"><div class="info-card-title"><i class="fas fa-bolt"></i> Số dư hiện tại</div><div style="font-size:22px;font-weight:800;color:var(--accent3)">${curBalance} đ</div><a href="#" onclick="closeModal('svcModal');showSection('deposit');return false" style="font-size:12px;color:var(--accent);text-decoration:none;display:block;margin-top:6px">+ Nạp thêm →</a></div>`;
+  
+  document.getElementById('svcModal').classList.add('open');
+  
+  if(isThang) {
+    window.calcPriceThang(numericPrice);
+  } else {
+    currentOpt = numericPrice;
+    window.calcPrice();
+    if(isCmt) {
+      const cmtInput = document.getElementById('svc-comments');
+      const qtyInput = document.getElementById('svc-qty');
+      cmtInput.addEventListener('input', function() {
+        const lines = this.value.split('\n').filter(line => line.trim() !== '').length;
+        if(lines > 0) { qtyInput.value = lines; calcPrice(); }
+      });
+    }
+  }
 }
-function closeModal(id){document.getElementById(id).classList.remove('open');}
 
-var overlays=document.querySelectorAll('.modal-overlay');
-for(var i=0;i<overlays.length;i++){
-  overlays[i].addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+window.calcPriceThang = function(basePrice) {
+  const days = parseInt(document.getElementById('svc-days')?.value) || 30;
+  const posts = parseInt(document.getElementById('svc-posts')?.value) || 1;
+  const qty = parseInt(document.getElementById('svc-qty')?.value) || 0;
+  const total = basePrice * days * posts * qty;
+  const el = document.getElementById('svc-price');
+  if(el) el.textContent = total.toLocaleString('vi-VN') + ' đ';
 }
 
-function switchAuth(tab) {
-  var tabs=document.querySelectorAll('.auth-tab');
-  var panes=document.querySelectorAll('.auth-content');
-  for(var i=0;i<tabs.length;i++) tabs[i].classList.remove('active');
-  for(var i=0;i<panes.length;i++) panes[i].classList.remove('active');
-  if(tab==='login'){tabs[0].classList.add('active');document.getElementById('auth-login').classList.add('active');}
-  else{tabs[1].classList.add('active');document.getElementById('auth-register').classList.add('active');}
-  var al=document.getElementById('auth-alert');
-  if(al) al.style.display='none';
+window.selectOpt = function(el,price){
+  document.querySelectorAll('.server-opt').forEach(o=>{o.classList.remove('selected');o.querySelector('input').checked=false;});
+  el.classList.add('selected');el.querySelector('input').checked=true;
+  currentOpt=price;calcPrice();
+}
+window.calcPrice = function(){
+  const qty=parseInt(document.getElementById('svc-qty')?.value)||0;
+  const el=document.getElementById('svc-price');
+  if(el)el.textContent=Math.round(qty*currentOpt).toLocaleString('vi-VN')+' đ';
 }
 
-function toggleFaq(el){el.closest('.faq-item').classList.toggle('open');}
+// ═══════════════════════════════════════════════
+// UI HELPERS
+// ═══════════════════════════════════════════════
+window.openAuth = function(tab){ document.getElementById('authModal').classList.add('open'); switchAuth(tab); }
+window.closeModal = function(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
 
-function submitGeneric(btn) {
-  var orig=btn.innerHTML;
+window.switchAuth = function(tab){
+  document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.auth-content').forEach(c=>c.classList.remove('active'));
+  document.querySelector(`.auth-tab:nth-child(${tab==='login'?1:2})`).classList.add('active');
+  document.getElementById(`auth-${tab}`).classList.add('active');
+}
+
+window.showSection = function(name){
+  document.getElementById('sec-home').style.display = name==='home'?'block':'none';
+  ['deposit','account','orders','transactions'].forEach(s=>{
+    const el=document.getElementById('sec-'+s);
+    if(el)el.style.display=s===name?'block':'none';
+  });
+  document.getElementById('userDropdown')?.classList.remove('show');
+  window.scrollTo(0,0);
+}
+
+window.toggleMobileMenu = function(){ document.getElementById('mobileMenu').classList.toggle('open'); }
+window.toggleUserDropdown = function(e) { e.stopPropagation(); document.getElementById('userDropdown').classList.toggle('show'); };
+window.addEventListener('click', function(e) { const d = document.getElementById('userDropdown'); if (d) d.classList.remove('show'); });
+
+window.submitGeneric = function(btn){
+  const orig=btn.innerHTML;
   btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';btn.disabled=true;
-  setTimeout(function(){
-    btn.innerHTML='<i class="fas fa-check"></i> Đặt hàng thành công!';
+  setTimeout(()=>{
+    btn.innerHTML='<i class="fas fa-check"></i> Đặt thành công!';
     btn.style.background='linear-gradient(135deg,var(--accent3),#00a876)';
-    setTimeout(function(){
-      btn.innerHTML=orig;btn.style.background='';btn.disabled=false;
-      closeModal('svcModal'); closeModal('prodModal');
-    },2500);
+    setTimeout(()=>{btn.innerHTML=orig;btn.style.background='';btn.disabled=false; closeModal('svcModal'); closeModal('prodModal');},2500);
   },1500);
 }
 
-// INIT
-function init() {
-  try { renderProducts(); } catch(e) { console.error('renderProducts error:', e); }
-  try { renderServices(); } catch(e) { console.error('renderServices error:', e); }
-}
-if(document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
-
+// Khởi tạo
+renderProducts();
+renderServices();
 </script>
 
 <script type="module">
@@ -1262,8 +1306,7 @@ import {
   signOut, onAuthStateChanged, updatePassword, sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import {
-  getFirestore, doc, setDoc, getDoc, updateDoc,
-  collection, query, where, getDocs, orderBy, limit, serverTimestamp
+  getFirestore, doc, setDoc, getDoc, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -1279,214 +1322,67 @@ const firebaseConfig = {
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
+window.currentUserData = null; 
 
-window.firebaseAuth = auth;
-
-// ══════════════════════════════════════════════════════
-// HELPERS
-// ══════════════════════════════════════════════════════
 function showAlert(msg, type='error'){
   const el = document.getElementById('auth-alert');
   el.style.display = 'block';
   el.style.background = type==='success' ? 'rgba(0,212,170,0.12)' : 'rgba(255,71,87,0.12)';
-  el.style.border = '1px solid ' + (type==='success' ? 'rgba(0,212,170,0.3)' : 'rgba(255,71,87,0.3)');
   el.style.color = type==='success' ? 'var(--accent3)' : 'var(--red)';
   el.innerHTML = (type==='success'?'✅ ':'❌ ') + msg;
-  if(type==='success') setTimeout(()=>el.style.display='none', 3000);
-}
-function clearAlert(){ document.getElementById('auth-alert').style.display='none'; }
-function setBtnLoading(id, loading, text=''){ 
-  const btn=document.getElementById(id);
-  if(!btn)return;
-  btn.disabled=loading;
-  btn.innerHTML=loading?'<i class="fas fa-spinner fa-spin"></i> Đang xử lý...':`<i class="fas fa-check"></i> ${text}`;
-}
-function getFirebaseError(code){
-  const map={
-    'auth/email-already-in-use': 'Email này đã được đăng ký!',
-    'auth/invalid-email': 'Email không hợp lệ!',
-    'auth/weak-password': 'Mật khẩu quá yếu (tối thiểu 6 ký tự)!',
-    'auth/user-not-found': 'Không tìm thấy tài khoản!',
-    'auth/wrong-password': 'Mật khẩu không đúng!',
-    'auth/invalid-credential': 'Email hoặc mật khẩu không đúng!',
-    'auth/too-many-requests': 'Quá nhiều lần thử, vui lòng thử lại sau!',
-    'auth/network-request-failed': 'Lỗi kết nối mạng!'
-  };
-  return map[code] || 'Lỗi: ' + code;
 }
 
-// ══════════════════════════════════════════════════════
-// ĐĂNG KÝ
-// ══════════════════════════════════════════════════════
 window.doRegister = async function(){
-  clearAlert();
-  const username = document.getElementById('reg-username').value.trim();
-  const email    = document.getElementById('reg-email').value.trim();
+  const username = document.getElementById('reg-username').value;
+  const email    = document.getElementById('reg-email').value;
   const password = document.getElementById('reg-password').value;
-  if(!username || username.length < 4) return showAlert('Username tối thiểu 4 ký tự!');
-  if(!email) return showAlert('Vui lòng nhập email!');
-  if(!password || password.length < 6) return showAlert('Mật khẩu tối thiểu 6 ký tự!');
-  setBtnLoading('reg-btn', true);
   try {
     const cred = await createUserWithEmailAndPassword(auth, email, password);
     await setDoc(doc(db, 'users', cred.user.uid), {
-      uid: cred.user.uid,
-      username,
-      email,
-      balance: 0,
-      total_deposit: 0,
-      total_orders: 0,
-      rank: 'Thành Viên',
-      role: 'user',
-      created_at: serverTimestamp(),
+      uid: cred.user.uid, username, email, balance: 0, created_at: serverTimestamp()
     });
-    showAlert('Đăng ký thành công! Chào mừng ' + username, 'success');
-    setTimeout(()=>{ document.getElementById('reg-username').value=''; document.getElementById('reg-email').value=''; document.getElementById('reg-password').value=''; closeModal('authModal'); }, 1500);
-  } catch(e) {
-    showAlert(getFirebaseError(e.code));
-    setBtnLoading('reg-btn', false);
-    document.getElementById('reg-btn').innerHTML='<i class="fas fa-user-plus"></i> Đăng Ký Ngay';
-  }
+    showAlert('Đăng ký thành công!', 'success');
+    setTimeout(()=> closeModal('authModal'), 1000);
+  } catch(e) { showAlert('Lỗi: ' + e.message); }
 };
 
-// ══════════════════════════════════════════════════════
-// ĐĂNG NHẬP
-// ══════════════════════════════════════════════════════
 window.doLogin = async function(){
-  clearAlert();
-  const email    = document.getElementById('login-email').value.trim();
+  const email    = document.getElementById('login-email').value;
   const password = document.getElementById('login-password').value;
-  if(!email) return showAlert('Vui lòng nhập email!');
-  if(!password) return showAlert('Vui lòng nhập mật khẩu!');
-  setBtnLoading('login-btn', true);
   try {
     await signInWithEmailAndPassword(auth, email, password);
     showAlert('Đăng nhập thành công!', 'success');
-    setTimeout(()=>{ document.getElementById('login-email').value=''; document.getElementById('login-password').value=''; closeModal('authModal'); }, 1000);
-  } catch(e) {
-    showAlert(getFirebaseError(e.code));
-    setBtnLoading('login-btn', false);
-    document.getElementById('login-btn').innerHTML='<i class="fas fa-sign-in-alt"></i> Đăng Nhập';
-  }
+    setTimeout(()=> closeModal('authModal'), 1000);
+  } catch(e) { showAlert('Sai tài khoản hoặc mật khẩu!'); }
 };
 
-// ══════════════════════════════════════════════════════
-// ĐĂNG XUẤT
-// ══════════════════════════════════════════════════════
-window.doLogout = async function(){
-  await signOut(auth);
-  showSection('home');
-};
-
-// ══════════════════════════════════════════════════════
-// QUÊN MẬT KHẨU
-// ══════════════════════════════════════════════════════
-window.forgotPassword = async function(){
-  const email = document.getElementById('login-email').value.trim();
-  if(!email) return showAlert('Nhập email vào ô trên trước!');
-  try {
-    await sendPasswordResetEmail(auth, email);
-    showAlert('Đã gửi email đặt lại mật khẩu! Kiểm tra hộp thư.', 'success');
-  } catch(e){ showAlert(getFirebaseError(e.code)); }
-};
-
-// ══════════════════════════════════════════════════════
-// ĐỔI MẬT KHẨU
-// ══════════════════════════════════════════════════════
-window.doChangePassword = async function(btn){
-  const np = document.getElementById('new-password').value;
-  const cp = document.getElementById('confirm-password').value;
-  if(!np || np.length < 6) return alert('Mật khẩu tối thiểu 6 ký tự!');
-  if(np !== cp) return alert('Mật khẩu xác nhận không khớp!');
-  const orig = btn.innerHTML;
-  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Đang đổi...'; btn.disabled=true;
-  try {
-    await updatePassword(auth.currentUser, np);
-    btn.innerHTML='<i class="fas fa-check"></i> Đổi thành công!';
-    btn.style.background='linear-gradient(135deg,var(--accent3),#00a876)';
-    document.getElementById('new-password').value='';
-    document.getElementById('confirm-password').value='';
-    setTimeout(()=>{ btn.innerHTML=orig; btn.style.background=''; btn.disabled=false; }, 2500);
-  } catch(e){ alert(getFirebaseError(e.code)); btn.innerHTML=orig; btn.disabled=false; }
-};
-
-// ══════════════════════════════════════════════════════
-// THEO DÕI TRẠNG THÁI ĐĂNG NHẬP
-// ══════════════════════════════════════════════════════
-window.currentUserData = null; // Lưu trữ data user để dùng hiển thị Số dư lúc mua hàng
+window.doLogout = async function(){ await signOut(auth); showSection('home'); };
 
 onAuthStateChanged(auth, async (user) => {
-  const guest = document.getElementById('nav-actions-guest');
-  const loggedIn = document.getElementById('nav-actions-user');
-  
-  // Element ẩn/hiện tuỳ trạng thái
-  const mobileAuthBtns = document.getElementById('mobile-auth-btns');
-  const mainNavLinks = document.getElementById('main-nav-links');
-  const navHamburger = document.getElementById('nav-hamburger');
-  const heroRegBtn = document.getElementById('hero-register-btn');
-  const ctaRegBtn = document.getElementById('cta-register-btn');
-  
+  window.firebaseAuth = auth;
   if(user){
-    // ---------------- ĐÃ ĐĂNG NHẬP ----------------
-    guest.style.display = 'none';
-    loggedIn.style.display = 'flex';
+    document.getElementById('nav-actions-guest').style.display='none';
+    document.getElementById('nav-actions-user').style.display='flex';
+    if(document.getElementById('hero-register-btn')) document.getElementById('hero-register-btn').style.display='none';
     
-    // Ẩn Menu ngang và Hamburger vì đã có Dropdown
-    if(mainNavLinks) mainNavLinks.style.display = 'none';
-    if(navHamburger) navHamburger.style.display = 'none';
-    if(mobileAuthBtns) mobileAuthBtns.style.display = 'none';
-    
-    // Ẩn nút "Đăng Ký Miễn Phí"
-    if(heroRegBtn) heroRegBtn.style.display = 'none';
-    if(ctaRegBtn) ctaRegBtn.style.display = 'none';
-    
-    // Lấy thông tin từ Firestore
     const snap = await getDoc(doc(db, 'users', user.uid));
     if(snap.exists()){
       window.currentUserData = snap.data();
-      const uname = window.currentUserData.username || user.email.split('@')[0];
+      const uname = window.currentUserData.username || 'User';
       const bal   = (window.currentUserData.balance||0).toLocaleString('vi-VN');
       
-      // Cập nhật navbar (Dropdown mới)
       document.getElementById('nav-username').textContent = uname;
       document.getElementById('nav-avatar').textContent = uname[0].toUpperCase();
       document.getElementById('nav-balance').textContent = bal+'đ';
-      
-      // Cập nhật profile page
-      document.getElementById('profile-username').textContent = uname;
-      document.getElementById('profile-email').textContent = user.email;
-      document.getElementById('profile-avatar').textContent = uname[0].toUpperCase();
-      document.getElementById('profile-balance').textContent = bal;
-      document.getElementById('stat-orders').textContent = window.currentUserData.total_orders||0;
-      document.getElementById('stat-deposit').textContent = (window.currentUserData.total_deposit||0).toLocaleString('vi-VN')+'đ';
-      if(window.currentUserData.created_at?.toDate){ document.getElementById('stat-joined').textContent = window.currentUserData.created_at.toDate().toLocaleDateString('vi-VN'); }
     }
   } else {
-    // ---------------- CHƯA ĐĂNG NHẬP ----------------
     window.currentUserData = null;
-    guest.style.display = 'flex';
-    loggedIn.style.display = 'none';
-    
-    // Khôi phục lại hiển thị mặc định
-    if(mainNavLinks) mainNavLinks.style.display = '';
-    if(navHamburger) navHamburger.style.display = '';
-    if(mobileAuthBtns) mobileAuthBtns.style.display = 'flex';
-    
-    // Hiện lại nút "Đăng Ký Miễn Phí"
-    if(heroRegBtn) heroRegBtn.style.display = 'inline-flex';
-    if(ctaRegBtn) ctaRegBtn.style.display = 'inline-flex';
+    document.getElementById('nav-actions-guest').style.display='flex';
+    document.getElementById('nav-actions-user').style.display='none';
+    if(document.getElementById('hero-register-btn')) document.getElementById('hero-register-btn').style.display='inline-flex';
   }
 });
-
-// ══════════════════════════════════════════════════════
-// MISC HELPERS
-// ══════════════════════════════════════════════════════
-window.togglePwd = function(id){
-  const inp = document.getElementById(id);
-  const eye = document.getElementById(id+'-eye') || document.getElementById(id.replace('-password','-eye'));
-  if(inp.type==='password'){ inp.type='text'; if(eye){ eye.className='fas fa-eye-slash'; } }
-  else { inp.type='password'; if(eye){ eye.className='fas fa-eye'; } }
-};
+window.togglePwd = function(id){ const i = document.getElementById(id); i.type = i.type==='password'?'text':'password'; };
 </script>
 </body>
 </html>
