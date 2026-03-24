@@ -205,9 +205,11 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .prod-htext p { font-size:13px; color:var(--text2); }
 .prod-stars { color:var(--gold); font-size:12px; margin-top:4px; }
 
-.pkg-list { display:flex; flex-direction:column; gap:12px; max-height:400px; overflow-y:auto; padding-right:5px;}
-.pkg-list::-webkit-scrollbar {width:4px;}
-.pkg-list::-webkit-scrollbar-thumb {background:var(--border2); border-radius:4px;}
+.pkg-list { display:flex; flex-direction:column; gap:12px; height: 340px; overflow-y:auto; padding-right:10px;}
+.pkg-list::-webkit-scrollbar {width:6px;}
+.pkg-list::-webkit-scrollbar-track {background: rgba(255,255,255,0.05); border-radius:8px;}
+.pkg-list::-webkit-scrollbar-thumb {background: var(--accent); border-radius:8px;}
+.pkg-list::-webkit-scrollbar-thumb:hover {background: #8b5cf6;}
 .pkg-card { background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:16px; cursor:pointer; transition:all 0.2s; display:flex; justify-content:space-between; align-items:center; position:relative; overflow:hidden;}
 .pkg-card:hover { border-color:var(--border2); }
 .pkg-card.active { border-color:var(--accent); background:rgba(108,99,255,0.05); }
