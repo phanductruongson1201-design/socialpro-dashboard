@@ -197,7 +197,7 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .info-list li{font-size:12.5px;color:var(--text2);display:flex;align-items:flex-start;gap:7px;line-height:1.5;}
 .info-list li::before{content:'✓';color:var(--accent3);font-weight:700;}
 
-/* ================= PREMIUM PRODUCT MODAL (NEW UI) ================= */
+/* ================= PREMIUM PRODUCT MODAL ================= */
 #prodModal .modal { max-width: 900px; }
 .prod-header-top { display:flex; align-items:center; gap:16px; margin-bottom: 24px; }
 .prod-big-icon { width:64px; height:64px; border-radius:16px; background:var(--bg3); display:flex; align-items:center; justify-content:center; font-size:32px; flex-shrink:0; }
@@ -234,6 +234,30 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .auth-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
 .auth-content{display:none;}
 .auth-content.active{display:flex;flex-direction:column;gap:16px;}
+
+/* ================= INVOICE MODAL (QR NẠP TIỀN) ================= */
+#invoiceModal .modal { max-width: 420px; background: #ffffff; color: #333; border-radius: 24px; border: none; }
+.inv-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 24px 16px; border-bottom: 1px dashed #e0e0e0; }
+.inv-title { font-size: 18px; font-weight: 800; color: #111; margin-bottom: 4px; }
+.inv-code { font-size: 12px; color: #666; font-weight: 500; }
+.inv-status { background: #fff4e5; color: #fa8c16; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+
+.inv-body { padding: 24px; }
+.inv-qr-card { background: #f9f9f9; border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 24px; }
+.inv-qr-card img { width: 180px; height: 180px; object-fit: contain; border-radius: 8px; margin-bottom: 12px; }
+.inv-qr-text { font-size: 12.5px; font-weight: 600; color: #555; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.inv-timer { background: #f0f0f0; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; color: #333; }
+
+.inv-details-title { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+.inv-detail-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 13.5px; }
+.inv-detail-row span { color: #666; }
+.inv-detail-row strong { color: #111; font-weight: 700; text-align: right; }
+.inv-detail-row .copyable { cursor: pointer; color: #0068ff; transition: opacity 0.2s; display: flex; align-items: center; gap: 6px; }
+.inv-detail-row .copyable:hover { opacity: 0.7; }
+
+.inv-divider { height: 1px; border-bottom: 1px dashed #e0e0e0; margin: 16px 0; }
+.inv-total { font-size: 16px; }
+.inv-total strong { color: #0068ff; font-size: 20px; font-weight: 900; }
 
 /* FEATURES */
 .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
@@ -312,7 +336,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
   .cta-section{padding:40px 20px;margin:40px 16px;}
   .pkg-card { flex-direction:column; align-items:flex-start; gap:10px; }
   .pkg-price-col { align-self:flex-end; }
-  .dep-grid { grid-template-columns:1fr !important; }
 }
 </style>
 </head>
@@ -575,37 +598,16 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
 </div>
 
 <div id="sec-deposit" style="display:none;padding:40px 24px;max-width:800px;margin:0 auto">
-  <h2 style="font-size:26px;font-weight:800;margin-bottom:24px"><i class="fas fa-coins" style="color:var(--accent3)"></i> Nạp Tiền Tự Động</h2>
+  <h2 style="font-size:26px;font-weight:800;margin-bottom:24px;text-align:center;"><i class="fas fa-coins" style="color:var(--accent3)"></i> Nạp Tiền Tự Động</h2>
   
-  <div class="dep-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
-    <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:24px;">
-      <div style="font-size:14px;font-weight:700;color:var(--accent3);margin-bottom:14px"><i class="fas fa-magic"></i> Nhập số tiền nạp</div>
-      
-      <div class="form-group">
-        <label class="form-label">Số tiền cần nạp (VNĐ)</label>
-        <input class="form-input" type="number" id="deposit-amount" placeholder="VD: 50000">
-      </div>
-      
-      <button class="submit-btn" style="margin-top:16px; background:linear-gradient(135deg, var(--accent3), #00a876);" onclick="generateQR()"><i class="fas fa-qrcode"></i> Tạo mã Nạp Ngay</button>
-
-      <div id="deposit-details" style="display:none; background:rgba(108,99,255,0.1);border:1px solid rgba(108,99,255,0.2);border-radius:12px;padding:16px;margin-top:20px;">
-        <div style="font-size:12px;color:var(--text2);margin-bottom:4px">Nội dung chuyển khoản (Tự động):</div>
-        <div style="font-size:16px;font-weight:800;color:var(--text);letter-spacing:1px" id="deposit-syntax">DVPRO ...</div>
-      </div>
-      
-      <div style="font-size:12px;color:var(--text3);margin-top:14px;line-height:1.5;">
-        <i class="fas fa-info-circle" style="color:var(--accent3)"></i> Hệ thống tự động (SePay) cộng tiền trong 1–3 phút sau khi chuyển khoản thành công. Tối thiểu nạp 20,000đ.
-      </div>
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:32px;max-width:500px;margin:0 auto 40px;text-align:center;">
+    <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:20px">Nhập số tiền bạn muốn nạp vào hệ thống</div>
+    <div class="form-group" style="text-align:left;">
+      <input class="form-input" type="number" id="deposit-amount" placeholder="VD: 50000" style="font-size:18px; font-weight:bold; padding:16px; text-align:center;">
     </div>
-
-    <div id="qr-section" style="display:none; background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;flex-direction:column;align-items:center;justify-content:center;">
-      <div style="font-size:14px;font-weight:700;margin-bottom:16px">Quét mã bằng App Ngân Hàng</div>
-      <div class="qr-container" style="background:#fff;padding:10px;border-radius:12px;display:inline-block;width:200px;height:200px;margin-bottom:16px;">
-        <img id="vietqr-img" src="" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">
-      </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.5;">
-        Quét mã QR để chuyển khoản nhanh. Không cần nhập tay số tài khoản & nội dung.
-      </div>
+    <button class="submit-btn" style="margin-top:10px; padding:16px; font-size:16px; background:linear-gradient(135deg, var(--accent3), #00a876);" onclick="generateQR()">Tạo Hóa Đơn Nạp Tiền</button>
+    <div style="font-size:12px;color:var(--text3);margin-top:16px;line-height:1.5;">
+      Tối thiểu nạp 20,000đ. Hệ thống tự động (SePay) cộng tiền trong 1–3 phút.
     </div>
   </div>
 
@@ -834,11 +836,76 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
   </div>
 </div>
 
+<div class="modal-overlay" id="invoiceModal">
+  <div class="modal invoice-modal" style="max-width: 420px; background: #ffffff; color: #333; border-radius: 24px; border: none; overflow: hidden;">
+    <div class="inv-header" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 24px 16px; border-bottom: 1px dashed #e0e0e0;">
+      <div>
+        <div class="inv-title" style="font-size: 18px; font-weight: 800; color: #111; margin-bottom: 4px;">Thanh toán hóa đơn</div>
+        <div class="inv-code" style="font-size: 12px; color: #666; font-weight: 500;">Mã hoá đơn: <span id="inv-id" style="font-weight:700;">TTHOXEZSYX</span></div>
+      </div>
+      <div class="inv-status" style="background: #fff4e5; color: #fa8c16; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;">Đang chờ</div>
+    </div>
+
+    <div class="inv-body" style="padding: 24px;">
+      
+      <div class="inv-qr-card" style="background: #fdfdfd; border:1px solid #eee; border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 24px;">
+        <img id="inv-qr-img" src="" alt="QR Code" style="width: 200px; height: 200px; object-fit: contain; border-radius: 8px; margin-bottom: 16px;">
+        <div class="inv-qr-text" style="font-size: 12.5px; font-weight: 600; color: #555; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+          <i class="fas fa-qrcode"></i> Quét mã QR để chuyển khoản nhanh
+        </div>
+        <div class="inv-timer" style="background: #f0f0f0; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; color: #333;">
+          <i class="fas fa-clock"></i> Hết hạn sau: <span id="inv-countdown" style="color:var(--red)">10:00</span>
+        </div>
+      </div>
+
+      <div class="inv-details-title" style="font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;">THÀNH PHẦN THANH TOÁN</div>
+      
+      <div class="inv-detail-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 13.5px;">
+        <span style="color: #666;">Ngân hàng</span>
+        <strong style="color: #00a876; font-weight: 700; text-align: right;">MB Bank</strong>
+      </div>
+      <div class="inv-detail-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 13.5px;">
+        <span style="color: #666;">Chủ tài khoản</span>
+        <strong style="color: #111; font-weight: 700; text-align: right;">PHAN DUC TRUONG SON</strong>
+      </div>
+      <div class="inv-detail-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 13.5px;">
+        <span style="color: #666;">Số tài khoản</span>
+        <strong class="copyable" onclick="copyToClipboard('VQRQAHQHF1360')" style="cursor: pointer; color: #0068ff; display: flex; align-items: center; gap: 6px; font-weight: 700;">VQRQAHQHF1360 <i class="fas fa-copy"></i></strong>
+      </div>
+      <div class="inv-detail-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 13.5px;">
+        <span style="color: #666;">Nội dung</span>
+        <strong class="copyable" id="inv-content-text" style="cursor: pointer; color: #f5c842; display: flex; align-items: center; gap: 6px; font-weight: 700;">... <i class="fas fa-copy"></i></strong>
+      </div>
+
+      <div class="inv-divider" style="height: 1px; border-bottom: 1px dashed #e0e0e0; margin: 16px 0;"></div>
+
+      <div class="inv-detail-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 13.5px;">
+        <span style="color: #666;">Số tiền yêu cầu</span>
+        <strong id="inv-amount-req" style="color: #111; font-weight: 700;">0</strong>
+      </div>
+      <div class="inv-detail-row inv-total" style="display: flex; justify-content: space-between; align-items: center; font-size: 16px;">
+        <span style="color: #666;">Thực nhận</span>
+        <strong id="inv-amount-receive" style="color: #0068ff; font-size: 22px; font-weight: 900;">+ 0</strong>
+      </div>
+      
+      <button class="submit-btn" style="margin-top: 24px; padding: 14px; border-radius: 12px; background: #f0f0f0; color: #333; box-shadow: none;" onclick="closeModal('invoiceModal')">Đóng hóa đơn</button>
+
+    </div>
+  </div>
+</div>
+
 <script>
 // ═══════════════════════════════════════════════
-// HÀM TẠO MÃ VIETQR (SAU KHI BẤM NÚT)
+// HÀM TẠO HÓA ĐƠN & QR (HIỆN POPUP MỚI)
 // ═══════════════════════════════════════════════
+let invTimer;
+
 window.generateQR = function() {
+  if(!window.currentUserData) { 
+    openAuth('login'); 
+    return; 
+  }
+
   const amountInput = document.getElementById('deposit-amount').value;
   const amount = parseInt(amountInput) || 0;
 
@@ -847,23 +914,73 @@ window.generateQR = function() {
     return;
   }
 
-  const username = window.currentUserData ? window.currentUserData.username : 'KHACH';
+  const username = window.currentUserData.username;
   const syntax = `DVPRO ${username}`;
 
-  document.getElementById('deposit-syntax').textContent = syntax;
+  // Tạo mã đơn ngẫu nhiên
+  const invoiceId = "SP" + Math.random().toString(36).substr(2, 8).toUpperCase();
+  document.getElementById('inv-id').textContent = invoiceId;
+  
+  // Gắn nội dung CK và sự kiện copy
+  document.getElementById('inv-content-text').innerHTML = `${syntax} <i class="fas fa-copy"></i>`;
+  document.getElementById('inv-content-text').setAttribute('onclick', `copyToClipboard('${syntax}')`);
 
-  const bankID = 'MB';
+  // Gắn số tiền
+  document.getElementById('inv-amount-req').textContent = amount.toLocaleString('vi-VN');
+  document.getElementById('inv-amount-receive').textContent = "+ " + amount.toLocaleString('vi-VN');
+
+  // Tạo URL QR Code
+  const bankID = 'MB'; 
   const bankAcc = 'VQRQAHQHF1360';
   const accountName = 'PHAN DUC TRUONG SON';
-
   const qrUrl = `https://img.vietqr.io/image/${bankID}-${bankAcc}-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(syntax)}&accountName=${encodeURIComponent(accountName)}`;
+  
+  document.getElementById('inv-qr-img').src = qrUrl;
 
-  document.getElementById('vietqr-img').src = qrUrl;
+  // Hiển thị Modal Hóa đơn
+  document.getElementById('invoiceModal').classList.add('open');
 
-  // Hiển thị phần QR và nội dung sau khi bấm nút
-  document.getElementById('deposit-details').style.display = 'block';
-  document.getElementById('qr-section').style.display = 'flex';
+  // Khởi động đếm ngược 10 phút
+  startInvoiceTimer();
 }
+
+window.startInvoiceTimer = function() {
+  clearInterval(invTimer);
+  let time = 600; // 10 phút = 600 giây
+  const display = document.getElementById('inv-countdown');
+  
+  invTimer = setInterval(() => {
+    let minutes = parseInt(time / 60, 10);
+    let seconds = parseInt(time % 60, 10);
+    
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    
+    display.textContent = minutes + ":" + seconds;
+    
+    if (--time < 0) {
+      clearInterval(invTimer);
+      display.textContent = "Hết hạn";
+    }
+  }, 1000);
+};
+
+window.copyToClipboard = function(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    // Hiển thị thông báo nhỏ dạng alert
+    const el = document.getElementById('auth-alert');
+    el.style.display = 'block';
+    el.style.background = 'rgba(0,212,170,0.12)';
+    el.style.border = '1px solid rgba(0,212,170,0.3)';
+    el.style.color = 'var(--accent3)';
+    el.style.position = 'fixed';
+    el.style.top = '20px';
+    el.style.right = '20px';
+    el.style.zIndex = '99999';
+    el.innerHTML = '✅ Đã sao chép: ' + text;
+    setTimeout(() => { el.style.display = 'none'; }, 2500);
+  });
+};
 
 // ═══════════════════════════════════════════════
 // DATA SẢN PHẨM & DỊCH VỤ CẬP NHẬT MỚI
@@ -1147,190 +1264,6 @@ function switchPlatform(key,btn){
 }
 
 // ═══════════════════════════════════════════════
-// LOGIC SẢN PHẨM PREMIUM (GIAO DIỆN MỚI)
-// ═══════════════════════════════════════════════
-let selectedProdPackagePrice = 0;
-
-window.openProdModal = function(idx) {
-  // BẮT ĐĂNG NHẬP
-  if(!window.currentUserData) { openAuth('login'); return; }
-  
-  const prod = PRODUCTS[idx];
-  document.getElementById('pm-icon').innerHTML = prod.icon;
-  document.getElementById('pm-icon').style.color = prod.color;
-  document.getElementById('pm-title').textContent = prod.name;
-  document.getElementById('pm-desc').textContent = prod.desc;
-  document.getElementById('pm-note').innerHTML = prod.note;
-  
-  // Render danh sách gói
-  const pkgContainer = document.getElementById('pm-packages');
-  pkgContainer.innerHTML = prod.packages.map((pkg, i) => {
-    let tagsHtml = pkg.tags.map(t => {
-      let c = 'ptag-bao';
-      if(t === 'Giao ngay') c = 'ptag-giao';
-      if(t === 'Bán chạy') c = 'ptag-hot';
-      let icon = t==='Giao ngay'?'⚡':t==='Bán chạy'?'🔥':'♻️';
-      return `<div class="ptag ${c}">${icon} ${t}</div>`;
-    }).join('');
-    
-    return `
-    <div class="pkg-card ${i===0?'active':''}" onclick="selProdPkg(this, ${pkg.price})">
-      <div class="pkg-info">
-        <h4>${pkg.name}</h4>
-        <p>${pkg.desc}</p>
-        <div class="pkg-tags">${tagsHtml}</div>
-      </div>
-      <div class="pkg-price-col">${pkg.price.toLocaleString('vi-VN')}đ</div>
-    </div>`;
-  }).join('');
-  
-  selectedProdPackagePrice = prod.packages[0].price;
-  document.getElementById('pm-total').textContent = selectedProdPackagePrice.toLocaleString('vi-VN') + 'đ';
-  document.getElementById('pm-input').value = '';
-  document.getElementById('prodModal').classList.add('open');
-}
-
-window.selProdPkg = function(el, price) {
-  document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  selectedProdPackagePrice = price;
-  document.getElementById('pm-total').textContent = selectedProdPackagePrice.toLocaleString('vi-VN') + 'đ';
-}
-
-// ═══════════════════════════════════════════════
-// LOGIC DỊCH VỤ SMM (TỰ ĐỘNG CHUYỂN GÓI THÁNG HOẶC THƯỜNG)
-// ═══════════════════════════════════════════════
-let currentOpt = 12;
-
-window.openSvcModal = function(name, platKey, color, minAmount, priceStr) {
-  if(!window.currentUserData) { openAuth('login'); return; }
-  document.getElementById('svcModalTitle').innerHTML=`<span style="color:${color}">${name}</span>`;
-
-  let numericPrice = parseInt(priceStr.replace(/[^\d]/g, '')) || 12;
-  let minQty = parseInt(minAmount.replace(/[^\d]/g, '')) || 100;
-  const isCmt = name.toLowerCase().includes('bình luận') || name.toLowerCase().includes('đánh giá');
-  const isThang = name.toLowerCase().includes('tháng') || name.toLowerCase().includes('vip');
-  
-  let formHtml = '';
-  
-  if(isThang) {
-    // GIAO DIỆN GÓI THÁNG
-    formHtml = `
-      <div style="background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:16px;">
-        <strong style="color:var(--text); font-size:14px; display:block; margin-bottom:8px;">${name}</strong>
-        - Min - Max: ${minAmount} - 10,000<br>
-        - Thời gian xử lý: 00:00:00<br>
-        Máy chủ sử dụng nguồn tài khoản Việt Nam - Người dùng bấm tay.
-      </div>
-      
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px;">
-        <div style="background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.2); color:var(--accent3); padding:10px; border-radius:10px; font-size:12px; font-weight:600; display:flex; flex-direction:column; gap:4px;"><span style="color:var(--text2);font-weight:400;font-size:11px">Trạng thái</span><span><i class="fas fa-check-circle"></i> Hoạt Động</span></div>
-        <div style="background:rgba(108,99,255,0.08); border:1px solid rgba(108,99,255,0.2); color:var(--accent); padding:10px; border-radius:10px; font-size:12px; font-weight:600; display:flex; flex-direction:column; gap:4px;"><span style="color:var(--text2);font-weight:400;font-size:11px">Thời gian trung bình</span><span><i class="fas fa-clock"></i> 00:00:00</span></div>
-        <div style="background:rgba(255,71,87,0.08); border:1px solid rgba(255,71,87,0.2); color:var(--red); padding:10px; border-radius:10px; font-size:12px; font-weight:600; display:flex; flex-direction:column; gap:4px;"><span style="color:var(--text2);font-weight:400;font-size:11px">Hoàn tiền</span><span><i class="fas fa-ban"></i> Không hoàn tiền</span></div>
-        <div style="background:rgba(255,107,157,0.08); border:1px solid rgba(255,107,157,0.2); color:var(--accent2); padding:10px; border-radius:10px; font-size:12px; font-weight:600; display:flex; flex-direction:column; gap:4px;"><span style="color:var(--text2);font-weight:400;font-size:11px">Bảo hành</span><span><i class="fas fa-sync-alt"></i> Không bảo hành</span></div>
-      </div>
-
-      <div class="form-group"><label class="form-label">Link Profile/Page cần cài đặt</label><input class="form-input" type="text" placeholder="Dán link vào đây..."></div>
-
-      <div class="form-group">
-          <label class="form-label">Thời gian (Ngày)</label>
-          <select class="form-input" id="svc-days" onchange="calcPriceThang(${numericPrice})">
-              <option value="7">7 Ngày</option>
-              <option value="15">15 Ngày</option>
-              <option value="30" selected>30 Ngày</option>
-              <option value="60">60 Ngày</option>
-              <option value="90">90 Ngày</option>
-          </select>
-      </div>
-      <div class="form-group">
-          <label class="form-label">Số bài viết / Ngày</label>
-          <input class="form-input" type="number" id="svc-posts" value="5" oninput="calcPriceThang(${numericPrice})">
-      </div>
-      <div class="form-group">
-          <label class="form-label">Số lượng (${minAmount} ~ 10,000)</label>
-          <input class="form-input" type="number" id="svc-qty" value="${minQty}" oninput="calcPriceThang(${numericPrice})">
-      </div>
-      <div class="form-group"><label class="form-label">Giá tiền</label><div class="price-box"><span class="price-box-label">Tổng thanh toán</span><span class="price-box-value" id="svc-price">0 đ</span></div></div>
-      <button class="submit-btn" onclick="submitGeneric(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>
-    `;
-  } else {
-    // GIAO DIỆN GÓI THƯỜNG
-    let cmtField = '';
-    if(isCmt) {
-      const cmtType = name.toLowerCase().includes('đánh giá') ? 'đánh giá' : 'bình luận';
-      cmtField = `
-      <div class="form-group">
-        <label class="form-label">Nội dung ${cmtType} <span style="color:var(--text3);font-weight:400">(mỗi dòng 1 nội dung)</span></label>
-        <textarea class="form-input" id="svc-comments" rows="4" placeholder="Nhập nội dung (mỗi dòng 1 nội dung). Để trống hệ thống sẽ tự random..."></textarea>
-        <div style="font-size:11.5px;color:var(--text3);margin-top:4px"><i class="fas fa-info-circle" style="color:var(--accent3)"></i> Hệ thống tự đếm số dòng để tính số lượng.</div>
-      </div>`;
-    }
-
-    formHtml = `
-      <div class="form-group"><label class="form-label">Link hoặc ID cần tăng</label><input class="form-input" type="text" placeholder="Dán link vào đây..."></div>
-      ${cmtField}
-      <div class="form-group"><label class="form-label">Chọn máy chủ (Server)</label>
-        <div class="server-options">
-          <div class="server-opt selected" onclick="selectOpt(this,${numericPrice})"><input type="radio" name="sopt" checked><div class="server-opt-info"><div><span class="server-opt-name">Gói Tiêu Chuẩn</span><span class="server-opt-price">${numericPrice}đ</span><span class="server-opt-badge sopt-active">Hoạt động</span></div><div class="server-opt-desc">Tốc độ trung bình, ổn định. Tối thiểu ${minAmount}.</div></div></div>
-          <div class="server-opt" onclick="selectOpt(this,${Math.round(numericPrice*1.5)})"><input type="radio" name="sopt"><div class="server-opt-info"><div><span class="server-opt-name">Gói Tốc Độ</span><span class="server-opt-price">${Math.round(numericPrice*1.5)}đ</span><span class="server-opt-badge sopt-active">Hoạt động</span></div><div class="server-opt-desc">Tốc độ nhanh, tăng trong vài giờ.</div></div></div>
-          <div class="server-opt" onclick="selectOpt(this,${numericPrice*2})"><input type="radio" name="sopt"><div class="server-opt-info"><div><span class="server-opt-name">Gói VIP Bảo Hành</span><span class="server-opt-price">${numericPrice*2}đ</span><span class="server-opt-badge sopt-active">Hoạt động</span></div><div class="server-opt-desc">Chất lượng cao, bảo hành 30 ngày.</div></div></div>
-        </div>
-      </div>
-      <div class="form-group"><label class="form-label">Số lượng</label><input class="form-input" type="number" id="svc-qty" value="${minQty}" oninput="calcPrice()"></div>
-      <div class="form-group"><label class="form-label">Giá tiền</label><div class="price-box"><span class="price-box-label">Tổng thanh toán</span><span class="price-box-value" id="svc-price">0 đ</span></div></div>
-      <button class="submit-btn" onclick="submitGeneric(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>`;
-  }
-
-  document.getElementById('svcModalForm').innerHTML = formHtml;
-  
-  let curBalance = window.currentUserData ? (window.currentUserData.balance||0).toLocaleString('vi-VN') : 0;
-  document.getElementById('svcModalInfo').innerHTML=`
-    <div class="info-card"><div class="info-card-title"><i class="fas fa-info-circle"></i> Lưu ý</div><ul class="info-list">
-      <li>Link/trang phải <strong>công khai</strong></li>
-      <li>Không đặt 2 đơn cùng lúc cho 1 link</li>
-      <li>Kết quả tăng dần, <strong>không đột ngột</strong></li>
-    </ul></div>
-    <div class="info-card"><div class="info-card-title"><i class="fas fa-bolt"></i> Số dư hiện tại</div><div style="font-size:22px;font-weight:800;color:var(--accent3)">${curBalance} đ</div><a href="#" onclick="closeModal('svcModal');showSection('deposit');return false" style="font-size:12px;color:var(--accent);text-decoration:none;display:block;margin-top:6px">+ Nạp thêm →</a></div>`;
-  
-  document.getElementById('svcModal').classList.add('open');
-  
-  if(isThang) {
-    window.calcPriceThang(numericPrice);
-  } else {
-    currentOpt = numericPrice;
-    window.calcPrice();
-    if(isCmt) {
-      const cmtInput = document.getElementById('svc-comments');
-      const qtyInput = document.getElementById('svc-qty');
-      cmtInput.addEventListener('input', function() {
-        const lines = this.value.split('\n').filter(line => line.trim() !== '').length;
-        if(lines > 0) { qtyInput.value = lines; calcPrice(); }
-      });
-    }
-  }
-}
-
-window.calcPriceThang = function(basePrice) {
-  const days = parseInt(document.getElementById('svc-days')?.value) || 30;
-  const posts = parseInt(document.getElementById('svc-posts')?.value) || 1;
-  const qty = parseInt(document.getElementById('svc-qty')?.value) || 0;
-  const total = basePrice * days * posts * qty;
-  const el = document.getElementById('svc-price');
-  if(el) el.textContent = total.toLocaleString('vi-VN') + ' đ';
-}
-
-window.selectOpt = function(el,price){
-  document.querySelectorAll('.server-opt').forEach(o=>{o.classList.remove('selected');o.querySelector('input').checked=false;});
-  el.classList.add('selected');el.querySelector('input').checked=true;
-  currentOpt=price;calcPrice();
-}
-window.calcPrice = function(){
-  const qty=parseInt(document.getElementById('svc-qty')?.value)||0;
-  const el=document.getElementById('svc-price');
-  if(el)el.textContent=Math.round(qty*currentOpt).toLocaleString('vi-VN')+' đ';
-}
-
-// ═══════════════════════════════════════════════
 // UI HELPERS
 // ═══════════════════════════════════════════════
 window.openAuth = function(tab){ document.getElementById('authModal').classList.add('open'); switchAuth(tab); }
@@ -1463,6 +1396,7 @@ onAuthStateChanged(auth, async (user) => {
       document.getElementById('stat-orders').textContent = window.currentUserData.total_orders||0;
       document.getElementById('stat-deposit').textContent = (window.currentUserData.total_deposit||0).toLocaleString('vi-VN')+'đ';
       if(window.currentUserData.created_at?.toDate){ document.getElementById('stat-joined').textContent = window.currentUserData.created_at.toDate().toLocaleDateString('vi-VN'); }
+      
     }
   } else {
     window.currentUserData = null;
