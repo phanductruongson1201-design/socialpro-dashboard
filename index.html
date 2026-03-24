@@ -141,6 +141,8 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .services-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;border-bottom:2px solid var(--border);padding-bottom:16px;}
 .svc-tab-btn{padding:7px 16px;border-radius:20px;font-size:13px;font-weight:600;background:var(--bg2);border:1px solid var(--border);color:var(--text2);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;}
 .svc-tab-btn:hover,.svc-tab-btn.active{background:rgba(108,99,255,0.15);border-color:var(--border2);color:var(--text);}
+.svc-tab-btn img{width:18px;height:18px;border-radius:4px;object-fit:cover;}
+
 .svc-platform-content{display:none;}
 .svc-platform-content.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
 
@@ -271,7 +273,7 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .faq-item{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
 .faq-q{padding:16px 20px;font-size:14px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .15s;}
 .faq-q:hover{background:var(--bg3);}
-.faq-q i{color:var(--accent);transition:transform .2s;font-size:12px;flex-shrink:0;}
+.faq-q i{color:var(--accent);transition:transform .2s;font-size:12px;}
 .faq-item.open .faq-q i{transform:rotate(180deg);}
 .faq-a{padding:0 20px;max-height:0;overflow:hidden;font-size:13.5px;color:var(--text2);line-height:1.7;transition:max-height .3s ease, padding .3s ease;}
 .faq-item.open .faq-a{max-height:300px;padding:0 20px 16px;}
@@ -598,11 +600,32 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
       <div style="font-size:14px;font-weight:700;margin-bottom:16px">Quét mã bằng App Ngân Hàng</div>
       <div class="qr-container" style="background:#fff;padding:10px;border-radius:12px;display:inline-block;width:200px;height:200px;margin-bottom:16px;">
-        <img id="vietqr-img" src="https://img.vietqr.io/image/MB-0123456789-compact2.png" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">
+        <img id="vietqr-img" src="https://img.vietqr.io/image/MB-VQRQAHQHF1360-compact2.png" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">
       </div>
       <div style="font-size:12px;color:var(--text2);line-height:1.5;">
         Quét mã QR để chuyển khoản nhanh. Không cần nhập tay số tài khoản & nội dung.
       </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 40px;">
+    <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+      <i class="fas fa-history" style="color:var(--accent)"></i> Lịch sử nạp tiền
+    </h3>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;text-align:left;">
+        <thead style="background:rgba(255,255,255,0.02);border-bottom:1px solid var(--border);">
+          <tr>
+            <th style="padding:16px;font-size:12px;color:var(--text2);font-weight:600;text-transform:uppercase;">Mã GD</th>
+            <th style="padding:16px;font-size:12px;color:var(--text2);font-weight:600;text-transform:uppercase;">Thời Gian</th>
+            <th style="padding:16px;font-size:12px;color:var(--text2);font-weight:600;text-transform:uppercase;">Số Tiền</th>
+            <th style="padding:16px;font-size:12px;color:var(--text2);font-weight:600;text-transform:uppercase;">Trạng Thái</th>
+          </tr>
+        </thead>
+        <tbody id="deposit-history-tbody">
+          <tr><td colspan="4" style="padding:30px;text-align:center;color:var(--text3);font-size:13.5px;">Chưa có giao dịch nạp tiền nào.</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
@@ -822,8 +845,8 @@ window.updateVietQR = function() {
   document.getElementById('deposit-syntax').textContent = syntax;
   
   const bankID = 'MB'; 
-  const bankAcc = '0123456789';
-  const accountName = 'NGUYEN VAN A';
+  const bankAcc = 'VQRQAHQHF1360';
+  const accountName = 'PHAN DUC TRUONG SON';
   
   const qrUrl = `https://img.vietqr.io/image/${bankID}-${bankAcc}-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(syntax)}&accountName=${encodeURIComponent(accountName)}`;
   document.getElementById('vietqr-img').src = qrUrl;
@@ -981,85 +1004,85 @@ const PLATFORMS = {
       {name:'Tăng Lượt Xem Video',price:'2đ',min:'1,000',icon:'fas fa-eye',c:'#ff0050'},
       {name:'Tăng Thả Tim Video',price:'10đ',min:'50',icon:'fas fa-heart',c:'#ff0050'},
       {name:'Tăng Người Theo Dõi',price:'20đ',min:'100',icon:'fas fa-users',c:'#69c9d0'},
-      {name:'Tăng Mắt Livestream',price:'15đ',min:'100',icon:'fas fa-broadcast-tower',c:'#ff0050'},
-      {name:'Tăng Lượt Lưu Video',price:'15đ',min:'50',icon:'fas fa-bookmark',c:'#69c9d0'},
-      {name:'Tăng Chia Sẻ Video',price:'8đ',min:'100',icon:'fas fa-share',c:'#69c9d0'},
-      {name:'Tăng Bình Luận',price:'80đ',min:'5',icon:'fas fa-comment',c:'#ff0050'},
-      {name:'Mua Gói Tim Tháng',price:'30đ',min:'200',icon:'fas fa-crown',c:'#f5c842'},
+      {name:'Tăng Mắt Livestream',price:'15đ/mắt',min:'100',icon:'fas fa-broadcast-tower',c:'#ff0050'},
+      {name:'Tăng Lượt Lưu Video',price:'15đ/lưu',min:'50',icon:'fas fa-bookmark',c:'#69c9d0'},
+      {name:'Tăng Chia Sẻ Video',price:'8đ/share',min:'100',icon:'fas fa-share',c:'#69c9d0'},
+      {name:'Tăng Bình Luận',price:'80đ/cmt',min:'5',icon:'fas fa-comment',c:'#ff0050'},
+      {name:'Mua Gói Tim Tháng',price:'30đ/tim/ngày',min:'200',icon:'fas fa-crown',c:'#f5c842'},
     ]
   },
   'facebook': {
     name:'Facebook',icon:'fab fa-facebook-f',color:'#1877f2',
     services:[
-      {name:'Tăng Like Bài Viết',price:'15đ',min:'50',icon:'fas fa-thumbs-up',c:'#1877f2'},
-      {name:'Mua Gói Like Tháng',price:'55đ',min:'200',icon:'fas fa-crown',c:'#f5c842'},
-      {name:'Tăng Người Theo Dõi',price:'25đ',min:'100',icon:'fas fa-users',c:'#1877f2'},
-      {name:'Tăng Like Fanpage',price:'20đ',min:'100',icon:'fas fa-flag',c:'#1877f2'},
-      {name:'Tăng Mắt Livestream',price:'12đ',min:'100',icon:'fas fa-broadcast-tower',c:'#00c896'},
-      {name:'Tăng Lượt Chia Sẻ',price:'20đ',min:'10',icon:'fas fa-share',c:'#1877f2'},
-      {name:'Tăng Member Nhóm',price:'8đ',min:'100',icon:'fas fa-user-group',c:'#8b5cf6'},
-      {name:'Tăng Đánh Giá Page',price:'5,000đ',min:'5',icon:'fas fa-star',c:'#f5c842'},
-      {name:'Tăng View Video/Reel',price:'3đ',min:'1,000',icon:'fas fa-play',c:'#1877f2'},
-      {name:'Tăng Bình Luận',price:'150đ',min:'5',icon:'fas fa-comment',c:'#1877f2'},
+      {name:'Tăng Like Bài Viết',price:'15đ/like',min:'50',icon:'fas fa-thumbs-up',c:'#1877f2'},
+      {name:'Mua Gói Like Tháng',price:'55đ/like/ngày',min:'200',icon:'fas fa-crown',c:'#f5c842'},
+      {name:'Tăng Người Theo Dõi',price:'25đ/follow',min:'100',icon:'fas fa-users',c:'#1877f2'},
+      {name:'Tăng Like Fanpage',price:'20đ/like',min:'100',icon:'fas fa-flag',c:'#1877f2'},
+      {name:'Tăng Mắt Livestream',price:'12đ/mắt',min:'100',icon:'fas fa-broadcast-tower',c:'#00c896'},
+      {name:'Tăng Lượt Chia Sẻ',price:'20đ/share',min:'10',icon:'fas fa-share',c:'#1877f2'},
+      {name:'Tăng Member Nhóm',price:'8đ/member',min:'100',icon:'fas fa-user-group',c:'#8b5cf6'},
+      {name:'Tăng Đánh Giá Page',price:'5,000đ/đánh giá',min:'5',icon:'fas fa-star',c:'#f5c842'},
+      {name:'Tăng View Video/Reel',price:'3đ/view',min:'1,000',icon:'fas fa-play',c:'#1877f2'},
+      {name:'Tăng Bình Luận',price:'150đ/cmt',min:'5',icon:'fas fa-comment',c:'#1877f2'},
     ]
   },
   'instagram': {
     name:'Instagram',icon:'fab fa-instagram',color:'#c13584',
     services:[
-      {name:'Tăng Tim Bài Viết',price:'18đ',min:'50',icon:'fas fa-heart',c:'#e1306c'},
-      {name:'Tăng Người Theo Dõi',price:'25đ',min:'100',icon:'fas fa-users',c:'#c13584'},
-      {name:'Tăng Bình Luận',price:'200đ',min:'5',icon:'fas fa-comment',c:'#8b5cf6'},
-      {name:'Mua Gói Like Tháng',price:'50đ',min:'100',icon:'fas fa-crown',c:'#f5c842'},
-      {name:'Tăng Lượt Xem Video',price:'5đ',min:'100',icon:'fas fa-play',c:'#c13584'},
+      {name:'Tăng Tim Bài Viết',price:'18đ/tim',min:'50',icon:'fas fa-heart',c:'#e1306c'},
+      {name:'Tăng Người Theo Dõi',price:'25đ/follow',min:'100',icon:'fas fa-users',c:'#c13584'},
+      {name:'Tăng Bình Luận',price:'200đ/cmt',min:'5',icon:'fas fa-comment',c:'#8b5cf6'},
+      {name:'Mua Gói Like Tháng',price:'50đ/like/ngày',min:'100',icon:'fas fa-crown',c:'#f5c842'},
+      {name:'Tăng Lượt Xem Video',price:'5đ/view',min:'100',icon:'fas fa-play',c:'#c13584'},
     ]
   },
   'youtube': {
     name:'YouTube',icon:'fab fa-youtube',color:'#ff0000',
     services:[
-      {name:'Tăng View Video',price:'3đ',min:'1,000',icon:'fas fa-eye',c:'#ff0000'},
-      {name:'Tăng Đăng Ký Kênh',price:'30đ',min:'100',icon:'fas fa-users',c:'#ff0000'},
-      {name:'Tăng Lượt Like',price:'30đ',min:'50',icon:'fas fa-thumbs-up',c:'#ff0000'},
-      {name:'Tăng Bình Luận',price:'300đ',min:'5',icon:'fas fa-comment',c:'#f5c842'},
-      {name:'Tăng Mắt Livestream',price:'12đ',min:'100',icon:'fas fa-broadcast-tower',c:'#ff0000'},
+      {name:'Tăng View Video',price:'3đ/view',min:'1,000',icon:'fas fa-eye',c:'#ff0000'},
+      {name:'Tăng Đăng Ký Kênh',price:'30đ/sub',min:'100',icon:'fas fa-users',c:'#ff0000'},
+      {name:'Tăng Lượt Like',price:'30đ/like',min:'50',icon:'fas fa-thumbs-up',c:'#ff0000'},
+      {name:'Tăng Bình Luận',price:'300đ/cmt',min:'5',icon:'fas fa-comment',c:'#f5c842'},
+      {name:'Tăng Mắt Livestream',price:'12đ/mắt',min:'100',icon:'fas fa-broadcast-tower',c:'#ff0000'},
     ]
   },
   'googlemaps': {
     name:'Google Maps',icon:'fas fa-map-marker-alt',color:'#4285f4',
     services:[
-      {name:'Tăng Đánh Giá Google Maps',price:'8,000đ',min:'5',icon:'fas fa-star',c:'#f5c842'},
+      {name:'Tăng Đánh Giá Google Maps',price:'8,000đ/đánh giá',min:'5',icon:'fas fa-star',c:'#f5c842'},
     ]
   },
   'threads': {
     name:'Threads',icon:'fab fa-threads',color:'#eee',
     services:[
-      {name:'Tăng Like Bài Viết',price:'10đ',min:'50',icon:'fas fa-heart',c:'#aaa'},
-      {name:'Tăng Người Theo Dõi',price:'15đ',min:'100',icon:'fas fa-users',c:'#aaa'},
-      {name:'Tăng Bình Luận',price:'150đ',min:'5',icon:'fas fa-comment',c:'#aaa'},
+      {name:'Tăng Like Bài Viết',price:'10đ/like',min:'50',icon:'fas fa-heart',c:'#eee'},
+      {name:'Tăng Người Theo Dõi',price:'15đ/follow',min:'100',icon:'fas fa-users',c:'#eee'},
+      {name:'Tăng Bình Luận',price:'150đ/cmt',min:'5',icon:'fas fa-comment',c:'#eee'},
     ]
   },
   'shopee': {
     name:'Shopee',icon:'fas fa-shopping-bag',color:'#ee4d2d',
     services:[
-      {name:'Tăng Lượt Thích Sản Phẩm',price:'400đ',min:'50',icon:'fas fa-heart',c:'#ee4d2d'},
-      {name:'Tăng Theo Dõi Gian Hàng',price:'500đ',min:'50',icon:'fas fa-store',c:'#ee4d2d'},
-      {name:'Tăng Người Xem Livestream',price:'15đ',min:'100',icon:'fas fa-broadcast-tower',c:'#ee4d2d'},
+      {name:'Tăng Lượt Thích Sản Phẩm',price:'400đ/like',min:'50',icon:'fas fa-heart',c:'#ee4d2d'},
+      {name:'Tăng Theo Dõi Gian Hàng',price:'500đ/follow',min:'50',icon:'fas fa-store',c:'#ee4d2d'},
+      {name:'Tăng Người Xem Livestream',price:'15đ/người',min:'100',icon:'fas fa-broadcast-tower',c:'#ee4d2d'},
     ]
   },
   'spotify': {
     name:'Spotify',icon:'fab fa-spotify',color:'#1db954',
     services:[
-      {name:'Tăng Lượt Nghe Bài Hát',price:'5đ',min:'1,000',icon:'fas fa-music',c:'#1db954'},
-      {name:'Tăng Người Nghe Hàng Tháng',price:'50đ',min:'100',icon:'fas fa-headphones',c:'#1db954'},
-      {name:'Tăng Người Theo Dõi',price:'20đ',min:'100',icon:'fas fa-users',c:'#1db954'},
+      {name:'Tăng Lượt Nghe Bài Hát',price:'5đ/nghe',min:'1,000',icon:'fas fa-music',c:'#1db954'},
+      {name:'Tăng Người Nghe Hàng Tháng',price:'50đ/người',min:'100',icon:'fas fa-headphones',c:'#1db954'},
+      {name:'Tăng Người Theo Dõi',price:'20đ/follow',min:'100',icon:'fas fa-users',c:'#1db954'},
     ]
   },
   'twitter': {
-    name:'Twitter/X',icon:'fab fa-twitter',color:'#1da1f2',
+    name:'Twitter/X',icon:'fa-brands fa-x-twitter',color:'#1da1f2',
     services:[
-      {name:'Tăng Like Tweet',price:'8đ',min:'50',icon:'fas fa-heart',c:'#1da1f2'},
-      {name:'Tăng Người Theo Dõi',price:'10đ',min:'100',icon:'fas fa-users',c:'#1da1f2'},
-      {name:'Tăng Bình Luận',price:'200đ',min:'5',icon:'fas fa-comment',c:'#1da1f2'},
-      {name:'Tăng Retweet',price:'12đ',min:'50',icon:'fas fa-retweet',c:'#1da1f2'},
+      {name:'Tăng Like Tweet',price:'8đ/like',min:'50',icon:'fas fa-heart',c:'#1da1f2'},
+      {name:'Tăng Người Theo Dõi',price:'10đ/follow',min:'100',icon:'fas fa-users',c:'#1da1f2'},
+      {name:'Tăng Bình Luận',price:'200đ/cmt',min:'5',icon:'fas fa-comment',c:'#1da1f2'},
+      {name:'Tăng Retweet',price:'12đ/rt',min:'50',icon:'fas fa-retweet',c:'#1da1f2'},
     ]
   }
 };
@@ -1333,8 +1356,12 @@ window.submitGeneric = function(btn){
 }
 
 // Khởi tạo
-renderProducts();
-renderServices();
+function init() {
+  try { renderProducts(); } catch(e) { console.error('renderProducts error:', e); }
+  try { renderServices(); } catch(e) { console.error('renderServices error:', e); }
+}
+if(document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
+
 </script>
 
 <script type="module">
@@ -1360,7 +1387,7 @@ const firebaseConfig = {
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
-window.currentUserData = null; 
+window.firebaseAuth = auth; 
 
 function showAlert(msg, type='error'){
   const el = document.getElementById('auth-alert');
@@ -1408,7 +1435,7 @@ onAuthStateChanged(auth, async (user) => {
     const snap = await getDoc(doc(db, 'users', user.uid));
     if(snap.exists()){
       window.currentUserData = snap.data();
-      const uname = window.currentUserData.username || 'User';
+      const uname = window.currentUserData.username || user.email.split('@')[0];
       const bal   = (window.currentUserData.balance||0).toLocaleString('vi-VN');
       
       document.getElementById('nav-username').textContent = uname;
