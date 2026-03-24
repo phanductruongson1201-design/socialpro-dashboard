@@ -246,7 +246,7 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .inv-qr-card { background: #f9f9f9; border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 24px; }
 .inv-qr-card img { width: 180px; height: 180px; object-fit: contain; border-radius: 8px; margin-bottom: 12px; }
 .inv-qr-text { font-size: 12.5px; font-weight: 600; color: #555; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 6px; }
-.inv-timer { background: #f0f0f0; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; color: #333; }
+.inv-timer { background: #f0f0f0; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; color: #333; }
 
 .inv-details-title { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
 .inv-detail-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 13.5px; }
@@ -607,7 +607,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
     </div>
     <button class="submit-btn" style="margin-top:10px; padding:16px; font-size:16px; background:linear-gradient(135deg, var(--accent3), #00a876);" onclick="generateQR()">Tạo Hóa Đơn Nạp Tiền</button>
     <div style="font-size:12px;color:var(--text3);margin-top:16px;line-height:1.5;">
-      Tối thiểu nạp 20,000đ. Hệ thống tự động (SePay) cộng tiền trong 1–3 phút.
+      Tối thiểu nạp 20,000đ. Hệ thống tự động cộng tiền trong 1–3 phút.
     </div>
   </div>
 
@@ -847,7 +847,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
     </div>
 
     <div class="inv-body" style="padding: 24px;">
-      
       <div class="inv-qr-card" style="background: #fdfdfd; border:1px solid #eee; border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 24px;">
         <img id="inv-qr-img" src="" alt="QR Code" style="width: 200px; height: 200px; object-fit: contain; border-radius: 8px; margin-bottom: 16px;">
         <div class="inv-qr-text" style="font-size: 12.5px; font-weight: 600; color: #555; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; gap: 6px;">
@@ -889,7 +888,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
       </div>
       
       <button class="submit-btn" style="margin-top: 24px; padding: 14px; border-radius: 12px; background: #f0f0f0; color: #333; box-shadow: none;" onclick="closeModal('invoiceModal')">Đóng hóa đơn</button>
-
     </div>
   </div>
 </div>
@@ -967,7 +965,6 @@ window.startInvoiceTimer = function() {
 
 window.copyToClipboard = function(text) {
   navigator.clipboard.writeText(text).then(() => {
-    // Hiển thị thông báo nhỏ dạng alert
     const el = document.getElementById('auth-alert');
     el.style.display = 'block';
     el.style.background = 'rgba(0,212,170,0.12)';
@@ -983,7 +980,7 @@ window.copyToClipboard = function(text) {
 };
 
 // ═══════════════════════════════════════════════
-// DATA SẢN PHẨM & DỊCH VỤ CẬP NHẬT MỚI
+// DATA SẢN PHẨM & DỊCH VỤ
 // ═══════════════════════════════════════════════
 const PRODUCTS = [
   {
@@ -1269,7 +1266,6 @@ function switchPlatform(key,btn){
 let selectedProdPackagePrice = 0;
 
 window.openProdModal = function(idx) {
-  // BẮT ĐĂNG NHẬP
   if(!window.currentUserData) { openAuth('login'); return; }
   
   const prod = PRODUCTS[idx];
@@ -1279,7 +1275,6 @@ window.openProdModal = function(idx) {
   document.getElementById('pm-desc').textContent = prod.desc;
   document.getElementById('pm-note').innerHTML = prod.note;
   
-  // Render danh sách gói
   const pkgContainer = document.getElementById('pm-packages');
   pkgContainer.innerHTML = prod.packages.map((pkg, i) => {
     let tagsHtml = pkg.tags.map(t => {
@@ -1315,7 +1310,7 @@ window.selProdPkg = function(el, price) {
 }
 
 // ═══════════════════════════════════════════════
-// LOGIC DỊCH VỤ SMM (TỰ ĐỘNG CHUYỂN GÓI THÁNG HOẶC THƯỜNG)
+// LOGIC DỊCH VỤ SMM
 // ═══════════════════════════════════════════════
 let currentOpt = 12;
 
@@ -1331,7 +1326,6 @@ window.openSvcModal = function(name, platKey, color, minAmount, priceStr) {
   let formHtml = '';
   
   if(isThang) {
-    // GIAO DIỆN GÓI THÁNG
     formHtml = `
       <div style="background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:16px;">
         <strong style="color:var(--text); font-size:14px; display:block; margin-bottom:8px;">${name}</strong>
@@ -1371,7 +1365,6 @@ window.openSvcModal = function(name, platKey, color, minAmount, priceStr) {
       <button class="submit-btn" onclick="submitGeneric(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>
     `;
   } else {
-    // GIAO DIỆN GÓI THƯỜNG
     let cmtField = '';
     if(isCmt) {
       const cmtType = name.toLowerCase().includes('đánh giá') ? 'đánh giá' : 'bình luận';
@@ -1485,7 +1478,6 @@ window.submitGeneric = function(btn){
   },1500);
 }
 
-// Khởi tạo
 function init() {
   try { renderProducts(); } catch(e) { console.error('renderProducts error:', e); }
   try { renderServices(); } catch(e) { console.error('renderServices error:', e); }
@@ -1498,10 +1490,10 @@ if(document.readyState === 'loading') { document.addEventListener('DOMContentLoa
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import {
   getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-  signOut, onAuthStateChanged, updatePassword, sendPasswordResetEmail
+  signOut, onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import {
-  getFirestore, doc, setDoc, getDoc, serverTimestamp, onSnapshot
+  getFirestore, doc, setDoc, getDoc, serverTimestamp, onSnapshot, collection, query, where, orderBy, getDocs
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -1510,8 +1502,7 @@ const firebaseConfig = {
   projectId: "socialpro-db-c2654",
   storageBucket: "socialpro-db-c2654.firebasestorage.app",
   messagingSenderId: "821789877824",
-  appId: "1:821789877824:web:99d69aa828b4609babe1a5",
-  measurementId: "G-K7VSNJN8TK"
+  appId: "1:821789877824:web:99d69aa828b4609babe1a5"
 };
 
 const app  = initializeApp(firebaseConfig);
@@ -1519,7 +1510,6 @@ const auth = getAuth(app);
 const db   = getFirestore(app);
 window.firebaseAuth = auth; 
 
-// Hàm thông báo lỗi trong Form Auth
 function showAlert(msg, type='error'){
   const el = document.getElementById('auth-alert');
   el.style.display = 'block';
@@ -1528,7 +1518,6 @@ function showAlert(msg, type='error'){
   el.innerHTML = (type==='success'?'✅ ':'❌ ') + msg;
 }
 
-// HÀM THÔNG BÁO NỔI TOÀN MÀN HÌNH (TING TING)
 window.showGlobalAlert = function(msg, type='success') {
   let el = document.getElementById('global-alert');
   if(!el) {
@@ -1537,7 +1526,6 @@ window.showGlobalAlert = function(msg, type='success') {
     el.style.cssText = 'position:fixed;top:30px;right:30px;z-index:999999;padding:16px 24px;border-radius:12px;font-weight:700;font-size:15px;display:none;align-items:center;gap:12px;box-shadow:0 10px 40px rgba(0,0,0,0.6);transition:all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);';
     document.body.appendChild(el);
   }
-  
   const isSuccess = type === 'success';
   el.style.background = isSuccess ? 'linear-gradient(135deg, #00d4aa, #00a876)' : 'linear-gradient(135deg, #ff4757, #ff6b81)';
   el.style.color = '#fff';
@@ -1545,13 +1533,47 @@ window.showGlobalAlert = function(msg, type='success') {
   
   el.style.display = 'flex';
   el.style.transform = 'translateX(150%)';
-  
   setTimeout(() => { el.style.transform = 'translateX(0)'; }, 10);
-  
   setTimeout(() => { 
     el.style.transform = 'translateX(150%)'; 
     setTimeout(() => { el.style.display = 'none'; }, 400);
   }, 5000);
+}
+
+// Hàm tải lịch sử giao dịch nạp tiền
+window.loadDepositHistory = async function(uid) {
+  const tbody = document.getElementById('deposit-history-tbody');
+  tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:30px;"><i class="fas fa-spinner fa-spin"></i> Đang tải dữ liệu...</td></tr>';
+  
+  try {
+    const q = query(collection(db, 'transactions'), where('uid', '==', uid), orderBy('created_at', 'desc'));
+    const snap = await getDocs(q);
+    
+    if(snap.empty) {
+      tbody.innerHTML = '<tr><td colspan="4" style="padding:30px;text-align:center;color:var(--text3);font-size:13.5px;">Chưa có giao dịch nạp tiền nào.</td></tr>';
+      return;
+    }
+    
+    let html = '';
+    snap.forEach(docSnap => {
+      const d = docSnap.data();
+      const dateObj = new Date(d.created_at);
+      const dateStr = `${dateObj.getHours().toString().padStart(2, '0')}:${dateObj.getMinutes().toString().padStart(2, '0')} - ${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth()+1).toString().padStart(2, '0')}/${dateObj.getFullYear()}`;
+      
+      html += `
+        <tr>
+          <td style="padding:16px;font-size:13.5px;color:var(--text);font-weight:600;">${d.trans_id || 'SP' + Math.floor(Math.random()*90000)}</td>
+          <td style="padding:16px;font-size:13px;color:var(--text2);">${dateStr}</td>
+          <td style="padding:16px;font-size:14.5px;font-weight:800;color:var(--accent3);">+ ${parseInt(d.amount).toLocaleString('vi-VN')}đ</td>
+          <td style="padding:16px;"><span style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);color:var(--accent3);padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;"><i class="fas fa-check-circle"></i> Thành công</span></td>
+        </tr>
+      `;
+    });
+    tbody.innerHTML = html;
+  } catch(e) {
+    console.error("Lỗi tải lịch sử:", e);
+    tbody.innerHTML = '<tr><td colspan="4" style="padding:30px;text-align:center;color:var(--red);font-size:13.5px;">Không thể tải lịch sử giao dịch. Bạn cần vào Firebase tạo Index (Chỉ mục) cho mục transactions.</td></tr>';
+  }
 }
 
 window.doRegister = async function(){
@@ -1580,23 +1602,20 @@ window.doLogin = async function(){
 
 window.doLogout = async function(){ await signOut(auth); showSection('home'); };
 
-// LẮNG NGHE SỰ KIỆN TRẠNG THÁI USER
 let unsubscribeUser = null; 
 window.previousBalance = -1; 
 
 onAuthStateChanged(auth, async (user) => {
-  window.firebaseAuth = auth;
-  
   if(unsubscribeUser) unsubscribeUser();
 
   if(user){
     document.getElementById('nav-actions-guest').style.display='none';
     document.getElementById('nav-actions-user').style.display='flex';
     if(document.getElementById('hero-register-btn')) document.getElementById('hero-register-btn').style.display='none';
-    if(document.getElementById('cta-register-btn')) document.getElementById('cta-register-btn').style.display='none';
-    if(document.getElementById('mobile-auth-btns')) document.getElementById('mobile-auth-btns').style.display='none';
     
-    // LẮNG NGHE DỮ LIỆU THỜI GIAN THỰC TỪ FIREBASE
+    // TẢI LỊCH SỬ GIAO DỊCH NGAY KHI ĐĂNG NHẬP
+    window.loadDepositHistory(user.uid);
+    
     const userRef = doc(db, 'users', user.uid);
     unsubscribeUser = onSnapshot(userRef, (docSnap) => {
       if(docSnap.exists()){
@@ -1605,29 +1624,24 @@ onAuthStateChanged(auth, async (user) => {
         const uname = data.username || user.email.split('@')[0];
         const currentBal = data.balance || 0;
         
-        // LOGIC NHẬN DIỆN NẠP TIỀN THÀNH CÔNG
         if(window.previousBalance !== -1 && currentBal > window.previousBalance) {
            const addedAmount = currentBal - window.previousBalance;
            closeModal('invoiceModal');
-           showGlobalAlert(`Nạp tiền thành công! Cám ơn bạn đã nạp ${addedAmount.toLocaleString('vi-VN')}đ`, 'success');
+           showGlobalAlert(`Nạp tiền thành công! Bạn vừa nạp ${addedAmount.toLocaleString('vi-VN')}đ`, 'success');
+           // Tải lại bảng lịch sử để có dòng dữ liệu mới
+           window.loadDepositHistory(user.uid);
         }
         window.previousBalance = currentBal;
 
-        // CẬP NHẬT GIAO DIỆN
         const balStr = currentBal.toLocaleString('vi-VN');
-        
         document.getElementById('nav-username').textContent = uname;
         document.getElementById('nav-avatar').textContent = uname[0].toUpperCase();
         document.getElementById('nav-balance').textContent = balStr + 'đ';
-        
         document.getElementById('profile-username').textContent = uname;
         document.getElementById('profile-email').textContent = user.email;
         document.getElementById('profile-avatar').textContent = uname[0].toUpperCase();
         document.getElementById('profile-balance').textContent = balStr;
-        document.getElementById('stat-orders').textContent = data.total_orders||0;
         document.getElementById('stat-deposit').textContent = (data.total_deposit||0).toLocaleString('vi-VN')+'đ';
-        
-        if(data.created_at?.toDate){ document.getElementById('stat-joined').textContent = data.created_at.toDate().toLocaleDateString('vi-VN'); }
       }
     });
 
@@ -1637,11 +1651,8 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById('nav-actions-guest').style.display='flex';
     document.getElementById('nav-actions-user').style.display='none';
     if(document.getElementById('hero-register-btn')) document.getElementById('hero-register-btn').style.display='inline-flex';
-    if(document.getElementById('cta-register-btn')) document.getElementById('cta-register-btn').style.display='inline-flex';
-    if(document.getElementById('mobile-auth-btns')) document.getElementById('mobile-auth-btns').style.display='flex';
   }
 });
-
 window.togglePwd = function(id){ const i = document.getElementById(id); i.type = i.type==='password'?'text':'password'; };
 </script>
 </body>
