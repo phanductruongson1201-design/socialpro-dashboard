@@ -1102,96 +1102,303 @@ const PRODUCTS = [
   }
 ];
 
+// ═══════════════════════════════════════════════
+// HỆ SINH THÁI DỊCH VỤ SMM (CHỈ DỊCH VỤ VIỆT NAM)
+// ═══════════════════════════════════════════════
 const PLATFORMS = {
-  'tiktok': {
-    name:'TikTok',icon:'fab fa-tiktok',color:'#000',
-    services:[
-      {name:'Tăng Lượt Xem Video',price:'2đ',min:'1,000',icon:'fas fa-eye',c:'#ff0050'},
-      {name:'Tăng Thả Tim Video',price:'10đ',min:'50',icon:'fas fa-heart',c:'#ff0050'},
-      {name:'Tăng Người Theo Dõi',price:'20đ',min:'100',icon:'fas fa-users',c:'#69c9d0'},
-      {name:'Tăng Mắt Livestream',price:'15đ/mắt',min:'100',icon:'fas fa-broadcast-tower',c:'#ff0050'},
-      {name:'Tăng Lượt Lưu Video',price:'15đ/lưu',min:'50',icon:'fas fa-bookmark',c:'#69c9d0'},
-      {name:'Tăng Chia Sẻ Video',price:'8đ/share',min:'100',icon:'fas fa-share',c:'#69c9d0'},
-      {name:'Tăng Bình Luận',price:'80đ/cmt',min:'5',icon:'fas fa-comment',c:'#ff0050'},
-      {name:'Mua Gói Tim Tháng',price:'30đ/tim/ngày',min:'200',icon:'fas fa-crown',c:'#f5c842'},
+  'facebook': {
+    name: 'VN Facebook', icon: 'fab fa-facebook-f', color: '#1877f2',
+    services: [
+      {
+        name:'Tăng Like Bài Viết', min: 100, icon:'fas fa-thumbs-up', c:'#1877f2',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Like Bài Viết + Có Chọn Cảm Xúc ~ Lên Nhanh: 1.000-10.000/Ngày ~ Mua Bằng UID ~ Tài Nguyên Việt Nam 🇻🇳', price: 14.99 },
+          { id: 'SV2', desc: 'Tăng Like Bài Viết + Chọn Nhiều Cảm Xúc ~ Tốc Độ Nhanh: 2.000-10.000/Ngày ~ Tài Nguyên Việt Nam 🇻🇳', price: 16.34 },
+          { id: 'SV3', desc: 'Tăng Like Bài Viết ~ Tốc Độ Nhanh: 1.000-5.000/Ngày ~ Ít Tụt ~ Giá Siêu Rẻ ~ Tài Nguyên Fanpage Việt Nam 🇻🇳', price: 5.13 },
+          { id: 'SV4', desc: 'Tăng Like Bài Viết ~ Có Chọn Cảm Xúc ~ Giá Rẻ ~ Tốc Độ Nhanh: 1.000-10.000/Ngày ~ Tài Nguyên Việt Nam 🇻🇳', price: 11.88 },
+          { id: 'SV5', desc: 'Tăng Like Bài Viết ~ Lên Bình Thường: 1000-5.000/Ngày ~ Tài Nguyên Ngoại + Việt Nam 🇻🇳', price: 4.46 },
+          { id: 'SV6', desc: 'Tăng Like Bài Viết + Chọn Nhiều Cảm Xúc ~ Lên Nhanh: 2.000-20.000/Ngày ~ Tài Nguyên Việt Nam 🇻🇳', price: 31.86 }
+        ]
+      },
+      {
+        name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-users', c:'#1877f2',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Người Theo Dõi Trang Cá Nhân / Sub Vip ~ Người Dùng Thật ~ Lên Nhanh 🇻🇳', price: 25.5 },
+          { id: 'SV2', desc: 'Tăng Người Theo Dõi Giá Rẻ ~ Tốc Độ Trung Bình 🔥', price: 12.0 }
+        ]
+      },
+      {
+        name:'Tăng Like Fanpage', min: 100, icon:'fas fa-flag', c:'#1877f2',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Like Fanpage Kèm Theo Dõi ~ Người Dùng Thật 🇻🇳', price: 35.0 },
+          { id: 'SV2', desc: 'Tăng Like Fanpage Giá Rẻ ~ Lên Chậm An Toàn', price: 22.0 }
+        ]
+      },
+      {
+        name:'Tăng Mắt Livestream', min: 50, icon:'fas fa-video', c:'#1877f2',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Mắt Live Facebook 30 Phút ~ Server ổn định 🇻🇳', price: 12.0 },
+          { id: 'SV2', desc: 'Tăng Mắt Live VIP + Ổn Định ~ Duy Trì 60 Phút 🇻🇳', price: 25.0 }
+        ]
+      },
+      {
+        name:'Tăng Lượt Chia Sẻ', min: 10, icon:'fas fa-share', c:'#1877f2',
+        servers: [
+          { id: 'SV1', desc: 'Facebook Post Shares ~ Lên Nhanh Chóng ~ Random Group 🇻🇳', price: 20.0 },
+          { id: 'SV2', desc: 'Tăng Share Thật Tường Cá Nhân ~ Profile Có Ảnh Đại Diện', price: 35.0 }
+        ]
+      },
+      {
+        name:'Tăng Member Nhóm', min: 100, icon:'fas fa-user-group', c:'#1877f2',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Thành Viên Group Cực Tốc Độ ~ Mem Việt Nam 🇻🇳', price: 15.0 }
+        ]
+      },
+      {
+        name:'Tăng Bình Luận', min: 5, icon:'fas fa-comment', c:'#1877f2',
+        servers: [
+          { id: 'SV1', desc: 'Bình luận tùy chọn ~ Tài khoản người dùng Việt Nam 🇻🇳', price: 150.0 },
+          { id: 'SV2', desc: 'Tăng Bình Luận Facebook VIP ~ Có tick xanh / Account uy tín 👑', price: 450.0 }
+        ]
+      },
+      {
+        name:'Gói Like Tháng', min: 100, icon:'fas fa-calendar-check', c:'#f5c842',
+        servers: [
+          { id: 'SV1', desc: 'Gói Like Tự Động Mỗi Khi Đăng Bài ~ Tối đa 5 bài/ngày ~ 30 Ngày', price: 55.0 }
+        ]
+      }
     ]
   },
-  'facebook': {
-    name:'Facebook',icon:'fab fa-facebook-f',color:'#1877f2',
-    services:[
-      {name:'Tăng Like Bài Viết',price:'15đ/like',min:'50',icon:'fas fa-thumbs-up',c:'#1877f2'},
-      {name:'Mua Gói Like Tháng',price:'55đ/like/ngày',min:'200',icon:'fas fa-crown',c:'#f5c842'},
-      {name:'Tăng Người Theo Dõi',price:'25đ/follow',min:'100',icon:'fas fa-users',c:'#1877f2'},
-      {name:'Tăng Like Fanpage',price:'20đ/like',min:'100',icon:'fas fa-flag',c:'#1877f2'},
-      {name:'Tăng Mắt Livestream',price:'12đ/mắt',min:'100',icon:'fas fa-broadcast-tower',c:'#00c896'},
-      {name:'Tăng Lượt Chia Sẻ',price:'20đ/share',min:'10',icon:'fas fa-share',c:'#1877f2'},
-      {name:'Tăng Member Nhóm',price:'8đ/member',min:'100',icon:'fas fa-user-group',c:'#8b5cf6'},
-      {name:'Tăng Đánh Giá Page',price:'5,000đ/đánh giá',min:'5',icon:'fas fa-star',c:'#f5c842'},
-      {name:'Tăng View Video/Reel',price:'3đ/view',min:'1,000',icon:'fas fa-play',c:'#1877f2'},
-      {name:'Tăng Bình Luận',price:'150đ/cmt',min:'5',icon:'fas fa-comment',c:'#1877f2'},
+  'tiktok': {
+    name: 'VN TikTok', icon: 'fab fa-tiktok', color: '#000',
+    services: [
+      {
+        name:'Tăng Lượt Xem Video', min: 1000, icon:'fas fa-play', c:'#ff0050',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Lượt Xem Video Tiktok ~ Lên Ngay ~ Tốc Độ: 1.000.000-2.000.000/Ngày 🇻🇳', price: 2.0 },
+          { id: 'SV2', desc: 'Tăng Lượt Xem Video Tiktok ~ Nguồn: Xu Hướng ~ Tốt Nhất Để Lên Xu Hướng 🔥', price: 5.0 },
+          { id: 'SV3', desc: 'Tăng Lượt Xem Video Tiktok ~ Giá Rẻ Nhất Tốc Độ Chậm', price: 1.0 }
+        ]
+      },
+      {
+        name:'Tăng Thả Tim Video', min: 50, icon:'fas fa-heart', c:'#ff0050',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Thả Tim Video Người Dùng Bấm Tay ~ Lên Nhanh: 1.000-10.000/Ngày 🇻🇳', price: 15.0 },
+          { id: 'SV2', desc: 'Tăng Thả Tim Video ~ Bảo Hành: 7 Ngày ~ Lên Ngay 🔥', price: 8.5 },
+          { id: 'SV3', desc: 'Tăng Thả Tim Video ~ Tốc Độ Siêu Nhanh Cho Video Cần Lượng Tim Lớn 🚀', price: 12.0 }
+        ]
+      },
+      {
+        name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-users', c:'#69c9d0',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Follow Tiktok ~ Tốc Độ Nhanh ~ Xịn Nhất ~ Tỉ Lệ Tụt Thấp Nhất 💎', price: 35.0 },
+          { id: 'SV2', desc: 'Tăng Follow Tiktok ~ Lên Ngay ~ Tỉ Lệ Tụt Cao ~ Tốc Độ Chậm 🇻🇳', price: 20.0 }
+        ]
+      },
+      {
+        name:'Tăng Mắt Livestream', min: 50, icon:'fas fa-broadcast-tower', c:'#ff0050',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Mắt Xem Live ~ Xem Live 30 Phút ~ Lên Siêu Nhanh 🇻🇳', price: 15.0 },
+          { id: 'SV2', desc: 'Tăng Mắt Xem Live ~ Xem Live 60 Phút ~ Máy Chủ Ổn Định 🇻🇳', price: 25.0 },
+          { id: 'SV3', desc: 'Tăng Mắt Xem Live ~ Xem Live 120 Phút ~ Chống Tụt Trực Tiếp', price: 45.0 }
+        ]
+      },
+      {
+        name:'Tăng Lượt Lưu Video', min: 50, icon:'fas fa-bookmark', c:'#69c9d0',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Lượt Yêu Thích (Lưu Video) ~ Tốc Độ Nhanh: 500-5.000 🇻🇳', price: 12.0 }
+        ]
+      },
+      {
+        name:'Tăng Chia Sẻ Video', min: 50, icon:'fas fa-share', c:'#69c9d0',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Lượt Chia Sẻ Video ~ Bắt Đầu Nhanh ~ Tốc Độ 1M/ Ngày 🚀', price: 5.0 }
+        ]
+      },
+      {
+        name:'Tăng Bình Luận', min: 10, icon:'fas fa-comment', c:'#ff0050',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Bình Luận (Comment) Tiktok ~ Lên Siêu Nhanh: 20-200 Cmt/Ngày 🇻🇳', price: 150.0 },
+          { id: 'SV2', desc: 'Tăng Bình Luận Video Nội Dung Ngẫu Nhiên Khen Video 🔥', price: 100.0 }
+        ]
+      },
+      {
+        name:'Gói Tim Tháng', min: 100, icon:'fas fa-calendar-alt', c:'#f5c842',
+        servers: [
+          { id: 'SV1', desc: 'Vip Thả Tim Video (Tự Động Lên Tim Mỗi Khi Đăng) ~ Tối Thiểu 5 Video 🇻🇳', price: 30.0 }
+        ]
+      }
     ]
   },
   'instagram': {
-    name:'Instagram',icon:'fab fa-instagram',color:'#c13584',
-    services:[
-      {name:'Tăng Tim Bài Viết',price:'18đ/tim',min:'50',icon:'fas fa-heart',c:'#e1306c'},
-      {name:'Tăng Người Theo Dõi',price:'25đ/follow',min:'100',icon:'fas fa-users',c:'#c13584'},
-      {name:'Tăng Bình Luận',price:'200đ/cmt',min:'5',icon:'fas fa-comment',c:'#8b5cf6'},
-      {name:'Mua Gói Like Tháng',price:'50đ/like/ngày',min:'100',icon:'fas fa-crown',c:'#f5c842'},
-      {name:'Tăng Lượt Xem Video',price:'5đ/view',min:'100',icon:'fas fa-play',c:'#c13584'},
+    name: 'VN Instagram', icon: 'fab fa-instagram', color: '#c13584',
+    services: [
+      {
+        name:'Tăng Tim Bài Viết', min: 50, icon:'fas fa-heart', c:'#e1306c',
+        servers: [
+          { id: 'SV1', desc: 'Tim Instagram Việt Nam Tự Nhiên ~ Tài khoản người dùng thật 🇻🇳', price: 18.0 },
+          { id: 'SV2', desc: 'Tim Instagram Siêu Rẻ ~ Lên Nhanh Random', price: 5.0 }
+        ]
+      },
+      {
+        name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-users', c:'#c13584',
+        servers: [
+          { id: 'SV1', desc: 'Follow Instagram Việt Nam Chất Lượng ~ Bảo Hành 30 Ngày ♻️', price: 55.0 },
+          { id: 'SV2', desc: 'Follow Instagram Nhanh Tốc Độ 🚀', price: 25.0 }
+        ]
+      },
+      {
+        name:'Tăng Bình Luận', min: 5, icon:'fas fa-comment', c:'#8b5cf6',
+        servers: [
+          { id: 'SV1', desc: 'Bình luận mồi Instagram Theo Yêu Cầu ~ Việt Nam 🇻🇳', price: 200.0 }
+        ]
+      },
+      {
+        name:'Tăng Lượt Xem Video', min: 100, icon:'fas fa-play', c:'#c13584',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Lượt Xem Video Reels / IGTV ~ Tốc độ siêu tốc 🚀', price: 3.0 }
+        ]
+      },
+      {
+        name:'Tăng Mắt Livestream', min: 50, icon:'fas fa-video', c:'#c13584',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Mắt Xem Live Instagram Duy Trì 30 Phút', price: 18.0 }
+        ]
+      }
     ]
   },
   'youtube': {
-    name:'YouTube',icon:'fab fa-youtube',color:'#ff0000',
-    services:[
-      {name:'Tăng View Video',price:'3đ/view',min:'1,000',icon:'fas fa-eye',c:'#ff0000'},
-      {name:'Tăng Đăng Ký Kênh',price:'30đ/sub',min:'100',icon:'fas fa-users',c:'#ff0000'},
-      {name:'Tăng Lượt Like',price:'30đ/like',min:'50',icon:'fas fa-thumbs-up',c:'#ff0000'},
-      {name:'Tăng Bình Luận',price:'300đ/cmt',min:'5',icon:'fas fa-comment',c:'#f5c842'},
-      {name:'Tăng Mắt Livestream',price:'12đ/mắt',min:'100',icon:'fas fa-broadcast-tower',c:'#ff0000'},
+    name: 'VN YouTube', icon: 'fab fa-youtube', color: '#ff0000',
+    services: [
+      {
+        name:'Tăng View Video', min: 1000, icon:'fas fa-eye', c:'#ff0000',
+        servers: [
+          { id: 'SV1', desc: 'Tăng View Video YouTube ~ Tốc Độ Tự Nhiên An Toàn SEO 🇻🇳', price: 18.0 },
+          { id: 'SV2', desc: 'Tăng View Video [ Social / Native Ads ] ~ Chạy Bằng Quảng Cáo Thật 🚀', price: 35.0 }
+        ]
+      },
+      {
+        name:'Tăng Đăng Ký Kênh', min: 100, icon:'fas fa-users', c:'#ff0000',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Subscribers YouTube ~ Không Tụt ~ Bảo Hành Trọn Đời ♻️', price: 55.0 }
+        ]
+      },
+      {
+        name:'Tăng Lượt Like', min: 50, icon:'fas fa-thumbs-up', c:'#ff0000',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Likes Video ⚠️ Không Tụt - Bảo Hành 30 Ngày', price: 25.0 }
+        ]
+      },
+      {
+        name:'Tăng Bình Luận', min: 10, icon:'fas fa-comment', c:'#f5c842',
+        servers: [
+          { id: 'SV1', desc: 'Bình luận Video Youtube ~ Tự soạn nội dung Tiếng Việt 🇻🇳', price: 250.0 }
+        ]
+      },
+      {
+        name:'Tăng 4000H Xem', min: 1000, icon:'fas fa-clock', c:'#ff0000',
+        servers: [
+          { id: 'SV1', desc: 'Cày 4000 Giờ Xem YouTube ~ Đủ Điều Kiện Bật Kiếm Tiền ~ Video > 15 phút 🕒', price: 120.0 }
+        ]
+      }
     ]
   },
   'googlemaps': {
-    name:'Google Maps',icon:'fas fa-map-marker-alt',color:'#4285f4',
-    services:[
-      {name:'Tăng Đánh Giá Google Maps',price:'8,000đ/đánh giá',min:'5',icon:'fas fa-star',c:'#f5c842'},
+    name: 'VN Google Maps', icon: 'fas fa-map-marker-alt', color: '#34a853',
+    services: [
+      {
+        name:'Tăng Đánh Giá Maps', min: 5, icon:'fas fa-star', c:'#f5c842',
+        servers: [
+          { id: 'SV1', desc: 'Đánh giá 5 Sao Google Maps Kèm Ảnh / Chữ ~ Nguồn Local Guide Uy Tín 🇻🇳', price: 8000.0 }
+        ]
+      }
     ]
   },
   'threads': {
-    name:'Threads',icon:'fab fa-threads',color:'#eee',
-    services:[
-      {name:'Tăng Like Bài Viết',price:'10đ/like',min:'50',icon:'fas fa-heart',c:'#eee'},
-      {name:'Tăng Người Theo Dõi',price:'15đ/follow',min:'100',icon:'fas fa-users',c:'#eee'},
-      {name:'Tăng Bình Luận',price:'150đ/cmt',min:'5',icon:'fas fa-comment',c:'#eee'},
+    name: 'VN Threads', icon: 'fab fa-threads', color: '#000',
+    services: [
+      {
+        name:'Tăng Like Bài Viết', min: 50, icon:'fas fa-heart', c:'#000',
+        servers: [ { id: 'SV1', desc: 'Tăng Like Bài Viết Threads ~ Acc Việt Nam Lên Đều 🇻🇳', price: 12.0 } ]
+      },
+      {
+        name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-users', c:'#000',
+        servers: [ { id: 'SV1', desc: 'Tăng Người Theo Dõi Threads ~ Nguồn Việt Nam Chất Lượng', price: 25.0 } ]
+      },
+      {
+        name:'Tăng Bình Luận', min: 10, icon:'fas fa-comment', c:'#000',
+        servers: [ { id: 'SV1', desc: 'Tăng Bình Luận Bài Viết Threads Mồi 🇻🇳', price: 180.0 } ]
+      }
     ]
   },
   'shopee': {
-    name:'Shopee',icon:'fas fa-shopping-bag',color:'#ee4d2d',
-    services:[
-      {name:'Tăng Lượt Thích Sản Phẩm',price:'400đ/like',min:'50',icon:'fas fa-heart',c:'#ee4d2d'},
-      {name:'Tăng Theo Dõi Gian Hàng',price:'500đ/follow',min:'50',icon:'fas fa-store',c:'#ee4d2d'},
-      {name:'Tăng Người Xem Livestream',price:'15đ/người',min:'100',icon:'fas fa-broadcast-tower',c:'#ee4d2d'},
+    name: 'VN Shopee', icon: 'fas fa-shopping-bag', color: '#ee4d2d',
+    services: [
+      {
+        name:'Tăng Lượt Thích Sản Phẩm', min: 50, icon:'fas fa-heart', c:'#ee4d2d',
+        servers: [ { id: 'SV1', desc: 'Tăng Lượt Thích (Tym) Sản Phẩm Shopee Việt Nam 🇻🇳', price: 55.0 } ]
+      },
+      {
+        name:'Tăng Theo Dõi Gian Hàng', min: 50, icon:'fas fa-store', c:'#ee4d2d',
+        servers: [ { id: 'SV1', desc: 'Tăng Lượt Theo Dõi Shop Shopee ~ Tốc độ vừa', price: 75.0 } ]
+      },
+      {
+        name:'Tăng Người Xem Live', min: 50, icon:'fas fa-video', c:'#ee4d2d',
+        servers: [ { id: 'SV1', desc: 'Mắt Xem Livestream Bán Hàng Shopee ~ Duy trì 60 phút', price: 20.0 } ]
+      }
     ]
   },
   'spotify': {
-    name:'Spotify',icon:'fab fa-spotify',color:'#1db954',
-    services:[
-      {name:'Tăng Lượt Nghe Bài Hát',price:'5đ/nghe',min:'1,000',icon:'fas fa-music',c:'#1db954'},
-      {name:'Tăng Người Nghe Hàng Tháng',price:'50đ/người',min:'100',icon:'fas fa-headphones',c:'#1db954'},
-      {name:'Tăng Người Theo Dõi',price:'20đ/follow',min:'100',icon:'fas fa-users',c:'#1db954'},
+    name: 'VN Spotify', icon: 'fab fa-spotify', color: '#1db954',
+    services: [
+      {
+        name:'Tăng Lượt Nghe', min: 1000, icon:'fas fa-music', c:'#1db954',
+        servers: [ { id: 'SV1', desc: 'Tăng Lượt Nghe Track Spotify Theo Khu Vực VN 🇻🇳', price: 15.0 } ]
+      },
+      {
+        name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-user-plus', c:'#1db954',
+        servers: [ { id: 'SV1', desc: 'Tăng Theo Dõi Nghệ Sĩ / Playlist Spotify 🇻🇳', price: 40.0 } ]
+      }
+    ]
+  },
+  'webtraffic': {
+    name: 'VN Web Traffic', icon: 'fas fa-globe', color: '#00d4aa',
+    services: [
+      {
+        name:'Tăng Truy Cập Web', min: 1000, icon:'fas fa-mouse-pointer', c:'#00d4aa',
+        servers: [
+          { id: 'SV1', desc: 'Tăng Lượt Truy Cập Website Từ Google, Facebook... IP Việt Nam 🇻🇳', price: 10.0 },
+          { id: 'SV2', desc: 'Tăng Traffic Giả Lập Mobile (Iphone, Android...) ~ IP Việt Nam 🇻🇳', price: 15.0 }
+        ]
+      }
     ]
   },
   'twitter': {
-    name:'Twitter/X',icon:'fa-brands fa-x-twitter',color:'#1da1f2',
-    services:[
-      {name:'Tăng Like Tweet',price:'8đ/like',min:'50',icon:'fas fa-heart',c:'#1da1f2'},
-      {name:'Tăng Người Theo Dõi',price:'10đ/follow',min:'100',icon:'fas fa-users',c:'#1da1f2'},
-      {name:'Tăng Bình Luận',price:'200đ/cmt',min:'5',icon:'fas fa-comment',c:'#1da1f2'},
-      {name:'Tăng Retweet',price:'12đ/rt',min:'50',icon:'fas fa-retweet',c:'#1da1f2'},
+    name: 'VN Twitter/X', icon: 'fa-brands fa-x-twitter', color: '#000',
+    services: [
+      {
+        name:'Tăng Like Tweet', min: 50, icon:'fas fa-heart', c:'#000',
+        servers: [ { id: 'SV1', desc: 'Twitter Likes [VIETNAM 🇻🇳] [Speed: 100-500/Day]', price: 25.0 } ]
+      },
+      {
+        name:'Tăng Theo Dõi Twitter', min: 100, icon:'fas fa-users', c:'#000',
+        servers: [ { id: 'SV1', desc: 'Twitter Followers [VIETNAM 🇻🇳] [Speed: 100-500/Day]', price: 35.0 } ]
+      },
+      {
+        name:'Tăng Comment Twitter', min: 10, icon:'fas fa-comment', c:'#000',
+        servers: [ { id: 'SV1', desc: 'Twitter Custom Comments [VIETNAM 🇻🇳]', price: 200.0 } ]
+      },
+      {
+        name:'Tăng Retweet Twitter', min: 50, icon:'fas fa-retweet', c:'#000',
+        servers: [ { id: 'SV1', desc: 'Twitter Retweets / Reposts [VIETNAM 🇻🇳]', price: 30.0 } ]
+      },
+      {
+        name:'Tăng Lượt Tiếp Cận', min: 1000, icon:'fas fa-chart-line', c:'#000',
+        servers: [ { id: 'SV1', desc: 'Tăng Lượt Tiếp Cận (Impression) + Người Xem Hồ Sơ 🚀', price: 2.0 } ]
+      }
     ]
   }
 };
-
 function renderProducts(){
   const grid = document.getElementById('products-grid');
   grid.innerHTML = PRODUCTS.map((p, idx) => `
