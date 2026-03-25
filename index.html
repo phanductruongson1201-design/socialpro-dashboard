@@ -1475,7 +1475,7 @@ window.submitGeneric = function(btn){ const orig=btn.innerHTML; btn.innerHTML='<
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, serverTimestamp, onSnapshot, collection, query, where, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, increment, serverTimestamp, onSnapshot, collection, query, where, orderBy, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAccwBvfUMMsrt4HHLB9EYJSKQq_nchtjA",
@@ -1501,44 +1501,27 @@ async function loadServicesData() {
   try {
       window.globalPlatforms = JSON.parse(JSON.stringify(DEFAULT_PLATFORMS));
       window.globalProducts = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
-
       const docRef = doc(db, 'settings', 'servicesData');
       const docSnap = await getDoc(docRef);
-      
       if (docSnap.exists()) {
           const data = docSnap.data();
           if(data.products) {
               data.products.forEach((p, i) => {
-                  if(window.globalProducts[i]) {
-                      p.packages.forEach((pkg, j) => {
-                          if(window.globalProducts[i].packages[j]) {
-                              window.globalProducts[i].packages[j].price = pkg.price;
-                          }
-                      });
-                  }
+                  if(window.globalProducts[i]) { p.packages.forEach((pkg, j) => { if(window.globalProducts[i].packages[j]) { window.globalProducts[i].packages[j].price = pkg.price; } }); }
               });
           }
           if(data.platforms) {
               for(let key in data.platforms) {
                   if(window.globalPlatforms[key]) {
                       data.platforms[key].services.forEach((svc, sIdx) => {
-                          svc.servers.forEach((sv, svIdx) => {
-                              if(window.globalPlatforms[key].services[sIdx] && window.globalPlatforms[key].services[sIdx].servers[svIdx]) {
-                                  window.globalPlatforms[key].services[sIdx].servers[svIdx].price = sv.price;
-                              }
-                          });
+                          svc.servers.forEach((sv, svIdx) => { if(window.globalPlatforms[key].services[sIdx] && window.globalPlatforms[key].services[sIdx].servers[svIdx]) { window.globalPlatforms[key].services[sIdx].servers[svIdx].price = sv.price; } });
                       });
                   }
               }
           }
       }
-      window.renderProducts();
-      window.renderServices();
-  } catch(e) {
-      console.error("Lỗi lấy giá từ máy chủ, tự động dùng giá gốc!");
-      window.renderProducts();
-      window.renderServices();
-  }
+      window.renderProducts(); window.renderServices();
+  } catch(e) { window.renderProducts(); window.renderServices(); }
 }
 loadServicesData();
 
@@ -1562,6 +1545,168 @@ window.showGlobalAlert = function(msg, type='success') {
   setTimeout(() => { el.style.transform = 'translateX(0)'; }, 10);
   setTimeout(() => { el.style.transform = 'translateX(150%)'; setTimeout(() => { el.style.display = 'none'; }, 400); }, 5000);
 }
+
+// ====================================================
+// HỆ THỐNG XỬ LÝ API VÀ TRỪ TIỀN TỰ ĐỘNG 100%
+// ====================================================
+window.submitGeneric = async function(btn) {
+  if(!window.currentUserData) { openAuth('login'); return; }
+
+  const origHTML = btn.innerHTML;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang kết nối API...';
+  btn.disabled = true;
+
+  const isSmm = document.getElementById('svcModal').classList.contains('open');
+
+  try {
+      if(isSmm) {
+          // 1. LẤY DỮ LIỆU FORM SMM
+          const linkInput = document.querySelector('#svcModalForm .form-input[type="text"]');
+          if(!linkInput || !linkInput.value.trim()) { window.showGlobalAlert("Vui lòng nhập Link/ID cần tăng!", "error"); throw "Empty"; }
+          
+          const link = linkInput.value.trim();
+          const quantity = parseInt(document.getElementById('svc-qty').value);
+          const totalCost = parseInt(document.getElementById('svc-price').textContent.replace(/[^0-9]/g, ''));
+
+          if(window.currentUserData.balance < totalCost) { window.showGlobalAlert("Số dư không đủ! Vui lòng nạp thêm.", "error"); throw "Low balance"; }
+
+          // Tách lấy ID Dịch Vụ từ tên Máy chủ (VD "SV105" -> lấy 105)
+          const selectedServerEl = document.querySelector('.server-opt.selected .sv-badge');
+          let serviceId = selectedServerEl ? selectedServerEl.textContent.replace(/[^0-9]/g, '') : "1";
+          if(!serviceId) serviceId = "1";
+          const serviceNameFull = selectedServerEl ? selectedServerEl.textContent.trim() : "SMM Service";
+
+          const comments = document.getElementById('svc-comments') ? document.getElementById('svc-comments').value : "";
+          const reactionEl = document.querySelector('.reaction-item.active input');
+          const reaction = reactionEl ? reactionEl.value : "";
+
+          // 2. BẮN API SANG GOOGLE APPS SCRIPT (TINGTING)
+          const GAS_URL = "https://script.google.com/macros/s/AKfycbylugvQNrxwkZU7Waee0TdekNrtu9Zvw7uXb_C6eG0MG9TRQeXc-a_XyPYiSaL4eY3HAw/exec";
+          const payload = { action: "add", service: serviceId, link: link, quantity: quantity, comments: comments, reaction_type: reaction };
+
+          const response = await fetch(GAS_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) });
+          const result = await response.json();
+
+          // 3. NẾU TINGTING NHẬN ĐƠN THÀNH CÔNG
+          if(result.success && result.tingting_response && !result.tingting_response.error) {
+              // Trừ tiền ngay lập tức
+              const userRef = doc(db, 'users', window.currentUserData.uid);
+              await updateDoc(userRef, { balance: increment(-totalCost) });
+
+              // Ghi Lịch sử Đơn Hàng vào mây
+              await addDoc(collection(db, 'orders'), {
+                  uid: window.currentUserData.uid,
+                  service_name: serviceNameFull,
+                  link: link,
+                  quantity: quantity,
+                  total_price: totalCost,
+                  status: 'Đang xử lý 🚀',
+                  api_order_id: result.tingting_response.order || '',
+                  created_at: serverTimestamp()
+              });
+
+              btn.innerHTML = '<i class="fas fa-check"></i> Đặt thành công!';
+              btn.style.background = 'linear-gradient(135deg,var(--accent3),#00a876)';
+              window.showGlobalAlert(`Đã tạo đơn thành công! Trừ ${totalCost.toLocaleString('vi-VN')}đ`, 'success');
+
+              setTimeout(() => { closeModal('svcModal'); window.showSection('orders'); }, 2000);
+          } else {
+              // NẾU LỖI TỪ TINGTING (Ví dụ: Link sai, số lượng sai)
+              const errorMsg = result.tingting_response ? result.tingting_response.error : "Không xác định";
+              window.showGlobalAlert("Lỗi từ máy chủ API: " + errorMsg, "error");
+              btn.innerHTML = origHTML; btn.disabled = false;
+          }
+
+      } else {
+          // XỬ LÝ MUA TÀI KHOẢN PREMIUM
+          const infoInput = document.getElementById('pm-input').value;
+          if(!infoInput.trim()) { window.showGlobalAlert("Vui lòng nhập thông tin liên hệ!", "error"); throw "Empty"; }
+
+          const totalCost = parseInt(document.getElementById('pm-total').textContent.replace(/[^0-9]/g, ''));
+          if(window.currentUserData.balance < totalCost) { window.showGlobalAlert("Số dư không đủ! Vui lòng nạp thêm.", "error"); throw "Low balance"; }
+
+          const serviceName = document.getElementById('pm-title').textContent;
+
+          // Trừ tiền
+          const userRef = doc(db, 'users', window.currentUserData.uid);
+          await updateDoc(userRef, { balance: increment(-totalCost) });
+
+          // Lưu đơn hàng
+          await addDoc(collection(db, 'orders'), {
+              uid: window.currentUserData.uid,
+              service_name: serviceName,
+              link: infoInput,
+              quantity: 1,
+              total_price: totalCost,
+              status: 'Chờ giao tài khoản ⏳',
+              created_at: serverTimestamp()
+          });
+
+          btn.innerHTML = '<i class="fas fa-check"></i> Mua thành công!';
+          btn.style.background = 'linear-gradient(135deg,var(--accent3),#00a876)';
+          window.showGlobalAlert(`Mua thành công! Trừ ${totalCost.toLocaleString('vi-VN')}đ`, 'success');
+
+          setTimeout(() => { closeModal('prodModal'); window.showSection('orders'); }, 2000);
+      }
+  } catch(e) {
+      console.log(e);
+      btn.innerHTML = origHTML; btn.disabled = false;
+  }
+};
+
+// ====================================================
+// VẼ GIAO DIỆN LỊCH SỬ ĐƠN HÀNG 
+// ====================================================
+window.loadOrdersHistory = async function(uid) {
+  const container = document.getElementById('sec-orders');
+  container.innerHTML = `
+    <h2 style="font-size:26px;font-weight:800;margin-bottom:24px"><i class="fas fa-receipt" style="color:var(--accent)"></i> Lịch Sử Đơn Hàng</h2>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;text-align:left;">
+        <thead style="background:rgba(255,255,255,0.02);border-bottom:1px solid var(--border);">
+          <tr>
+            <th style="padding:16px;font-size:12px;color:var(--text2);">DỊCH VỤ</th>
+            <th style="padding:16px;font-size:12px;color:var(--text2);">LINK / THÔNG TIN</th>
+            <th style="padding:16px;font-size:12px;color:var(--text2);">SỐ TIỀN</th>
+            <th style="padding:16px;font-size:12px;color:var(--text2);">TRẠNG THÁI</th>
+            <th style="padding:16px;font-size:12px;color:var(--text2);">THỜI GIAN</th>
+          </tr>
+        </thead>
+        <tbody id="orders-tbody">
+          <tr><td colspan="5" style="text-align:center;padding:30px;"><i class="fas fa-spinner fa-spin"></i> Đang tải đơn hàng...</td></tr>
+        </tbody>
+      </table>
+    </div>`;
+
+  try {
+    const q = query(collection(db, 'orders'), where('uid', '==', uid), orderBy('created_at', 'desc'));
+    const snap = await getDocs(q);
+    const tbody = document.getElementById('orders-tbody');
+
+    if(snap.empty) {
+      tbody.innerHTML = '<tr><td colspan="5" style="padding:30px;text-align:center;color:var(--text3);">Bạn chưa có đơn hàng nào.</td></tr>';
+      return;
+    }
+
+    let rows = '';
+    snap.forEach(docSnap => {
+      const d = docSnap.data();
+      const dateObj = d.created_at ? d.created_at.toDate() : new Date();
+      const dateStr = `${dateObj.getHours().toString().padStart(2, '0')}:${dateObj.getMinutes().toString().padStart(2, '0')} - ${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth()+1).toString().padStart(2, '0')}`;
+      
+      let statusColor = d.status.includes('Hoàn thành') ? '#00d4aa' : (d.status.includes('xử lý') || d.status.includes('Chờ') ? '#f5c842' : '#ff4757');
+      
+      rows += `<tr>
+        <td style="padding:16px;font-size:13.5px;font-weight:700;color:var(--text);">${d.service_name}</td>
+        <td style="padding:16px;font-size:13px;color:var(--text2);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${d.link}</td>
+        <td style="padding:16px;font-size:14.5px;font-weight:800;color:var(--red);">- ${d.total_price.toLocaleString('vi-VN')}đ</td>
+        <td style="padding:16px;"><span style="color:${statusColor};background:rgba(255,255,255,0.05);padding:4px 8px;border-radius:6px;font-size:11px;font-weight:700;border:1px solid ${statusColor}33">${d.status}</span></td>
+        <td style="padding:16px;font-size:12px;color:var(--text3);">${dateStr}</td>
+      </tr>`;
+    });
+    tbody.innerHTML = rows;
+  } catch(e) { document.getElementById('orders-tbody').innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--red);">Lỗi tải lịch sử đơn hàng</td></tr>'; }
+};
 
 window.loadDepositHistory = async function(uid) {
   const tbody = document.getElementById('deposit-history-tbody');
@@ -1607,6 +1752,15 @@ let unsubscribeUser = null;
 window.previousBalance = -1; 
 const ADMIN_EMAIL = "phanductruongson1201@gmail.com";
 
+// LƯU Ý GIAO DIỆN KHI CHUYỂN TRANG
+const originalShowSection = window.showSection;
+window.showSection = function(name) {
+    originalShowSection(name);
+    if(name === 'orders' && window.currentUserData) {
+        window.loadOrdersHistory(window.currentUserData.uid);
+    }
+}
+
 onAuthStateChanged(auth, async (user) => {
   if(unsubscribeUser) unsubscribeUser();
   if(user){
@@ -1615,12 +1769,7 @@ onAuthStateChanged(auth, async (user) => {
     if(document.getElementById('cta-register-btn')) document.getElementById('cta-register-btn').style.display='none';
     if(document.getElementById('mobile-auth-btns')) document.getElementById('mobile-auth-btns').style.display='none';
 
-    // Bật nút Admin
-    if(user.email === ADMIN_EMAIL) {
-      document.getElementById('admin-menu-btn').style.display='flex';
-    } else {
-      document.getElementById('admin-menu-btn').style.display='none';
-    }
+    if(user.email === ADMIN_EMAIL) { document.getElementById('admin-menu-btn').style.display='flex'; } else { document.getElementById('admin-menu-btn').style.display='none'; }
 
     window.loadDepositHistory(user.uid);
     const userRef = doc(db, 'users', user.uid);
