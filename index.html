@@ -25,11 +25,9 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px;}
 
-/* TOPBAR ANNOUNCEMENT */
+/* TOPBAR & NAVBAR */
 .topbar-announcement{background:linear-gradient(90deg,var(--accent),var(--accent2));padding:8px 20px;font-size:12.5px;font-weight:600;text-align:center;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;}
 .topbar-announcement a{color:#fff;text-decoration:underline;}
-
-/* NAVBAR (GỌN GÀNG) */
 .navbar{height:var(--nav-h);background:rgba(13,15,26,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:1000;display:flex;align-items:center;padding:0 24px;gap:20px;}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:22px;font-weight:900;color:var(--text);white-space:nowrap;}
 .nav-logo-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;}
@@ -66,7 +64,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .user-dropdown-menu a i{width:16px;text-align:center;color:var(--text2);font-size:14px;}
 .user-dropdown-menu a:hover i{color:var(--accent);}
 
-/* Mobile hamburger */
+/* Mobile hamburger & Float */
 .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;padding:4px;}
 .mobile-menu{display:none;position:fixed;inset:0;background:rgba(13,15,26,0.98);z-index:1001;padding:80px 24px 24px;flex-direction:column;gap:8px;overflow-y:auto;}
 .mobile-menu.open{display:flex;}
@@ -74,8 +72,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .mobile-menu-item:hover,.mobile-menu-item.active{background:rgba(108,99,255,0.1);color:var(--text);}
 .mobile-close{position:absolute;top:16px;right:20px;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;}
 .mobile-section-title{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;padding:12px 16px 4px;}
-
-/* SUPPORT FLOAT */
 .support-float{position:fixed;right:20px;bottom:100px;display:flex;flex-direction:column;gap:10px;z-index:900;}
 .support-btn{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.4);transition:transform .2s;text-decoration:none;}
 .support-btn:hover{transform:scale(1.1);}
@@ -95,7 +91,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .hero-stat-num span{color:var(--accent);}
 .hero-stat-label{font-size:13px;color:var(--text2);margin-top:2px;}
 
-/* TRUST BAR */
+/* TRUST BAR & SECTIONS */
 .trust-bar{background:var(--bg2);border:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 24px;overflow:hidden;}
 .trust-track{display:flex;gap:40px;animation:marquee 20s linear infinite;width:max-content;}
 .trust-track:hover{animation-play-state:paused;}
@@ -103,7 +99,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .trust-item{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--text2);white-space:nowrap;}
 .trust-item i{color:var(--accent3);}
 
-/* SECTION */
 .section{padding:60px 24px;max-width:1300px;margin:0 auto;}
 .section-header{margin-bottom:36px;}
 .section-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
@@ -144,7 +139,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .svc-card-meta{font-size:12px;color:var(--text2);}
 .svc-card-price{font-size:14px;font-weight:800;color:var(--accent);white-space:nowrap;}
 
-/* MODALS GENERAL */
+/* MODALS GENERAL & FORMS */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:2000;display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
 .modal-overlay.open{display:flex;}
 .modal{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;width:100%;max-width:760px;margin:auto;overflow:hidden;animation:modalIn .25s ease;}
@@ -155,7 +150,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .modal-close:hover{background:var(--red);color:#fff;}
 .modal-body{padding:24px;display:grid;grid-template-columns:1fr 280px;gap:20px;}
 
-/* FORM ELEMENTS */
 .form-group{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
 .form-label{font-size:12.5px;font-weight:600;color:var(--text2);}
 .form-input{padding:11px 14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:13.5px;font-family:'Be Vietnam Pro',sans-serif;outline:none;transition:border-color .2s;width:100%;}
@@ -168,7 +162,7 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .submit-btn{width:100%;padding:13px;border-radius:11px;background:linear-gradient(135deg,var(--accent),#8b5cf6);border:none;color:#fff;font-size:15px;font-weight:700;font-family:'Be Vietnam Pro',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 20px rgba(108,99,255,0.4);transition:all .2s;}
 .submit-btn:hover{transform:translateY(-1px);box-shadow:0 6px 25px rgba(108,99,255,0.5);}
 
-/* SERVER OPTIONS - GIAO DIỆN CHỌN MÁY CHỦ SMM */
+/* SERVER OPTIONS SMM */
 .server-options { display: flex; flex-direction: column; gap: 10px; max-height: 280px; overflow-y: auto; padding-right: 6px; margin-bottom: 16px;}
 .server-options::-webkit-scrollbar { width: 6px; }
 .server-options::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 8px; }
@@ -185,7 +179,7 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .server-opt-price { background: rgba(0,212,170,0.15); color: var(--accent3); padding: 4px 10px; border-radius: 8px; font-size: 12.5px; font-weight: 800; white-space: nowrap; flex-shrink:0;}
 .server-opt-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
 
-/* REACTION PICKER - GIAO DIỆN CHỌN CẢM XÚC MỚI */
+/* REACTION PICKER */
 .reactions-group { display: flex; gap: 15px; margin-bottom: 16px; border: 1px solid var(--border); border-radius: 12px; padding: 15px; background: var(--bg); justify-content: center; flex-wrap: wrap; }
 .reaction-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; opacity: 0.6; transition: opacity 0.2s; position: relative;}
 .reaction-item:hover, .reaction-item.active { opacity: 1; }
@@ -196,6 +190,20 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .reaction-item.active .reaction-check { border-color: var(--accent); background: var(--accent); color: #fff; font-size: 10px;}
 .reaction-item.active .reaction-check::after { content:'\f00c'; font-family:'Font Awesome 5 Free'; font-weight:900;}
 
+/* ADMIN PANEL STYLES MỚI TINH */
+#sec-admin { padding: 40px 24px; max-width: 1200px; margin: 0 auto; display: none; }
+.admin-grid { display: flex; flex-direction: column; gap: 20px; }
+.admin-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+.admin-card h3 { color: var(--accent); margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; display: flex; align-items: center; gap: 8px;}
+.admin-svc-box { background: var(--bg3); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+.admin-svc-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+.admin-sv-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; flex-wrap: wrap;}
+.admin-sv-id { font-weight: 800; color: var(--accent3); width: 50px; flex-shrink:0;}
+.admin-sv-desc { flex: 1; font-size: 12px; color: var(--text2); min-width: 250px; }
+.admin-sv-price-wrap { display: flex; align-items: center; gap: 8px; flex-shrink:0;}
+.admin-input { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border2); background: var(--bg2); color: var(--text); font-weight: bold; width: 120px; text-align: right;}
+.admin-input:focus { border-color: var(--accent); outline: none;}
+
 .modal-info{display:flex;flex-direction:column;gap:14px;}
 .info-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;}
 .info-card-title{font-size:12px;font-weight:700;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
@@ -204,7 +212,7 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .info-list li{font-size:12.5px;color:var(--text2);display:flex;align-items:flex-start;gap:7px;line-height:1.5;}
 .info-list li::before{content:'✓';color:var(--accent3);font-weight:700;flex-shrink:0;}
 
-/* ================= PREMIUM PRODUCT MODAL ================= */
+/* PREMIUM PRODUCT MODAL */
 #prodModal .modal { max-width: 900px; }
 .prod-header-top { display:flex; align-items:center; gap:16px; margin-bottom: 24px; }
 .prod-big-icon { width:64px; height:64px; border-radius:16px; background:var(--bg3); display:flex; align-items:center; justify-content:center; font-size:32px; flex-shrink:0; overflow:hidden;}
@@ -212,14 +220,12 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .prod-htext p { font-size:13px; color:var(--text2); }
 .prod-stars { color:var(--gold); font-size:12px; margin-top:4px; }
 
-/* FIX THANH CUỘN CHO MODAL SẢN PHẨM */
 .pkg-list { display:flex; flex-direction:column; gap:12px; height: 360px; overflow-y:auto; padding-right:10px; padding-bottom:20px; }
 .pkg-list::-webkit-scrollbar {width:6px;}
 .pkg-list::-webkit-scrollbar-track {background: rgba(255,255,255,0.05); border-radius:8px;}
 .pkg-list::-webkit-scrollbar-thumb {background: var(--accent); border-radius:8px;}
 .pkg-list::-webkit-scrollbar-thumb:hover {background: #8b5cf6;}
 .pkg-card { background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:16px; cursor:pointer; transition:all 0.2s; display:flex; justify-content:space-between; align-items:center; position:relative; overflow:hidden; flex-shrink:0; }
-
 .pkg-card:hover { border-color:var(--border2); }
 .pkg-card.active { border-color:var(--accent); background:rgba(108,99,255,0.05); }
 .pkg-card.active::after { content:'\f00c'; font-family:'Font Awesome 5 Free'; font-weight:900; position:absolute; top:0; right:0; background:var(--accent); color:#fff; font-size:10px; padding:4px 10px; border-bottom-left-radius:10px; }
@@ -238,46 +244,39 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .total-row { display:flex; justify-content:space-between; align-items:center; margin:20px 0; font-size:15px; font-weight:700; color:var(--text); }
 .total-price { font-size:24px; font-weight:800; color:var(--accent3); }
 
-/* AUTH MODAL */
+/* AUTH MODAL & OTHERS */
 .auth-modal{max-width:440px;}
 .auth-tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:24px;}
 .auth-tab{flex:1;padding:12px;text-align:center;font-size:14px;font-weight:600;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s;}
 .auth-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
 .auth-content{display:none;}
 .auth-content.active{display:flex;flex-direction:column;gap:16px;}
-
-/* ================= INVOICE MODAL (NẠP TIỀN) ================= */
 #invoiceModal .modal { max-width: 420px; background: #ffffff; color: #333; border-radius: 24px; border: none; overflow: hidden; }
 .inv-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 24px 16px; border-bottom: 1px dashed #e0e0e0; }
 .inv-title { font-size: 18px; font-weight: 800; color: #111; margin-bottom: 4px; }
 .inv-code { font-size: 12px; color: #666; font-weight: 500; }
 .inv-status { background: #fff4e5; color: #fa8c16; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; }
-
 .inv-body { padding: 24px; }
 .inv-qr-card { background: #fdfdfd; border:1px solid #eee; border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 24px; }
 .inv-qr-card img { width: 180px; height: 180px; object-fit: contain; border-radius: 8px; margin-bottom: 12px; }
 .inv-qr-text { font-size: 12.5px; font-weight: 600; color: #555; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 6px; }
 .inv-timer { background: #f0f0f0; display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; color: #333; }
-
 .inv-details-title { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
 .inv-detail-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 13.5px; }
 .inv-detail-row span { color: #666; }
 .inv-detail-row strong { color: #111; font-weight: 700; text-align: right; }
 .inv-detail-row .copyable { cursor: pointer; color: #0068ff; transition: opacity 0.2s; display: flex; align-items: center; gap: 6px; }
 .inv-detail-row .copyable:hover { opacity: 0.7; }
-
 .inv-divider { height: 1px; border-bottom: 1px dashed #e0e0e0; margin: 16px 0; }
 .inv-total { font-size: 16px; }
 .inv-total strong { color: #0068ff; font-size: 20px; font-weight: 900; }
 
-/* Các phần khác (Trang chủ, footer...) */
 .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
 .feature-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;transition:all .2s;}
 .feature-card:hover{border-color:var(--border2);transform:translateY(-3px);}
 .feature-icon{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;}
 .feature-title{font-size:16px;font-weight:700;margin-bottom:8px;}
 .feature-desc{font-size:13.5px;color:var(--text2);line-height:1.6;}
-
 .tiers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
 .tier-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;transition:all .2s;position:relative;overflow:hidden;}
 .tier-card.popular{border-color:var(--accent);background:rgba(108,99,255,0.06);}
@@ -289,7 +288,6 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .tier-perks{list-style:none;display:flex;flex-direction:column;gap:8px;text-align:left;}
 .tier-perks li{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:7px;}
 .tier-perks li i{color:var(--accent3);width:14px;}
-
 .reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
 .review-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:20px;}
 .review-stars{color:var(--gold);font-size:14px;margin-bottom:10px;}
@@ -298,7 +296,6 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .review-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;}
 .review-name{font-size:13.5px;font-weight:700;}
 .review-meta{font-size:12px;color:var(--text2);}
-
 .faq-list{display:flex;flex-direction:column;gap:10px;max-width:800px;}
 .faq-item{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
 .faq-q{padding:16px 20px;font-size:14px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .15s;}
@@ -307,11 +304,9 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .faq-item.open .faq-q i{transform:rotate(180deg);}
 .faq-a{padding:0 20px;max-height:0;overflow:hidden;font-size:13.5px;color:var(--text2);line-height:1.7;transition:max-height .3s ease, padding .3s ease;}
 .faq-item.open .faq-a{max-height:300px;padding:0 20px 16px;}
-
 .cta-section{background:linear-gradient(135deg,rgba(108,99,255,0.15),rgba(255,107,157,0.1));border:1px solid var(--border2);border-radius:24px;padding:60px 40px;text-align:center;margin:60px 24px;}
 .cta-title{font-size:clamp(24px,4vw,40px);font-weight:900;margin-bottom:14px;}
 .cta-sub{font-size:16px;color:var(--text2);margin-bottom:32px;}
-
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24px 24px;}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1300px;margin:0 auto 40px;}
 .footer-brand-desc{font-size:13.5px;color:var(--text2);line-height:1.7;margin:14px 0;}
@@ -348,7 +343,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
 <body>
 
 <div class="topbar-announcement">
-  🔥 Ưu đãi đặc biệt: Nạp từ 500k tặng thêm 5% · <a href="#deposit" onclick="showSection('deposit'); return false;">Nạp ngay</a> · Hỗ trợ 24/7
+  🔥 Ưu đãi đặc biệt: Nạp từ 500k tặng thêm 5% · <a href="#" onclick="showSection('deposit'); return false;">Nạp ngay</a> · Hỗ trợ 24/7
 </div>
 
 <nav class="navbar">
@@ -356,11 +351,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
     <div class="nav-logo-icon">⚡</div>
     Social<span>Pro</span>.VN
   </a>
-  
   <div class="nav-links" id="main-nav-links">
     <a class="nav-link active" href="#" onclick="showSection('home');return false"><i class="fas fa-home"></i> Trang Chủ</a>
   </div>
-  
   <div class="nav-spacer"></div>
   
   <div class="nav-actions" id="nav-actions-guest">
@@ -385,6 +378,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
         </div>
         
         <div class="user-dropdown-menu" id="userDropdown">
+          <a href="#" id="admin-menu-btn" style="display:none; color:var(--gold); font-weight:800;" onclick="showSection('admin'); return false;"><i class="fas fa-crown"></i> Quản Trị Hệ Thống</a>
           <a href="#" onclick="showSection('home'); return false;"><i class="fas fa-home"></i> Trang Chủ</a>
           <a href="#" onclick="showSection('account'); return false;"><i class="fas fa-user-circle"></i> Quản Lý Tài Khoản</a>
           <a href="#" onclick="showSection('deposit'); return false;"><i class="fas fa-coins"></i> Nạp Tiền Hệ Thống</a>
@@ -581,6 +575,21 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
   </div>
 </div>
 
+</div>
+
+<div id="sec-admin">
+  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; border-bottom: 2px solid var(--border); padding-bottom: 20px;">
+    <div>
+      <h2 style="font-size:26px; font-weight:800; color:var(--gold);"><i class="fas fa-crown"></i> Bảng Điều Khiển Quản Trị Viên</h2>
+      <p style="color:var(--text2); font-size:14px; margin-top:5px;">Xin chào Sếp! Thay đổi giá tại đây sẽ cập nhật trực tiếp trên toàn hệ thống.</p>
+    </div>
+    <button class="btn btn-primary" onclick="saveAdminPrices()" style="font-size:15px; padding:12px 24px; box-shadow: 0 5px 20px rgba(0, 212, 170, 0.4); background: linear-gradient(135deg, #00d4aa, #00a876);">
+      <i class="fas fa-save"></i> Lưu Cập Nhật Giá
+    </button>
+  </div>
+  <div id="admin-content" class="admin-grid">
+    <div style="text-align:center; padding:50px; color:var(--text3);"><i class="fas fa-spinner fa-spin" style="font-size:30px;"></i> Đang tải dữ liệu hệ thống...</div>
+  </div>
 </div>
 
 <div id="sec-deposit" style="display:none;padding:40px 24px;max-width:800px;margin:0 auto">
@@ -866,201 +875,30 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
   </div>
 </div>
 
-<script>
-// ═══════════════════════════════════════════════
-// HÀM TẠO HÓA ĐƠN & QR NẠP TIỀN
-// ═══════════════════════════════════════════════
-let invTimer;
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, serverTimestamp, onSnapshot, collection, query, where, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-window.generateQR = function() {
-  if(!window.currentUserData) { openAuth('login'); return; }
-  const amountInput = document.getElementById('deposit-amount').value;
-  const amount = parseInt(amountInput) || 0;
-  if(amount < 20000) { alert("Vui lòng nhập số tiền tối thiểu là 20,000đ"); return; }
-  const username = window.currentUserData.username;
-  const syntax = `DVPRO ${username}`;
-  const invoiceId = "SP" + Math.random().toString(36).substr(2, 8).toUpperCase();
-  
-  document.getElementById('inv-id').textContent = invoiceId;
-  document.getElementById('inv-content-text').innerHTML = `${syntax} <i class="fas fa-copy"></i>`;
-  document.getElementById('inv-content-text').setAttribute('onclick', `copyToClipboard('${syntax}')`);
-  document.getElementById('inv-amount-req').textContent = amount.toLocaleString('vi-VN');
-  document.getElementById('inv-amount-receive').textContent = "+ " + amount.toLocaleString('vi-VN');
-
-  const bankID = 'MB'; const bankAcc = 'VQRQAHQHF1360'; const accountName = 'PHAN DUC TRUONG SON';
-  const qrUrl = `https://img.vietqr.io/image/${bankID}-${bankAcc}-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(syntax)}&accountName=${encodeURIComponent(accountName)}`;
-  
-  document.getElementById('inv-qr-img').src = qrUrl;
-  document.getElementById('invoiceModal').classList.add('open');
-  startInvoiceTimer();
-}
-
-window.startInvoiceTimer = function() {
-  clearInterval(invTimer); let time = 600; 
-  const display = document.getElementById('inv-countdown');
-  invTimer = setInterval(() => {
-    let minutes = parseInt(time / 60, 10); let seconds = parseInt(time % 60, 10);
-    minutes = minutes < 10 ? "0" + minutes : minutes; seconds = seconds < 10 ? "0" + seconds : seconds;
-    display.textContent = minutes + ":" + seconds;
-    if (--time < 0) { clearInterval(invTimer); display.textContent = "Hết hạn"; }
-  }, 1000);
+// --- CẤU HÌNH FIREBASE CỦA BẠN ---
+const firebaseConfig = {
+  apiKey: "AIzaSyAccwBvfUMMsrt4HHLB9EYJSKQq_nchtjA",
+  authDomain: "socialpro-db-c2654.firebaseapp.com",
+  projectId: "socialpro-db-c2654",
+  storageBucket: "socialpro-db-c2654.firebasestorage.app",
+  messagingSenderId: "821789877824",
+  appId: "1:821789877824:web:99d69aa828b4609babe1a5"
 };
 
-window.copyToClipboard = function(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    const el = document.getElementById('auth-alert');
-    el.style.display = 'block'; el.style.background = 'rgba(0,212,170,0.12)'; el.style.border = '1px solid rgba(0,212,170,0.3)';
-    el.style.color = 'var(--accent3)'; el.style.position = 'fixed'; el.style.top = '20px'; el.style.right = '20px'; el.style.zIndex = '99999';
-    el.innerHTML = '✅ Đã sao chép: ' + text; setTimeout(() => { el.style.display = 'none'; }, 2500);
-  });
-};
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
 
-// ═══════════════════════════════════════════════
-// DATA SẢN PHẨM PREMIUM & DỊCH VỤ SMM CHỈ VIỆT NAM
-// ═══════════════════════════════════════════════
-const PRODUCTS = [
-  {
-    name: 'YouTube Premium', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#ff0000', badge: 'hot', 
-    desc: 'Nâng Cấp Tài Khoản Youtube Premium Chính Chủ Đăng Ký Gmail Của Bạn + Tặng Kèm Canva Pro 1 Năm',
-    note: 'Vui Lòng Nhập Gmail Cần Đăng Kí Gói Youtube Premium của bạn (Không yêu cầu Password) - Gia Hạn Vui Lòng Note Mail + Gia Hạn Để Tránh Bị Lỗi Mail - Ví Dụ: aaa@gmail.com gia hạn',
-    price: 37800, oldPrice: '129,000',
-    packages: [
-      { name: '1 Tháng', desc: 'Nâng Cấp Chính Chủ Không Kèm Canva Pro Edu 1 Năm', price: 37800, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '3 Tháng', desc: 'Nâng Cấp Chính Chủ Không Kèm Canva Pro Edu 1 Năm', price: 98550, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '6 Tháng', desc: 'Nâng Cấp Chính Chủ + Tặng Kèm Canva Pro Edu 1 Năm', price: 189000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '12 Tháng', desc: 'Nâng Cấp Chính Chủ + Tặng Kèm Canva Pro Edu 1 Năm', price: 324000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '24 Tháng', desc: 'Nâng Cấp Chính Chủ + Tặng Kèm Canva Pro Edu 2 Năm', price: 580500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '36 Tháng', desc: 'Nâng Cấp Chính Chủ + Tặng Kèm Canva Pro Edu 3 Năm', price: 837000, tags: ['Giao ngay', 'Bảo hành'] }
-    ]
-  },
-  {
-    name: 'ChatGPT Plus', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#10a37f', badge: 'hot', 
-    desc: 'Tài khoản ChatGPT Plus Chính Chủ dùng GPT-4o, DALL-E 3',
-    note: 'Nhập email để nhận tài khoản ChatGPT Plus. Đảm bảo email chưa từng vi phạm chính sách của OpenAI.',
-    price: 91800, oldPrice: '500,000',
-    packages: [
-      { name: '1 Tháng', desc: 'Tài Khoản Chatgpt Plus Dùng Chung - Chỉ Đăng Nhập 1 Máy', price: 91800, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '1 Tháng', desc: 'Tài Khoản Chatgpt Plus Dùng Riêng Mình Bạn - Đăng Nhập 4-5 Máy', price: 162000, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '1 Tháng', desc: 'Nâng Cấp Tài Khoản Chatgpt Plus Chính Chủ - Đăng Nhập 4-5 Máy', price: 175500, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '3 Tháng', desc: 'Tài Khoản Chatgpt Plus Dùng Riêng Mình Bạn - Đăng Nhập 4-5 Máy', price: 445500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '3 Tháng', desc: 'Nâng Cấp Tài Khoản Chatgpt Plus Chính Chủ - Đăng Nhập 4-5 Máy', price: 513000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '6 Tháng', desc: 'Tài Khoản Chatgpt Plus Dùng Riêng Mình Bạn - Đăng Nhập 4-5 Máy', price: 836750, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '6 Tháng', desc: 'Nâng Cấp Tài Khoản Chatgpt Plus Chính Chủ - Đăng Nhập 4-5 Máy', price: 850500, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '12 Tháng', desc: 'Tài Khoản Chatgpt Go Dùng Riêng Mình Bạn - Đăng Nhập 4-5 Máy', price: 351000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] }
-    ]
-  },
-  {
-    name: 'Netflix Ultra 4K', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#e50914', badge: 'sale', 
-    desc: 'Tài Khoản Netflix Ultra 4K Profile Riêng + Pin Riêng',
-    note: 'Tài khoản cấp mới hoàn toàn. Vui lòng điền Zalo/Email để nhận thông tin đăng nhập.',
-    price: 125550, oldPrice: '260,000',
-    packages: [
-      { name: '1 Tháng', desc: 'Tài Khoản Netflix Ultra 4K Profile Riêng + Pin Riêng', price: 125550, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '3 Tháng', desc: 'Tài Khoản Netflix Ultra 4K Profile Riêng + Pin Riêng', price: 337500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '6 Tháng', desc: 'Tài Khoản Netflix Ultra 4K Profile Riêng + Pin Riêng', price: 661500, tags: ['Giao ngay', 'Bảo hành'] }
-    ]
-  },
-  {
-    name: 'Canva Pro', icon: '<img src="https://www.google.com/s2/favicons?domain=canva.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#00C4CC', badge: 'new',
-    desc: 'Nâng Cấp Tài Khoản Canva Pro Education Chính Chủ Đăng Ký Bằng Mail Của Bạn - Canva Pro Full Có Quyền Up Bộ Thương Hiệu',
-    note: 'Vui lòng điền Email của bạn để nâng cấp.',
-    price: 24300, oldPrice: '200,000',
-    packages: [
-      { name: '12 Tháng', desc: 'Canva Education', price: 24300, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '12 Tháng', desc: 'Canva Pro Full Tính Năng', price: 121500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '24 Tháng', desc: 'Canva Education', price: 44550, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '24 Tháng', desc: 'Canva Pro Full Tính Năng', price: 243000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '36 Tháng', desc: 'Canva Education', price: 62100, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '36 Tháng', desc: 'Canva Pro Full Tính Năng', price: 351000, tags: ['Giao ngay', 'Bảo hành'] }
-    ]
-  },
-  {
-    name: 'Spotify Premium', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#1db954', badge: '',
-    desc: 'Tài Khoản Spotify Premium Giá Rẻ',
-    note: 'Vui lòng điền Email của bạn.',
-    price: 189000, oldPrice: '59,000',
-    packages: [
-      { name: '4 Tháng', desc: 'Tài Khoản Spotify Premium Hạn 4 Tháng', price: 189000, tags: [] },
-      { name: '4 Tháng', desc: 'Nâng Cấp Chính Chủ Spotify Premium Hạn 4 Tháng', price: 229500, tags: [] }
-    ]
-  },
-  {
-    name: 'Adobe Full Apps', icon: '<img src="https://www.google.com/s2/favicons?domain=adobe.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#ff0000', badge: 'hot',
-    desc: 'Tài Khoản Adobe Full 20+ Apps + 100GB Cloud Lưu Trữ Dùng Trên 2 Thiết Bị Chính Chủ',
-    note: 'Nhập Mail Adobe Cần Nâng Cấp Hoặc Mail Cần Cấp Tài Khoản Mới Của Bạn.',
-    price: 216000, oldPrice: '900,000',
-    packages: [
-      { name: '4 Tháng', desc: 'Tài Khoản Adobe Dùng 2 Thiết Bị Full 20+ Apps + 100GB Cloud Lưu Trữ', price: 216000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '1 Năm', desc: 'Tài Khoản Adobe Dùng 2 Thiết Bị Full 20+ Apps + 100GB Cloud Lưu Trữ', price: 607500, tags: ['Giao ngay', 'Bảo hành'] }
-    ]
-  },
-  {
-    name: 'Microsoft Office 365', icon: '<img src="https://www.google.com/s2/favicons?domain=office.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#d83b01', badge: '',
-    desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 Copilot (Bộ Cung Cụ Exel, Work, Powerpoin..) + One Driver 1 Tb',
-    note: 'Vui lòng điền Email Microsoft của bạn.',
-    price: 148500, oldPrice: '300,000',
-    packages: [
-      { name: '6 Tháng', desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 1 Năm + OneDrive 1 TB', price: 148500, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '12 Tháng', desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 2 Năm + OneDrive 1 TB', price: 243000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '24 Tháng', desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 2 Năm + OneDrive 1 TB', price: 445500, tags: ['Giao ngay', 'Bảo hành'] }
-    ]
-  },
-  {
-    name: 'Cursor Pro AI', icon: '<img src="https://cdn.simpleicons.org/cursor/ffffff" style="width:48px;height:48px;object-fit:contain;">', color: '#000000', badge: 'new',
-    desc: 'Tài Khoản Cursor Pro AI + Cursor Pro Plus',
-    note: 'Tài khoản cấp sẵn.',
-    price: 513000, oldPrice: '400,000',
-    packages: [
-      { name: '1 Tháng', desc: 'Tài Khoản Cursor Pro Dùng Riêng', price: 513000, tags: [] }
-    ]
-  },
-  {
-    name: 'Google Gemini Pro', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#4285f4', badge: 'new',
-    desc: 'Tài Khoản Gemini Pro AI + Google One Drive 2 TB +Google Antigravity Chính Chủ',
-    note: 'Nhập Mail cần nâng cấp của bạn.',
-    price: 148500, oldPrice: '350,000',
-    packages: [
-      { name: '6 Tháng', desc: 'Nâng Cấp Gemini Pro AI + Google One Drive 2 TB + Google Antigravity Chính Chủ', price: 148500, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '12 Tháng', desc: 'Nâng Cấp Gemini Pro AI + Google One Drive 2 TB + Google Antigravity Chính Chủ', price: 229500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '12 Tháng', desc: 'Nâng Cấp Chính Chủ Chủ Nhóm + 5 Slot Gemini Pro AI + 2 TB + Google Antigravity = 6 Slot', price: 540000, tags: ['Giao ngay', 'Bảo hành'] }
-    ]
-  },
-  {
-    name: 'Capcut Pro', icon: '<img src="https://www.google.com/s2/favicons?domain=capcut.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#fff', badge: '',
-    desc: 'Tài Khoản CapCut Pro Dùng Riêng Biệt (Đăng Nhập Được 3-4 Máy) - Loại Cá Nhân 6 Tháng Có Kèm Credit AI',
-    note: 'Tài khoản cấp sẵn dùng riêng tư.',
-    price: 45900, oldPrice: '150,000',
-    packages: [
-      { name: '1 Tháng', desc: 'Tài Khoản Có Sẵn Dùng Riêng Tư 3 Máy Đăng Nhập', price: 45900, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '3 Tháng', desc: 'Tài Khoản Có Sẵn Dùng Riêng Tư 3 Máy Đăng Nhập - Đổi Tài Khoản Hàng Tháng', price: 137700, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '6 Tháng', desc: 'Tài Khoản Có Sẵn Cá Nhân Riêng Tư Đủ Hạn 3 Máy Đăng Nhập + Có Credit AI Đi Kèm Ổn Định', price: 391500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '6 Tháng', desc: 'Nâng Cấp Tài Khoản Cá Nhân Chính Chủ Đủ Hạn 3 Máy Đăng Nhập + Có Credit AI Đi Kèm Ổn Định', price: 445500, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '6 Tháng', desc: 'Tài Khoản Có Sẵn Hàng Đội Nhóm Đủ Hạn 3 Máy Đăng Nhập Riêng Tư', price: 297000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '12 Tháng', desc: 'Tài Khoản Có Sẵn Hàng Đội Nhóm Đủ Hạn 3 Máy Đăng Nhập Riêng Tư', price: 513000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] }
-    ]
-  },
-  {
-    name: 'Super Grok AI', icon: '<img src="https://cdn.simpleicons.org/x/ffffff" style="width:48px;height:48px;object-fit:contain;">', color: '#1a1a1a', badge: 'new',
-    desc: 'Tài Khoản Super Grok AI Có Sẵn Dùng Riêng Tư',
-    note: 'Nhập thông tin Zalo để nhận.',
-    price: 89100, oldPrice: '600,000',
-    packages: [
-      { name: '1 Tháng', desc: 'Tài Khoản Super Grok AI Có Sẵn Dùng Riêng Tư Hạn Chỉ 7 Ngày', price: 89100, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '1 Tháng', desc: 'Tài Khoản Super Grok AI Có Sẵn Dùng Riêng Tư Hạn Đầy Đủ 1 Tháng', price: 175500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] }
-    ]
-  },
-  {
-    name: 'Meitu SVip', icon: '<i class="fas fa-wand-magic-sparkles" style="font-size:42px;color:#ff4d9e"></i>', color: '#ff4d9e', badge: '',
-    desc: 'Tài Khoản Meitu SVip Svip Cấp Sẵn Dùng Riêng Giá Rẻ',
-    note: 'Cấp sẵn tài khoản.',
-    price: 91800, oldPrice: '120,000',
-    packages: [
-      { name: '1 Tháng', desc: 'Tài Khoản Meitu SVip Cấp Sẵn Dùng Riêng Giá Rẻ', price: 91800, tags: [] }
-    ]
-  }
-];
+const ADMIN_EMAIL = "phanductruongson1201@gmail.com"; 
+window.globalPlatforms = null;
 
-const PLATFORMS = {
+// --- DỮ LIỆU MẶC ĐỊNH (CHỈ DÙNG KHI CHƯA CÓ TRÊN FIREBASE) ---
+const DEFAULT_PLATFORMS = {
   'facebook': {
     name: 'VN Facebook', icon: 'fab fa-facebook-f', color: '#1877f2',
     services: [
@@ -1355,21 +1193,159 @@ const PLATFORMS = {
   }
 };
 
-// DATA REACTION - DANH SÁCH CẢM XÚC FACEBOOK
+const PRODUCTS = [
+  {
+    name: 'YouTube Premium', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#ff0000', badge: 'hot', 
+    desc: 'Nâng Cấp Tài Khoản Youtube Premium Chính Chủ Đăng Ký Gmail Của Bạn + Tặng Kèm Canva Pro 1 Năm',
+    note: 'Vui Lòng Nhập Gmail Cần Đăng Kí Gói Youtube Premium của bạn (Không yêu cầu Password) - Gia Hạn Vui Lòng Note Mail + Gia Hạn Để Tránh Bị Lỗi Mail - Ví Dụ: aaa@gmail.com gia hạn',
+    price: 37800, oldPrice: '129,000',
+    packages: [
+      { name: '1 Tháng', desc: 'Nâng Cấp Chính Chủ Không Kèm Canva Pro Edu 1 Năm', price: 37800, tags: ['Giao ngay', 'Bảo hành'] },
+      { name: '3 Tháng', desc: 'Nâng Cấp Chính Chủ Không Kèm Canva Pro Edu 1 Năm', price: 98550, tags: ['Giao ngay', 'Bảo hành'] },
+      { name: '6 Tháng', desc: 'Nâng Cấp Chính Chủ + Tặng Kèm Canva Pro Edu 1 Năm', price: 189000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
+      { name: '12 Tháng', desc: 'Nâng Cấp Chính Chủ + Tặng Kèm Canva Pro Edu 1 Năm', price: 324000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
+      { name: '24 Tháng', desc: 'Nâng Cấp Chính Chủ + Tặng Kèm Canva Pro Edu 2 Năm', price: 580500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
+      { name: '36 Tháng', desc: 'Nâng Cấp Chính Chủ + Tặng Kèm Canva Pro Edu 3 Năm', price: 837000, tags: ['Giao ngay', 'Bảo hành'] }
+    ]
+  },
+  {
+    name: 'ChatGPT Plus', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#10a37f', badge: 'hot', 
+    desc: 'Tài khoản ChatGPT Plus Chính Chủ dùng GPT-4o, DALL-E 3',
+    note: 'Nhập email để nhận tài khoản ChatGPT Plus. Đảm bảo email chưa từng vi phạm chính sách của OpenAI.',
+    price: 91800, oldPrice: '500,000',
+    packages: [
+      { name: '1 Tháng', desc: 'Tài Khoản Chatgpt Plus Dùng Chung - Chỉ Đăng Nhập 1 Máy', price: 91800, tags: ['Giao ngay', 'Bảo hành'] },
+      { name: '1 Tháng', desc: 'Tài Khoản Chatgpt Plus Dùng Riêng Mình Bạn - Đăng Nhập 4-5 Máy', price: 162000, tags: ['Giao ngay', 'Bảo hành'] },
+      { name: '1 Tháng', desc: 'Nâng Cấp Tài Khoản Chatgpt Plus Chính Chủ - Đăng Nhập 4-5 Máy', price: 175500, tags: ['Giao ngay', 'Bảo hành'] },
+      { name: '3 Tháng', desc: 'Tài Khoản Chatgpt Plus Dùng Riêng Mình Bạn - Đăng Nhập 4-5 Máy', price: 445500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
+      { name: '3 Tháng', desc: 'Nâng Cấp Tài Khoản Chatgpt Plus Chính Chủ - Đăng Nhập 4-5 Máy', price: 513000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
+      { name: '6 Tháng', desc: 'Tài Khoản Chatgpt Plus Dùng Riêng Mình Bạn - Đăng Nhập 4-5 Máy', price: 836750, tags: ['Giao ngay', 'Bảo hành'] },
+      { name: '6 Tháng', desc: 'Nâng Cấp Tài Khoản Chatgpt Plus Chính Chủ - Đăng Nhập 4-5 Máy', price: 850500, tags: ['Giao ngay', 'Bảo hành'] },
+      { name: '12 Tháng', desc: 'Tài Khoản Chatgpt Go Dùng Riêng Mình Bạn - Đăng Nhập 4-5 Máy', price: 351000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] }
+    ]
+  },
+  {
+    name: 'Netflix Ultra 4K', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#e50914', badge: 'sale', 
+    desc: 'Tài Khoản Netflix Ultra 4K Profile Riêng + Pin Riêng',
+    note: 'Tài khoản cấp mới hoàn toàn. Vui lòng điền Zalo/Email để nhận thông tin đăng nhập.',
+    price: 125550, oldPrice: '260,000',
+    packages: [
+      { name: '1 Tháng', desc: 'Tài Khoản Netflix Ultra 4K Profile Riêng + Pin Riêng', price: 125550, tags: ['Giao ngay', 'Bảo hành'] },
+      { name: '3 Tháng', desc: 'Tài Khoản Netflix Ultra 4K Profile Riêng + Pin Riêng', price: 337500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
+      { name: '6 Tháng', desc: 'Tài Khoản Netflix Ultra 4K Profile Riêng + Pin Riêng', price: 661500, tags: ['Giao ngay', 'Bảo hành'] }
+    ]
+  },
+  {
+    name: 'Canva Pro', icon: '<img src="https://www.google.com/s2/favicons?domain=canva.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#00C4CC', badge: 'new',
+    desc: 'Nâng Cấp Tài Khoản Canva Pro Education Chính Chủ Đăng Ký Bằng Mail Của Bạn - Canva Pro Full Có Quyền Up Bộ Thương Hiệu',
+    note: 'Vui lòng điền Email của bạn để nâng cấp.',
+    price: 24300, oldPrice: '200,000',
+    packages: [
+      { name: '12 Tháng', desc: 'Canva Education', price: 24300, tags: ['Giao ngay', 'Bảo hành'] },
+      { name: '12 Tháng', desc: 'Canva Pro Full Tính Năng', price: 121500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
+      { name: '24 Tháng', desc: 'Canva Education', price: 44550, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
+      { name: '24 Tháng', desc: 'Canva Pro Full Tính Năng', price: 243000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
+      { name: '36 Tháng', desc: 'Canva Education', price: 62100, tags: ['Giao ngay', 'Bảo hành'] },
+      { name: '36 Tháng', desc: 'Canva Pro Full Tính Năng', price: 351000, tags: ['Giao ngay', 'Bảo hành'] }
+    ]
+  },
+  {
+    name: 'Spotify Premium', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#1db954', badge: '',
+    desc: 'Tài Khoản Spotify Premium Giá Rẻ',
+    note: 'Vui lòng điền Email của bạn.',
+    price: 189000, oldPrice: '59,000',
+    packages: [
+      { name: '4 Tháng', desc: 'Tài Khoản Spotify Premium Hạn 4 Tháng', price: 189000, tags: [] },
+      { name: '4 Tháng', desc: 'Nâng Cấp Chính Chủ Spotify Premium Hạn 4 Tháng', price: 229500, tags: [] }
+    ]
+  },
+  {
+    name: 'Adobe Full Apps', icon: '<img src="https://www.google.com/s2/favicons?domain=adobe.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#ff0000', badge: 'hot',
+    desc: 'Tài Khoản Adobe Full 20+ Apps + 100GB Cloud Lưu Trữ Dùng Trên 2 Thiết Bị Chính Chủ',
+    note: 'Nhập Mail Adobe Cần Nâng Cấp Hoặc Mail Cần Cấp Tài Khoản Mới Của Bạn.',
+    price: 216000, oldPrice: '900,000',
+    packages: [
+      { name: '4 Tháng', desc: 'Tài Khoản Adobe Dùng 2 Thiết Bị Full 20+ Apps + 100GB Cloud Lưu Trữ', price: 216000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
+      { name: '1 Năm', desc: 'Tài Khoản Adobe Dùng 2 Thiết Bị Full 20+ Apps + 100GB Cloud Lưu Trữ', price: 607500, tags: ['Giao ngay', 'Bảo hành'] }
+    ]
+  },
+  {
+    name: 'Microsoft Office 365', icon: '<img src="https://www.google.com/s2/favicons?domain=office.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#d83b01', badge: '',
+    desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 Copilot (Bộ Cung Cụ Exel, Work, Powerpoin..) + One Driver 1 Tb',
+    note: 'Vui lòng điền Email Microsoft của bạn.',
+    price: 148500, oldPrice: '300,000',
+    packages: [
+      { name: '6 Tháng', desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 1 Năm + OneDrive 1 TB', price: 148500, tags: ['Giao ngay', 'Bảo hành'] },
+      { name: '12 Tháng', desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 2 Năm + OneDrive 1 TB', price: 243000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
+      { name: '24 Tháng', desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 2 Năm + OneDrive 1 TB', price: 445500, tags: ['Giao ngay', 'Bảo hành'] }
+    ]
+  },
+  {
+    name: 'Cursor Pro AI', icon: '<img src="https://cdn.simpleicons.org/cursor/ffffff" style="width:48px;height:48px;object-fit:contain;">', color: '#000000', badge: 'new',
+    desc: 'Tài Khoản Cursor Pro AI + Cursor Pro Plus',
+    note: 'Tài khoản cấp sẵn.',
+    price: 513000, oldPrice: '400,000',
+    packages: [
+      { name: '1 Tháng', desc: 'Tài Khoản Cursor Pro Dùng Riêng', price: 513000, tags: [] }
+    ]
+  },
+  {
+    name: 'Google Gemini Pro', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#4285f4', badge: 'new',
+    desc: 'Tài Khoản Gemini Pro AI + Google One Drive 2 TB +Google Antigravity Chính Chủ',
+    note: 'Nhập Mail cần nâng cấp của bạn.',
+    price: 148500, oldPrice: '350,000',
+    packages: [
+      { name: '6 Tháng', desc: 'Nâng Cấp Gemini Pro AI + Google One Drive 2 TB + Google Antigravity Chính Chủ', price: 148500, tags: ['Giao ngay', 'Bảo hành'] },
+      { name: '12 Tháng', desc: 'Nâng Cấp Gemini Pro AI + Google One Drive 2 TB + Google Antigravity Chính Chủ', price: 229500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
+      { name: '12 Tháng', desc: 'Nâng Cấp Chính Chủ Chủ Nhóm + 5 Slot Gemini Pro AI + 2 TB + Google Antigravity = 6 Slot', price: 540000, tags: ['Giao ngay', 'Bảo hành'] }
+    ]
+  },
+  {
+    name: 'Capcut Pro', icon: '<img src="https://www.google.com/s2/favicons?domain=capcut.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#fff', badge: '',
+    desc: 'Tài Khoản CapCut Pro Dùng Riêng Biệt (Đăng Nhập Được 3-4 Máy) - Loại Cá Nhân 6 Tháng Có Kèm Credit AI',
+    note: 'Tài khoản cấp sẵn dùng riêng tư.',
+    price: 45900, oldPrice: '150,000',
+    packages: [
+      { name: '1 Tháng', desc: 'Tài Khoản Có Sẵn Dùng Riêng Tư 3 Máy Đăng Nhập', price: 45900, tags: ['Giao ngay', 'Bảo hành'] },
+      { name: '3 Tháng', desc: 'Tài Khoản Có Sẵn Dùng Riêng Tư 3 Máy Đăng Nhập - Đổi Tài Khoản Hàng Tháng', price: 137700, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
+      { name: '6 Tháng', desc: 'Tài Khoản Có Sẵn Cá Nhân Riêng Tư Đủ Hạn 3 Máy Đăng Nhập + Có Credit AI Đi Kèm Ổn Định', price: 391500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
+      { name: '6 Tháng', desc: 'Nâng Cấp Tài Khoản Cá Nhân Chính Chủ Đủ Hạn 3 Máy Đăng Nhập + Có Credit AI Đi Kèm Ổn Định', price: 445500, tags: ['Giao ngay', 'Bảo hành'] },
+      { name: '6 Tháng', desc: 'Tài Khoản Có Sẵn Hàng Đội Nhóm Đủ Hạn 3 Máy Đăng Nhập Riêng Tư', price: 297000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
+      { name: '12 Tháng', desc: 'Tài Khoản Có Sẵn Hàng Đội Nhóm Đủ Hạn 3 Máy Đăng Nhập Riêng Tư', price: 513000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] }
+    ]
+  },
+  {
+    name: 'Super Grok AI', icon: '<img src="https://cdn.simpleicons.org/x/ffffff" style="width:48px;height:48px;object-fit:contain;">', color: '#1a1a1a', badge: 'new',
+    desc: 'Tài Khoản Super Grok AI Có Sẵn Dùng Riêng Tư',
+    note: 'Nhập thông tin Zalo để nhận.',
+    price: 89100, oldPrice: '600,000',
+    packages: [
+      { name: '1 Tháng', desc: 'Tài Khoản Super Grok AI Có Sẵn Dùng Riêng Tư Hạn Chỉ 7 Ngày', price: 89100, tags: ['Giao ngay', 'Bảo hành'] },
+      { name: '1 Tháng', desc: 'Tài Khoản Super Grok AI Có Sẵn Dùng Riêng Tư Hạn Đầy Đủ 1 Tháng', price: 175500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] }
+    ]
+  },
+  {
+    name: 'Meitu SVip', icon: '<i class="fas fa-wand-magic-sparkles" style="font-size:42px;color:#ff4d9e"></i>', color: '#ff4d9e', badge: '',
+    desc: 'Tài Khoản Meitu SVip Svip Cấp Sẵn Dùng Riêng Giá Rẻ',
+    note: 'Cấp sẵn tài khoản.',
+    price: 91800, oldPrice: '120,000',
+    packages: [
+      { name: '1 Tháng', desc: 'Tài Khoản Meitu SVip Cấp Sẵn Dùng Riêng Giá Rẻ', price: 91800, tags: [] }
+    ]
+  }
+];
+
 const REACTION_TYPES = [
-  { key: 'like', name: 'Like', icon: '👍' },
-  { key: 'love', name: 'Love', icon: '❤️' },
-  { key: 'care', name: 'Care', icon: '🥰' },
-  { key: 'haha', name: 'Haha', icon: '😆' },
-  { key: 'wow', name: 'Wow', icon: '😮' },
-  { key: 'sad', name: 'Sad', icon: '😢' },
+  { key: 'like', name: 'Like', icon: '👍' }, { key: 'love', name: 'Love', icon: '❤️' },
+  { key: 'care', name: 'Care', icon: '🥰' }, { key: 'haha', name: 'Haha', icon: '😆' },
+  { key: 'wow', name: 'Wow', icon: '😮' }, { key: 'sad', name: 'Sad', icon: '😢' },
   { key: 'angry', name: 'Angry', icon: '😡' }
 ];
 
 // ═══════════════════════════════════════════════
-// CÁC HÀM XỬ LÝ GIAO DIỆN CHÍNH
+// CÁC HÀM XỬ LÝ GIAO DIỆN VÀ FIREBASE (GỘP CHUNG)
 // ═══════════════════════════════════════════════
-function renderProducts(){
+window.renderProducts = function(){
   const grid = document.getElementById('products-grid');
   grid.innerHTML = PRODUCTS.map((p, idx) => `
     <div class="product-card" onclick="openProdModal(${idx})">
@@ -1380,11 +1356,12 @@ function renderProducts(){
     </div>`).join('');
 }
 
-function renderServices(){
+window.renderServices = function(){
+  if(!window.globalPlatforms) return;
   const tabs = document.getElementById('services-tabs');
   const content = document.getElementById('services-content');
-  tabs.innerHTML = Object.entries(PLATFORMS).map(([key,p],i)=>`<div class="svc-tab-btn${i===0?' active':''}" onclick="switchPlatform('${key}',this)"><i class="${p.icon}"></i> ${p.name}</div>`).join('');
-  content.innerHTML = Object.entries(PLATFORMS).map(([key,p],i)=>`
+  tabs.innerHTML = Object.entries(window.globalPlatforms).map(([key,p],i)=>`<div class="svc-tab-btn${i===0?' active':''}" onclick="switchPlatform('${key}',this)"><i class="${p.icon}"></i> ${p.name}</div>`).join('');
+  content.innerHTML = Object.entries(window.globalPlatforms).map(([key,p],i)=>`
     <div class="svc-platform-content${i===0?' active':''}" id="plat-${key}">
       ${p.services.map((s, svcIdx)=>`
         <div class="svc-card" onclick="openSvcModal('${key}', ${svcIdx})">
@@ -1396,22 +1373,16 @@ function renderServices(){
 }
 
 let currentOpt = 12;
-
-// HÀM MỞ MODAL DỊCH VỤ VÀ LOAD DANH SÁCH SERVER + CẢM XÚC
 window.openSvcModal = function(platKey, svcIdx) {
   if(!window.currentUserData) { openAuth('login'); return; }
-  
-  const plat = PLATFORMS[platKey];
-  const svc = plat.services[svcIdx];
+  const plat = window.globalPlatforms[platKey]; const svc = plat.services[svcIdx];
   const isCmt = svc.name.toLowerCase().includes('bình luận') || svc.name.toLowerCase().includes('đánh giá');
   const isThang = svc.name.toLowerCase().includes('tháng') || svc.name.toLowerCase().includes('vip');
   
   document.getElementById('svcModalTitle').innerHTML=`<span style="color:${svc.c}">${svc.name}</span>`;
 
   let formHtml = '';
-  
   if(isThang) {
-    // Giao diện gói tháng (giữ nguyên)
     formHtml = `
       <div style="background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:16px;">
         <strong style="color:var(--text); font-size:14px; display:block; margin-bottom:8px;">${svc.name}</strong>
@@ -1427,49 +1398,28 @@ window.openSvcModal = function(platKey, svcIdx) {
       <button class="submit-btn" onclick="submitGeneric(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>
     `;
   } else {
-    // Giao diện tăng lẻ (có thêm phần chọn cảm xúc)
-    let cmtField = '';
-    if(isCmt) {
-      cmtField = `<div class="form-group"><label class="form-label">Nội dung bình luận <span style="color:var(--text3);font-weight:400">(mỗi dòng 1 nội dung)</span></label><textarea class="form-input" id="svc-comments" rows="4" placeholder="Nhập nội dung..."></textarea><div style="font-size:11.5px;color:var(--text3);margin-top:4px"><i class="fas fa-info-circle" style="color:var(--accent3)"></i> Hệ thống tự đếm số dòng để tính số lượng.</div></div>`;
-    }
-
-    // TẠO GIAO DIỆN CHỌN CẢM XÚC FACEBOOK
+    let cmtField = isCmt ? `<div class="form-group"><label class="form-label">Nội dung bình luận <span style="color:var(--text3);font-weight:400">(mỗi dòng 1 nội dung)</span></label><textarea class="form-input" id="svc-comments" rows="4" placeholder="Nhập nội dung..."></textarea><div style="font-size:11.5px;color:var(--text3);margin-top:4px"><i class="fas fa-info-circle" style="color:var(--accent3)"></i> Hệ thống tự đếm số dòng để tính số lượng.</div></div>` : '';
     let reactionsHtml = `
       <div class="form-group" id="reactions-group-wrapper" style="display:none;">
         <label class="form-label">Chọn cảm xúc thay thế "Like"</label>
         <div class="reactions-group">
-          ${REACTION_TYPES.map((rx, idx) => `
-            <div class="reaction-item ${idx===0?'active':''}" onclick="selectReaction(this)">
-              <input type="radio" name="reaction_type" value="${rx.key}" ${idx===0?'checked':''}>
-              <div class="reaction-icon">${rx.icon}</div>
-              <div class="reaction-label">${rx.name}</div>
-              <div class="reaction-check"></div>
-            </div>
-          `).join('')}
+          ${REACTION_TYPES.map((rx, idx) => `<div class="reaction-item ${idx===0?'active':''}" onclick="selectReaction(this)"><input type="radio" name="reaction_type" value="${rx.key}" ${idx===0?'checked':''}><div class="reaction-icon">${rx.icon}</div><div class="reaction-label">${rx.name}</div><div class="reaction-check"></div></div>`).join('')}
         </div>
-      </div>
-    `;
+      </div>`;
     
-    // RENDER DANH SÁCH SERVER
     let serverOptionsHtml = svc.servers.map((sv, idx) => `
-      <div class="server-opt ${idx===0?'selected':''}" onclick="selectOpt(this, ${sv.price}, '${sv.desc}')">
+      <div class="server-opt ${idx===0?'selected':''}" onclick="selectOpt(this, ${sv.price}, '${sv.desc.replace(/'/g, "\\'")}')">
         <input type="radio" name="sopt" ${idx===0?'checked':''}>
         <div class="server-opt-info">
-          <div class="server-opt-header">
-            <div class="server-opt-name"><span class="sv-badge"><i class="${plat.icon}"></i> ${sv.id}</span></div>
-            <div class="server-opt-price">${sv.price} đ</div>
-          </div>
+          <div class="server-opt-header"><div class="server-opt-name"><span class="sv-badge"><i class="${plat.icon}"></i> ${sv.id}</span></div><div class="server-opt-price">${sv.price} đ</div></div>
           <div class="server-opt-desc">${sv.desc}</div>
         </div>
-      </div>
-    `).join('');
+      </div>`).join('');
 
     formHtml = `
       <div class="form-group"><label class="form-label">Link hoặc ID cần tăng</label><input class="form-input" type="text" placeholder="Dán link vào đây..."></div>
       ${cmtField}
-      <div class="form-group"><label class="form-label">Chọn máy chủ (Server)</label>
-        <div class="server-options">${serverOptionsHtml}</div>
-      </div>
+      <div class="form-group"><label class="form-label">Chọn máy chủ (Server)</label><div class="server-options">${serverOptionsHtml}</div></div>
       ${reactionsHtml}
       <div class="form-group"><label class="form-label">Số lượng</label><input class="form-input" type="number" id="svc-qty" value="${svc.min}" oninput="calcPrice()"></div>
       <div class="form-group"><label class="form-label">Giá tiền</label><div class="price-box"><span class="price-box-label">Tổng thanh toán</span><span class="price-box-value" id="svc-price">0 đ</span></div></div>
@@ -1484,59 +1434,33 @@ window.openSvcModal = function(platKey, svcIdx) {
     window.calcPriceThang(svc.servers[0].price);
   } else {
     currentOpt = svc.servers[0].price; window.calcPrice();
-    // Tự động kiểm tra server đầu tiên có hỗ trợ cảm xúc không
-    updateReactionVisibility(svc.servers[0].desc);
-    
-    if(isCmt) {
-      document.getElementById('svc-comments').addEventListener('input', function() {
-        const lines = this.value.split('\n').filter(line => line.trim() !== '').length;
-        if(lines > 0) { document.getElementById('svc-qty').value = lines; calcPrice(); }
-      });
-    }
+    window.updateReactionVisibility(svc.servers[0].desc);
+    if(isCmt) { document.getElementById('svc-comments').addEventListener('input', function() { const lines = this.value.split('\n').filter(line => line.trim() !== '').length; if(lines > 0) { document.getElementById('svc-qty').value = lines; calcPrice(); }}); }
   }
 }
 
-// HÀM HIỆN/ẨN BẢNG CHỌN CẢM XÚC DỰA TRÊN MÔ TẢ SERVER
-function updateReactionVisibility(description) {
+window.updateReactionVisibility = function(description) {
   const wrapper = document.getElementById('reactions-group-wrapper');
   if(!wrapper) return;
-  
   const hasReactions = description.includes('Chọn Cảm Xúc') || description.includes('Chọn Nhiều Cảm Xúc');
-  if(hasReactions) {
-    wrapper.style.display = 'block';
-  } else {
-    wrapper.style.display = 'none';
-  }
+  wrapper.style.display = hasReactions ? 'block' : 'none';
 }
 
 window.calcPriceThang = function(basePrice) {
-  const days = parseInt(document.getElementById('svc-days')?.value) || 30;
-  const posts = parseInt(document.getElementById('svc-posts')?.value) || 1;
-  const qty = parseInt(document.getElementById('svc-qty')?.value) || 0;
-  const total = basePrice * days * posts * qty;
-  const el = document.getElementById('svc-price'); if(el) el.textContent = total.toLocaleString('vi-VN', {maximumFractionDigits: 2}) + ' đ';
+  const days = parseInt(document.getElementById('svc-days')?.value) || 30; const posts = parseInt(document.getElementById('svc-posts')?.value) || 1; const qty = parseInt(document.getElementById('svc-qty')?.value) || 0;
+  const total = basePrice * days * posts * qty; const el = document.getElementById('svc-price'); if(el) el.textContent = total.toLocaleString('vi-VN', {maximumFractionDigits: 2}) + ' đ';
 }
-
-// CẬP NHẬT HÀM CHỌN SERVER ĐỂ KÈM THEO MÔ TẢ
 window.selectOpt = function(el, price, description){
   document.querySelectorAll('.server-opt').forEach(o=>{o.classList.remove('selected');o.querySelector('input').checked=false;});
-  el.classList.add('selected'); el.querySelector('input').checked=true;
-  currentOpt=price; calcPrice();
-  // Kiểm tra cảm xúc khi đổi server
-  updateReactionVisibility(description);
+  el.classList.add('selected'); el.querySelector('input').checked=true; currentOpt=price; calcPrice(); window.updateReactionVisibility(description);
 }
-
-// HÀM CHỌN CẢM XÚC
 window.selectReaction = function(el) {
   document.querySelectorAll('.reaction-item').forEach(r => {r.classList.remove('active'); r.querySelector('input').checked=false;});
   el.classList.add('active'); el.querySelector('input').checked=true;
 }
-
 window.calcPrice = function(){
-  const qty=parseInt(document.getElementById('svc-qty')?.value)||0;
-  const total = qty * currentOpt;
-  const el=document.getElementById('svc-price');
-  if(el)el.textContent=total.toLocaleString('vi-VN', {maximumFractionDigits: 2})+' đ';
+  const qty=parseInt(document.getElementById('svc-qty')?.value)||0; const total = qty * currentOpt;
+  const el=document.getElementById('svc-price'); if(el)el.textContent=total.toLocaleString('vi-VN', {maximumFractionDigits: 2})+' đ';
 }
 
 let selectedProdPackagePrice = 0;
@@ -1549,11 +1473,9 @@ window.openProdModal = function(idx) {
     let tagsHtml = pkg.tags.map(t => `<div class="ptag ${t==='Giao ngay'?'ptag-giao':t==='Bán chạy'?'ptag-hot':'ptag-bao'}">${t==='Giao ngay'?'⚡':t==='Bán chạy'?'🔥':'♻️'} ${t}</div>`).join('');
     return `<div class="pkg-card ${i===0?'active':''}" onclick="selProdPkg(this, ${pkg.price})"><div class="pkg-info"><h4>${pkg.name}</h4><p>${pkg.desc}</p><div class="pkg-tags">${tagsHtml}</div></div><div class="pkg-price-col">${pkg.price.toLocaleString('vi-VN')}đ</div></div>`;
   }).join('');
-  selectedProdPackagePrice = prod.packages[0].price;
-  document.getElementById('pm-total').textContent = selectedProdPackagePrice.toLocaleString('vi-VN') + 'đ';
+  selectedProdPackagePrice = prod.packages[0].price; document.getElementById('pm-total').textContent = selectedProdPackagePrice.toLocaleString('vi-VN') + 'đ';
   document.getElementById('pm-input').value = ''; document.getElementById('prodModal').classList.add('open');
 }
-
 window.selProdPkg = function(el, price) {
   document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('active')); el.classList.add('active');
   selectedProdPackagePrice = price; document.getElementById('pm-total').textContent = selectedProdPackagePrice.toLocaleString('vi-VN') + 'đ';
@@ -1565,82 +1487,109 @@ window.switchPlatform = function(key,btn){
   btn.classList.add('active'); document.getElementById('plat-'+key)?.classList.add('active');
 }
 
+// ═══════════════════════════════════════════════
+// HÀM RENDER ADMIN PANEL (VẼ BẢNG GIÁ)
+// ═══════════════════════════════════════════════
+window.renderAdminPanel = function() {
+  if(!window.globalPlatforms) return;
+  let html = '';
+  for (const [pKey, plat] of Object.entries(window.globalPlatforms)) {
+      html += `<div class="admin-card">
+                  <h3><i class="${plat.icon}"></i> ${plat.name}</h3>`;
+      plat.services.forEach((svc, sIdx) => {
+          html += `<div class="admin-svc-box">
+                      <div class="admin-svc-name">${svc.name}</div>`;
+          svc.servers.forEach((sv, svIdx) => {
+              html += `<div class="admin-sv-row">
+                          <div class="admin-sv-id">${sv.id}</div>
+                          <div class="admin-sv-desc">${sv.desc}</div>
+                          <div class="admin-sv-price-wrap">
+                            <input type="number" step="0.01" value="${sv.price}" id="admin-price-${pKey}-${sIdx}-${svIdx}" class="admin-input"> 
+                            <span style="color:var(--text2);font-weight:bold;">đ</span>
+                          </div>
+                       </div>`;
+          });
+          html += `</div>`;
+      });
+      html += `</div>`;
+  }
+  document.getElementById('admin-content').innerHTML = html;
+}
+
+window.saveAdminPrices = async function() {
+  try {
+      const btn = event.currentTarget; const orig = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang lưu lên đám mây...'; btn.disabled = true;
+
+      // Tạo bản sao dữ liệu mới nhất
+      let newPlatforms = JSON.parse(JSON.stringify(window.globalPlatforms));
+      for (const [pKey, plat] of Object.entries(newPlatforms)) {
+          plat.services.forEach((svc, sIdx) => {
+              svc.servers.forEach((sv, svIdx) => {
+                  const input = document.getElementById(`admin-price-${pKey}-${sIdx}-${svIdx}`);
+                  if(input) { sv.price = parseFloat(input.value) || sv.price; }
+              });
+          });
+      }
+
+      // Đẩy thẳng lên Firebase (Collection: settings, Document: servicesData)
+      const docRef = doc(db, 'settings', 'servicesData');
+      await setDoc(docRef, { platforms: newPlatforms });
+      
+      // Cập nhật lại giao diện người dùng
+      window.globalPlatforms = newPlatforms;
+      window.renderServices();
+      
+      showGlobalAlert('Đã cập nhật bảng giá trên toàn hệ thống thành công!', 'success');
+      btn.innerHTML = orig; btn.disabled = false;
+  } catch(e) {
+      showGlobalAlert('Lỗi khi lưu: ' + e.message, 'error');
+  }
+}
+
+// ═══════════════════════════════════════════════
+// KHỞI TẠO HỆ THỐNG VÀ FIREBASE
+// ═══════════════════════════════════════════════
+window.loadServicesData = async function() {
+  try {
+      const docRef = doc(db, 'settings', 'servicesData');
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+          // Lấy dữ liệu từ Firebase
+          window.globalPlatforms = docSnap.data().platforms;
+      } else {
+          // Nếu chưa có, lấy bản mặc định gán lên Firebase
+          window.globalPlatforms = DEFAULT_PLATFORMS;
+          await setDoc(docRef, { platforms: DEFAULT_PLATFORMS });
+      }
+      window.renderProducts();
+      window.renderServices();
+  } catch(e) {
+      console.error("Lỗi tải dữ liệu, dùng bản dự phòng:", e);
+      window.globalPlatforms = DEFAULT_PLATFORMS;
+      window.renderProducts();
+      window.renderServices();
+  }
+}
+
 window.openAuth = function(tab){ document.getElementById('authModal').classList.add('open'); switchAuth(tab); }
 window.closeModal = function(id){document.getElementById(id).classList.remove('open');}
 document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
 window.switchAuth = function(tab){ document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active')); document.querySelectorAll('.auth-content').forEach(c=>c.classList.remove('active')); document.querySelector(`.auth-tab:nth-child(${tab==='login'?1:2})`).classList.add('active'); document.getElementById(`auth-${tab}`).classList.add('active'); }
-window.showSection = function(name){ document.getElementById('sec-home').style.display = name==='home'?'block':'none'; ['deposit','account','orders','transactions'].forEach(s=>{ const el=document.getElementById('sec-'+s); if(el)el.style.display=s===name?'block':'none'; }); document.getElementById('userDropdown')?.classList.remove('show'); window.scrollTo(0,0); }
+window.showSection = function(name){ 
+  document.getElementById('sec-home').style.display = name==='home'?'block':'none'; 
+  ['deposit','account','orders','transactions','admin'].forEach(s=>{ const el=document.getElementById('sec-'+s); if(el)el.style.display=s===name?'block':'none'; }); 
+  document.getElementById('userDropdown')?.classList.remove('show'); window.scrollTo(0,0); 
+}
 window.toggleMobileMenu = function(){ document.getElementById('mobileMenu').classList.toggle('open'); }
 window.toggleUserDropdown = function(e) { e.stopPropagation(); document.getElementById('userDropdown').classList.toggle('show'); };
 window.addEventListener('click', function(e) { const d = document.getElementById('userDropdown'); if (d) d.classList.remove('show'); });
 window.submitGeneric = function(btn){ const orig=btn.innerHTML; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';btn.disabled=true; setTimeout(()=>{ btn.innerHTML='<i class="fas fa-check"></i> Đặt thành công!'; btn.style.background='linear-gradient(135deg,var(--accent3),#00a876)'; setTimeout(()=>{btn.innerHTML=orig;btn.style.background='';btn.disabled=false; closeModal('svcModal'); closeModal('prodModal');},2500); },1500); }
 
-function init() { try { renderProducts(); renderServices(); } catch(e) { console.error('Error init:', e); } }
-if(document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
-</script>
+// Gọi Firebase ngay khi web vừa mở
+window.loadServicesData();
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, serverTimestamp, onSnapshot, collection, query, where, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAccwBvfUMMsrt4HHLB9EYJSKQq_nchtjA",
-  authDomain: "socialpro-db-c2654.firebaseapp.com",
-  projectId: "socialpro-db-c2654",
-  storageBucket: "socialpro-db-c2654.firebasestorage.app",
-  messagingSenderId: "821789877824",
-  appId: "1:821789877824:web:99d69aa828b4609babe1a5"
-};
-
-const app  = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db   = getFirestore(app);
-window.firebaseAuth = auth; 
-
-function showAlert(msg, type='error'){
-  const el = document.getElementById('auth-alert');
-  el.style.display = 'block'; el.style.background = type==='success' ? 'rgba(0,212,170,0.12)' : 'rgba(255,71,87,0.12)';
-  el.style.color = type==='success' ? 'var(--accent3)' : 'var(--red)'; el.innerHTML = (type==='success'?'✅ ':'❌ ') + msg;
-}
-
-window.showGlobalAlert = function(msg, type='success') {
-  let el = document.getElementById('global-alert');
-  if(!el) {
-    el = document.createElement('div'); el.id = 'global-alert';
-    el.style.cssText = 'position:fixed;top:30px;right:30px;z-index:999999;padding:16px 24px;border-radius:12px;font-weight:700;font-size:15px;display:none;align-items:center;gap:12px;box-shadow:0 10px 40px rgba(0,0,0,0.6);transition:all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);';
-    document.body.appendChild(el);
-  }
-  const isSuccess = type === 'success';
-  el.style.background = isSuccess ? 'linear-gradient(135deg, #00d4aa, #00a876)' : 'linear-gradient(135deg, #ff4757, #ff6b81)'; el.style.color = '#fff';
-  el.innerHTML = isSuccess ? `<i class="fas fa-check-circle" style="font-size:22px"></i> ${msg}` : `<i class="fas fa-exclamation-triangle" style="font-size:22px"></i> ${msg}`;
-  el.style.display = 'flex'; el.style.transform = 'translateX(150%)';
-  setTimeout(() => { el.style.transform = 'translateX(0)'; }, 10);
-  setTimeout(() => { el.style.transform = 'translateX(150%)'; setTimeout(() => { el.style.display = 'none'; }, 400); }, 5000);
-}
-
-window.loadDepositHistory = async function(uid) {
-  const tbody = document.getElementById('deposit-history-tbody');
-  tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:30px;"><i class="fas fa-spinner fa-spin"></i> Đang tải dữ liệu...</td></tr>';
-  try {
-    const q = query(collection(db, 'transactions'), where('uid', '==', uid), orderBy('created_at', 'desc'));
-    const snap = await getDocs(q);
-    if(snap.empty) { tbody.innerHTML = '<tr><td colspan="4" style="padding:30px;text-align:center;color:var(--text3);font-size:13.5px;">Chưa có giao dịch nạp tiền nào.</td></tr>'; return; }
-    let html = '';
-    snap.forEach(docSnap => {
-      const d = docSnap.data(); const dateObj = new Date(d.created_at);
-      const dateStr = `${dateObj.getHours().toString().padStart(2, '0')}:${dateObj.getMinutes().toString().padStart(2, '0')} - ${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth()+1).toString().padStart(2, '0')}/${dateObj.getFullYear()}`;
-      html += `<tr>
-        <td style="padding:16px;font-size:13.5px;color:var(--text);font-weight:600;">${d.trans_id || 'SP' + Math.floor(Math.random()*90000)}</td>
-        <td style="padding:16px;font-size:13px;color:var(--text2);">${dateStr}</td>
-        <td style="padding:16px;font-size:14.5px;font-weight:800;color:var(--accent3);">+ ${parseInt(d.amount).toLocaleString('vi-VN')}đ</td>
-        <td style="padding:16px;"><span style="background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);color:var(--accent3);padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;"><i class="fas fa-check-circle"></i> Thành công</span></td>
-      </tr>`;
-    });
-    tbody.innerHTML = html;
-  } catch(e) { tbody.innerHTML = '<tr><td colspan="4" style="padding:30px;text-align:center;color:var(--red);font-size:13.5px;">Không thể tải lịch sử giao dịch.</td></tr>'; }
-}
-
+// TỰ ĐỘNG ĐĂNG NHẬP / ĐĂNG KÝ (GIỮ NGUYÊN)
 window.doRegister = async function(){
   const username = document.getElementById('reg-username').value; const email = document.getElementById('reg-email').value; const password = document.getElementById('reg-password').value;
   try {
@@ -1649,14 +1598,10 @@ window.doRegister = async function(){
     showAlert('Đăng ký thành công!', 'success'); setTimeout(()=> closeModal('authModal'), 1000);
   } catch(e) { showAlert('Lỗi: ' + e.message); }
 };
-
 window.doLogin = async function(){
   const email = document.getElementById('login-email').value; const password = document.getElementById('login-password').value;
-  try {
-    await signInWithEmailAndPassword(auth, email, password); showAlert('Đăng nhập thành công!', 'success'); setTimeout(()=> closeModal('authModal'), 1000);
-  } catch(e) { showAlert('Sai tài khoản hoặc mật khẩu!'); }
+  try { await signInWithEmailAndPassword(auth, email, password); showAlert('Đăng nhập thành công!', 'success'); setTimeout(()=> closeModal('authModal'), 1000); } catch(e) { showAlert('Sai tài khoản hoặc mật khẩu!'); }
 };
-
 window.doLogout = async function(){ await signOut(auth); showSection('home'); };
 
 let unsubscribeUser = null; 
@@ -1665,12 +1610,14 @@ window.previousBalance = -1;
 onAuthStateChanged(auth, async (user) => {
   if(unsubscribeUser) unsubscribeUser();
   if(user){
-    // Đã đăng nhập: Hiện menu người dùng, ẩn các nút đăng ký
-    document.getElementById('nav-actions-guest').style.display='none'; 
-    document.getElementById('nav-actions-user').style.display='flex';
-    if(document.getElementById('hero-register-btn')) document.getElementById('hero-register-btn').style.display='none';
-    if(document.getElementById('cta-register-btn')) document.getElementById('cta-register-btn').style.display='none';
-    if(document.getElementById('mobile-auth-btns')) document.getElementById('mobile-auth-btns').style.display='none';
+    document.getElementById('nav-actions-guest').style.display='none'; document.getElementById('nav-actions-user').style.display='flex';
+    
+    // KIỂM TRA QUYỀN ADMIN TẠI ĐÂY
+    if(user.email === ADMIN_EMAIL) {
+      document.getElementById('admin-menu-btn').style.display='flex';
+    } else {
+      document.getElementById('admin-menu-btn').style.display='none';
+    }
 
     window.loadDepositHistory(user.uid);
     const userRef = doc(db, 'users', user.uid);
@@ -1680,23 +1627,15 @@ onAuthStateChanged(auth, async (user) => {
         const uname = data.username || user.email.split('@')[0]; const currentBal = data.balance || 0;
         if(window.previousBalance !== -1 && currentBal > window.previousBalance) {
            const addedAmount = currentBal - window.previousBalance;
-           closeModal('invoiceModal'); showGlobalAlert(`Nạp tiền thành công! Bạn vừa nạp ${addedAmount.toLocaleString('vi-VN')}đ`, 'success');
-           window.loadDepositHistory(user.uid);
+           closeModal('invoiceModal'); showGlobalAlert(`Nạp tiền thành công! Bạn vừa nạp ${addedAmount.toLocaleString('vi-VN')}đ`, 'success'); window.loadDepositHistory(user.uid);
         }
-        window.previousBalance = currentBal;
-        const balStr = currentBal.toLocaleString('vi-VN');
+        window.previousBalance = currentBal; const balStr = currentBal.toLocaleString('vi-VN');
         document.getElementById('nav-username').textContent = uname; document.getElementById('nav-avatar').textContent = uname[0].toUpperCase(); document.getElementById('nav-balance').textContent = balStr + 'đ';
-        document.getElementById('profile-username').textContent = uname; document.getElementById('profile-email').textContent = user.email; document.getElementById('profile-avatar').textContent = uname[0].toUpperCase(); document.getElementById('profile-balance').textContent = balStr; document.getElementById('stat-deposit').textContent = (data.total_deposit||0).toLocaleString('vi-VN')+'đ';
       }
     });
   } else {
-    // Chưa đăng nhập: Ẩn menu người dùng, hiện lại các nút đăng ký
     window.currentUserData = null; window.previousBalance = -1;
-    document.getElementById('nav-actions-guest').style.display='flex'; 
-    document.getElementById('nav-actions-user').style.display='none';
-    if(document.getElementById('hero-register-btn')) document.getElementById('hero-register-btn').style.display='inline-flex';
-    if(document.getElementById('cta-register-btn')) document.getElementById('cta-register-btn').style.display='inline-flex';
-    if(document.getElementById('mobile-auth-btns')) document.getElementById('mobile-auth-btns').style.display='flex';
+    document.getElementById('nav-actions-guest').style.display='flex'; document.getElementById('nav-actions-user').style.display='none';
   }
 });
 window.togglePwd = function(id){ const i = document.getElementById(id); i.type = i.type==='password'?'text':'password'; };
