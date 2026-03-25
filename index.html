@@ -1564,11 +1564,13 @@ window.loadServicesData = async function() {
       }
       window.renderProducts();
       window.renderServices();
+      window.renderAdminPanel(); // <--- Lệnh quan trọng nhất để vẽ Bảng Admin
   } catch(e) {
       console.error("Lỗi tải dữ liệu, dùng bản dự phòng:", e);
       window.globalPlatforms = DEFAULT_PLATFORMS;
       window.renderProducts();
       window.renderServices();
+      window.renderAdminPanel(); // <--- Lệnh quan trọng nhất để vẽ Bảng Admin
   }
 }
 
