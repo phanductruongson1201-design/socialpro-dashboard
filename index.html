@@ -1597,7 +1597,13 @@ window.previousBalance = -1;
 onAuthStateChanged(auth, async (user) => {
   if(unsubscribeUser) unsubscribeUser();
   if(user){
-    document.getElementById('nav-actions-guest').style.display='none'; document.getElementById('nav-actions-user').style.display='flex';
+    // Đã đăng nhập: Hiện menu người dùng, ẩn các nút đăng ký
+    document.getElementById('nav-actions-guest').style.display='none'; 
+    document.getElementById('nav-actions-user').style.display='flex';
+    if(document.getElementById('hero-register-btn')) document.getElementById('hero-register-btn').style.display='none';
+    if(document.getElementById('cta-register-btn')) document.getElementById('cta-register-btn').style.display='none';
+    if(document.getElementById('mobile-auth-btns')) document.getElementById('mobile-auth-btns').style.display='none';
+
     window.loadDepositHistory(user.uid);
     const userRef = doc(db, 'users', user.uid);
     unsubscribeUser = onSnapshot(userRef, (docSnap) => {
@@ -1616,8 +1622,13 @@ onAuthStateChanged(auth, async (user) => {
       }
     });
   } else {
+    // Chưa đăng nhập: Ẩn menu người dùng, hiện lại các nút đăng ký
     window.currentUserData = null; window.previousBalance = -1;
-    document.getElementById('nav-actions-guest').style.display='flex'; document.getElementById('nav-actions-user').style.display='none';
+    document.getElementById('nav-actions-guest').style.display='flex'; 
+    document.getElementById('nav-actions-user').style.display='none';
+    if(document.getElementById('hero-register-btn')) document.getElementById('hero-register-btn').style.display='inline-flex';
+    if(document.getElementById('cta-register-btn')) document.getElementById('cta-register-btn').style.display='inline-flex';
+    if(document.getElementById('mobile-auth-btns')) document.getElementById('mobile-auth-btns').style.display='flex';
   }
 });
 window.togglePwd = function(id){ const i = document.getElementById(id); i.type = i.type==='password'?'text':'password'; };
