@@ -193,7 +193,7 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 
 .reaction-icon { display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); transition: transform 0.2s; }
 .reaction-icon img { width: 32px; height: 32px; transition: transform 0.2s; }
-.reaction-item.active .reaction-icon img { transform: scale(1.15); }
+.reaction-item.active .reaction-icon img { transform: scale(1.2); }
 
 .reaction-label { font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.2s; }
 .reaction-item input[type="radio"] { position: absolute; opacity: 0; cursor: pointer; width: 0; height: 0; }
@@ -659,9 +659,22 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
 </div>
 
 <div id="sec-orders" style="display:none;padding:40px 24px;max-width:1000px;margin:0 auto">
-  <h2 style="font-size:26px;font-weight:800;margin-bottom:24px"><i class="fas fa-receipt" style="color:var(--accent)"></i> Tiến Trình Đơn Hàng</h2>
-  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:20px">
-    <div style="font-size:14px;color:var(--text2);text-align:center;padding:40px">Chưa có đơn hàng nào. <a href="#" onclick="showSection('home');return false" style="color:var(--accent)">Đặt dịch vụ ngay →</a></div>
+  <h2 style="font-size:26px;font-weight:800;margin-bottom:24px"><i class="fas fa-receipt" style="color:var(--accent)"></i> Lịch Sử Đơn Hàng</h2>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;text-align:left;">
+      <thead style="background:rgba(255,255,255,0.02);border-bottom:1px solid var(--border);">
+        <tr>
+          <th style="padding:16px;font-size:12px;color:var(--text2);">DỊCH VỤ</th>
+          <th style="padding:16px;font-size:12px;color:var(--text2);">LINK / THÔNG TIN</th>
+          <th style="padding:16px;font-size:12px;color:var(--text2);">SỐ TIỀN</th>
+          <th style="padding:16px;font-size:12px;color:var(--text2);">TRẠNG THÁI</th>
+          <th style="padding:16px;font-size:12px;color:var(--text2);">THỜI GIAN</th>
+        </tr>
+      </thead>
+      <tbody id="orders-tbody">
+        <tr><td colspan="5" style="text-align:center;padding:30px;"><i class="fas fa-spinner fa-spin"></i> Đang tải đơn hàng...</td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -876,10 +889,22 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
 
 <script>
 // ═══════════════════════════════════════════════
+// MẢNG CẢM XÚC - DÙNG LINK ẢNH TRỰC TIẾP TRÁNH LỖI FONT TRÊN MÁY TÍNH
+// ═══════════════════════════════════════════════
+const REACTION_TYPES = [
+  { key: 'like', name: 'Like', icon: '<img src="https://i.imgur.com/L8eTf0b.png" style="width:32px;height:32px">', color: '#1877f2' },
+  { key: 'love', name: 'Love', icon: '<img src="https://i.imgur.com/kHXY60O.png" style="width:32px;height:32px">', color: '#e0245e' },
+  { key: 'care', name: 'Care', icon: '<img src="https://i.imgur.com/HqJgQ1F.png" style="width:32px;height:32px">', color: '#ffb84c' },
+  { key: 'haha', name: 'Haha', icon: '<img src="https://i.imgur.com/0iWJtY5.png" style="width:32px;height:32px">', color: '#f1c40f' },
+  { key: 'wow', name: 'Wow', icon: '<img src="https://i.imgur.com/YQk4QO1.png" style="width:32px;height:32px">', color: '#f1c40f' },
+  { key: 'sad', name: 'Sad', icon: '<img src="https://i.imgur.com/2Xy59Vp.png" style="width:32px;height:32px">', color: '#1da1f2' },
+  { key: 'angry', name: 'Angry', icon: '<img src="https://i.imgur.com/vHqQJdD.png" style="width:32px;height:32px">', color: '#e74c3c' }
+];
+
+// ═══════════════════════════════════════════════
 // HÀM TẠO HÓA ĐƠN & QR NẠP TIỀN
 // ═══════════════════════════════════════════════
 let invTimer;
-
 window.generateQR = function() {
   if(!window.currentUserData) { openAuth('login'); return; }
   const amountInput = document.getElementById('deposit-amount').value;
@@ -924,375 +949,113 @@ window.copyToClipboard = function(text) {
 };
 
 // ═══════════════════════════════════════════════
-// MẢNG CẢM XÚC (DÙNG ẢNH TWEMOJI ĐỂ ĐẢM BẢO 100% HIỂN THỊ MÀU CHUẨN TRÊN MỌI MÁY)
-// ═══════════════════════════════════════════════
-const REACTION_TYPES = [
-  { key: 'like', name: 'Like', icon: '<img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f44d.png" style="width:32px;height:32px;">', color: '#1877f2' },
-  { key: 'love', name: 'Love', icon: '<img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/2764.png" style="width:32px;height:32px;">', color: '#e0245e' },
-  { key: 'care', name: 'Care', icon: '<img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f970.png" style="width:32px;height:32px;">', color: '#ffb84c' },
-  { key: 'haha', name: 'Haha', icon: '<img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f606.png" style="width:32px;height:32px;">', color: '#f1c40f' },
-  { key: 'wow', name: 'Wow', icon: '<img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f62e.png" style="width:32px;height:32px;">', color: '#f1c40f' },
-  { key: 'sad', name: 'Sad', icon: '<img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f622.png" style="width:32px;height:32px;">', color: '#1da1f2' },
-  { key: 'angry', name: 'Angry', icon: '<img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f620.png" style="width:32px;height:32px;">', color: '#e74c3c' }
-];
-
-// ═══════════════════════════════════════════════
-// DATA SẢN PHẨM PREMIUM & DỊCH VỤ SMM CHỈ VIỆT NAM (BẢN GỐC CHUẨN)
+// DATA GỐC (DỰ PHÒNG LỖI MẠNG)
 // ═══════════════════════════════════════════════
 const DEFAULT_PRODUCTS = [
-  {
-    name: 'YouTube Premium', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#ff0000', badge: 'hot', 
-    desc: 'Nâng Cấp Tài Khoản Youtube Premium Chính Chủ Đăng Ký Gmail Của Bạn + Tặng Kèm Canva Pro 1 Năm',
-    packages: [ { name: '1 Tháng', desc: 'Không Kèm Canva Pro Edu', price: 37800, tags: ['Giao ngay', 'Bảo hành'] }, { name: '6 Tháng', desc: 'Tặng Kèm Canva Pro Edu 1 Năm', price: 189000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] }, { name: '12 Tháng', desc: 'Tặng Kèm Canva Pro Edu 1 Năm', price: 324000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
-  },
-  {
-    name: 'ChatGPT Plus', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#10a37f', badge: 'hot', 
-    desc: 'Tài khoản ChatGPT Plus Chính Chủ dùng GPT-4o, DALL-E 3',
-    packages: [ { name: '1 Tháng', desc: 'Tài Khoản Chatgpt Plus Dùng Chung', price: 91800, tags: ['Giao ngay', 'Bảo hành'] }, { name: '1 Tháng', desc: 'Tài Khoản Dùng Riêng', price: 162000, tags: ['Giao ngay', 'Bảo hành'] }, { name: '3 Tháng', desc: 'Nâng Cấp Tài Khoản Chính Chủ', price: 513000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
-  },
-  {
-    name: 'Netflix Ultra 4K', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#e50914', badge: 'sale', 
-    desc: 'Tài Khoản Netflix Ultra 4K Profile Riêng + Pin Riêng',
-    packages: [ { name: '1 Tháng', desc: 'Profile Riêng + Pin Riêng', price: 125550, tags: ['Giao ngay', 'Bảo hành'] }, { name: '3 Tháng', desc: 'Profile Riêng + Pin Riêng', price: 337500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
-  },
-  {
-    name: 'Canva Pro', icon: '<img src="https://www.google.com/s2/favicons?domain=canva.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#00C4CC', badge: 'new',
-    desc: 'Nâng Cấp Tài Khoản Canva Pro Education Chính Chủ Đăng Ký Bằng Mail Của Bạn',
-    packages: [ { name: '12 Tháng', desc: 'Canva Education', price: 24300, tags: ['Giao ngay', 'Bảo hành'] }, { name: '12 Tháng', desc: 'Canva Pro Full Tính Năng', price: 121500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
-  },
-  {
-    name: 'Spotify Premium', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#1db954', badge: '',
-    desc: 'Tài Khoản Spotify Premium Giá Rẻ',
-    packages: [ { name: '4 Tháng', desc: 'Tài Khoản Spotify Premium Hạn 4 Tháng', price: 189000, tags: [] } ]
-  },
-  {
-    name: 'Adobe Full Apps', icon: '<img src="https://www.google.com/s2/favicons?domain=adobe.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#ff0000', badge: 'hot',
-    desc: 'Tài Khoản Adobe Full 20+ Apps + 100GB Cloud Lưu Trữ Dùng Trên 2 Thiết Bị',
-    packages: [ { name: '4 Tháng', desc: 'Tài Khoản Adobe Dùng 2 Thiết Bị', price: 216000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] }, { name: '1 Năm', desc: 'Tài Khoản Adobe Dùng 2 Thiết Bị', price: 607500, tags: ['Giao ngay', 'Bảo hành'] } ]
-  },
-  {
-    name: 'Microsoft Office 365', icon: '<img src="https://www.google.com/s2/favicons?domain=office.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#d83b01', badge: '',
-    desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 Copilot + One Driver 1 Tb',
-    packages: [ { name: '6 Tháng', desc: 'Microsoft Office 365 1 Năm + OneDrive 1 TB', price: 148500, tags: ['Giao ngay', 'Bảo hành'] }, { name: '12 Tháng', desc: 'Microsoft Office 365 2 Năm + OneDrive 1 TB', price: 243000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
-  },
-  {
-    name: 'Cursor Pro AI', icon: '<img src="https://cdn.simpleicons.org/cursor/ffffff" style="width:48px;height:48px;object-fit:contain;">', color: '#000000', badge: 'new',
-    desc: 'Tài Khoản Cursor Pro AI + Cursor Pro Plus',
-    packages: [ { name: '1 Tháng', desc: 'Tài Khoản Cursor Pro Dùng Riêng', price: 513000, tags: [] } ]
-  },
-  {
-    name: 'Google Gemini Pro', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#4285f4', badge: 'new',
-    desc: 'Tài Khoản Gemini Pro AI + Google One Drive 2 TB Chính Chủ',
-    packages: [ { name: '6 Tháng', desc: 'Nâng Cấp Gemini Pro AI', price: 148500, tags: ['Giao ngay', 'Bảo hành'] }, { name: '12 Tháng', desc: 'Nâng Cấp Gemini Pro AI', price: 229500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
-  },
-  {
-    name: 'Capcut Pro', icon: '<img src="https://www.google.com/s2/favicons?domain=capcut.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#fff', badge: '',
-    desc: 'Tài Khoản CapCut Pro Dùng Riêng Biệt - Loại Cá Nhân',
-    packages: [ { name: '1 Tháng', desc: 'Tài Khoản Có Sẵn Dùng Riêng Tư 3 Máy', price: 45900, tags: ['Giao ngay', 'Bảo hành'] }, { name: '6 Tháng', desc: 'Tài Khoản Cá Nhân Riêng Tư Đủ Hạn', price: 391500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
-  },
-  {
-    name: 'Super Grok AI', icon: '<img src="https://cdn.simpleicons.org/x/ffffff" style="width:48px;height:48px;object-fit:contain;">', color: '#1a1a1a', badge: 'new',
-    desc: 'Tài Khoản Super Grok AI Có Sẵn Dùng Riêng Tư',
-    packages: [ { name: '1 Tháng', desc: 'Tài Khoản Super Grok AI Hạn Chỉ 7 Ngày', price: 89100, tags: ['Giao ngay', 'Bảo hành'] }, { name: '1 Tháng', desc: 'Tài Khoản Super Grok AI Đầy Đủ 1 Tháng', price: 175500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
-  },
-  {
-    name: 'Meitu SVip', icon: '<i class="fas fa-wand-magic-sparkles" style="font-size:42px;color:#ff4d9e"></i>', color: '#ff4d9e', badge: '',
-    desc: 'Tài Khoản Meitu SVip Svip Cấp Sẵn Dùng Riêng',
-    packages: [ { name: '1 Tháng', desc: 'Tài Khoản Meitu SVip Cấp Sẵn Dùng Riêng', price: 91800, tags: [] } ]
-  }
+  { name: 'YouTube Premium', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#ff0000', badge: 'hot', desc: 'Nâng Cấp Tài Khoản Youtube Premium Chính Chủ', packages: [ { name: '1 Tháng', desc: 'Không Kèm Canva Pro Edu', price: 37800, tags: ['Giao ngay', 'Bảo hành'] }, { name: '6 Tháng', desc: 'Tặng Kèm Canva Pro Edu 1 Năm', price: 189000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] }, { name: '12 Tháng', desc: 'Tặng Kèm Canva Pro Edu 1 Năm', price: 324000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ] },
+  { name: 'ChatGPT Plus', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#10a37f', badge: 'hot', desc: 'Tài khoản ChatGPT Plus Chính Chủ dùng GPT-4o', packages: [ { name: '1 Tháng', desc: 'Dùng Chung', price: 91800, tags: ['Giao ngay', 'Bảo hành'] }, { name: '1 Tháng', desc: 'Dùng Riêng', price: 162000, tags: ['Giao ngay', 'Bảo hành'] }, { name: '3 Tháng', desc: 'Nâng Cấp Tài Khoản Chính Chủ', price: 513000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ] },
+  { name: 'Netflix Ultra 4K', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#e50914', badge: 'sale', desc: 'Tài Khoản Netflix Ultra 4K Profile Riêng + Pin Riêng', packages: [ { name: '1 Tháng', desc: 'Profile Riêng + Pin Riêng', price: 125550, tags: ['Giao ngay', 'Bảo hành'] }, { name: '3 Tháng', desc: 'Profile Riêng + Pin Riêng', price: 337500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ] },
+  { name: 'Canva Pro', icon: '<img src="https://www.google.com/s2/favicons?domain=canva.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#00C4CC', badge: 'new', desc: 'Nâng Cấp Tài Khoản Canva Pro Education Chính Chủ', packages: [ { name: '12 Tháng', desc: 'Canva Education', price: 24300, tags: ['Giao ngay', 'Bảo hành'] }, { name: '12 Tháng', desc: 'Canva Pro Full Tính Năng', price: 121500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ] },
+  { name: 'Spotify Premium', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#1db954', badge: '', desc: 'Tài Khoản Spotify Premium Giá Rẻ', packages: [ { name: '4 Tháng', desc: 'Tài Khoản Spotify Premium Hạn 4 Tháng', price: 189000, tags: [] } ] },
+  { name: 'Adobe Full Apps', icon: '<img src="https://www.google.com/s2/favicons?domain=adobe.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#ff0000', badge: 'hot', desc: 'Tài Khoản Adobe Full 20+ Apps + 100GB Cloud Lưu Trữ', packages: [ { name: '4 Tháng', desc: 'Tài Khoản Adobe Dùng 2 Thiết Bị', price: 216000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] }, { name: '1 Năm', desc: 'Tài Khoản Adobe Dùng 2 Thiết Bị', price: 607500, tags: ['Giao ngay', 'Bảo hành'] } ] },
+  { name: 'Microsoft Office 365', icon: '<img src="https://www.google.com/s2/favicons?domain=office.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#d83b01', badge: '', desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 Copilot', packages: [ { name: '6 Tháng', desc: 'Microsoft Office 365 1 Năm + OneDrive 1 TB', price: 148500, tags: ['Giao ngay', 'Bảo hành'] }, { name: '12 Tháng', desc: 'Microsoft Office 365 2 Năm + OneDrive 1 TB', price: 243000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ] },
+  { name: 'Cursor Pro AI', icon: '<img src="https://cdn.simpleicons.org/cursor/ffffff" style="width:48px;height:48px;object-fit:contain;">', color: '#000000', badge: 'new', desc: 'Tài Khoản Cursor Pro AI + Cursor Pro Plus', packages: [ { name: '1 Tháng', desc: 'Tài Khoản Cursor Pro Dùng Riêng', price: 513000, tags: [] } ] },
+  { name: 'Google Gemini Pro', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#4285f4', badge: 'new', desc: 'Tài Khoản Gemini Pro AI Chính Chủ', packages: [ { name: '6 Tháng', desc: 'Nâng Cấp Gemini Pro AI', price: 148500, tags: ['Giao ngay', 'Bảo hành'] }, { name: '12 Tháng', desc: 'Nâng Cấp Gemini Pro AI', price: 229500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ] },
+  { name: 'Capcut Pro', icon: '<img src="https://www.google.com/s2/favicons?domain=capcut.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#fff', badge: '', desc: 'Tài Khoản CapCut Pro Dùng Riêng Biệt - Loại Cá Nhân', packages: [ { name: '1 Tháng', desc: 'Tài Khoản Có Sẵn Dùng Riêng Tư 3 Máy', price: 45900, tags: ['Giao ngay', 'Bảo hành'] }, { name: '6 Tháng', desc: 'Tài Khoản Cá Nhân Riêng Tư Đủ Hạn', price: 391500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ] },
+  { name: 'Super Grok AI', icon: '<img src="https://cdn.simpleicons.org/x/ffffff" style="width:48px;height:48px;object-fit:contain;">', color: '#1a1a1a', badge: 'new', desc: 'Tài Khoản Super Grok AI Có Sẵn Dùng Riêng Tư', packages: [ { name: '1 Tháng', desc: 'Tài Khoản Super Grok AI Hạn Chỉ 7 Ngày', price: 89100, tags: ['Giao ngay', 'Bảo hành'] }, { name: '1 Tháng', desc: 'Tài Khoản Super Grok AI Đầy Đủ 1 Tháng', price: 175500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ] },
+  { name: 'Meitu SVip', icon: '<i class="fas fa-wand-magic-sparkles" style="font-size:42px;color:#ff4d9e"></i>', color: '#ff4d9e', badge: '', desc: 'Tài Khoản Meitu SVip Svip Cấp Sẵn Dùng Riêng', packages: [ { name: '1 Tháng', desc: 'Tài Khoản Meitu SVip Cấp Sẵn Dùng Riêng', price: 91800, tags: [] } ] }
 ];
 
 const DEFAULT_PLATFORMS = {
   'facebook': {
     name: 'VN Facebook', icon: 'fab fa-facebook-f', color: '#1877f2',
     services: [
-      {
-        name:'Tăng Like Bài Viết', min: 100, icon:'fas fa-thumbs-up', c:'#1877f2',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Like Bài Viết + Có Chọn Cảm Xúc ~ Lên Nhanh: 1.000-10.000/Ngày ~ Mua Bằng UID ~ Tài Nguyên Việt Nam 🇻🇳', price: 14.99 },
-          { id: 'SV2', desc: 'Tăng Like Bài Viết + Chọn Nhiều Cảm Xúc ~ Tốc Độ Nhanh: 2.000-10.000/Ngày ~ Tài Nguyên Việt Nam 🇻🇳', price: 16.34 },
-          { id: 'SV3', desc: 'Tăng Like Bài Viết ~ Tốc Độ Nhanh: 1.000-5.000/Ngày ~ Ít Tụt ~ Giá Siêu Rẻ ~ Tài Nguyên Fanpage Việt Nam 🇻🇳', price: 5.13 },
-          { id: 'SV4', desc: 'Tăng Like Bài Viết ~ Có Chọn Cảm Xúc ~ Giá Rẻ ~ Tốc Độ Nhanh: 1.000-10.000/Ngày ~ Tài Nguyên Việt Nam 🇻🇳', price: 11.88 },
-          { id: 'SV5', desc: 'Tăng Like Bài Viết ~ Lên Bình Thường: 1000-5.000/Ngày ~ Tài Nguyên Ngoại + Việt Nam 🇻🇳', price: 4.46 },
-          { id: 'SV6', desc: 'Tăng Like Bài Viết + Chọn Nhiều Cảm Xúc ~ Lên Nhanh: 2.000-20.000/Ngày ~ Tài Nguyên Việt Nam 🇻🇳', price: 31.86 }
-        ]
-      },
-      {
-        name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-users', c:'#1877f2',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Người Theo Dõi Trang Cá Nhân / Sub Vip ~ Người Dùng Thật ~ Lên Nhanh 🇻🇳', price: 25.5 },
-          { id: 'SV2', desc: 'Tăng Người Theo Dõi Giá Rẻ ~ Tốc Độ Trung Bình 🔥', price: 12.0 }
-        ]
-      },
-      {
-        name:'Tăng Like Fanpage', min: 100, icon:'fas fa-flag', c:'#1877f2',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Like Fanpage Kèm Theo Dõi ~ Người Dùng Thật 🇻🇳', price: 35.0 },
-          { id: 'SV2', desc: 'Tăng Like Fanpage Giá Rẻ ~ Lên Chậm An Toàn', price: 22.0 }
-        ]
-      },
-      {
-        name:'Tăng Mắt Livestream', min: 50, icon:'fas fa-video', c:'#1877f2',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Mắt Live Facebook 30 Phút ~ Server ổn định 🇻🇳', price: 12.0 },
-          { id: 'SV2', desc: 'Tăng Mắt Live VIP + Ổn Định ~ Duy Trì 60 Phút 🇻🇳', price: 25.0 }
-        ]
-      },
-      {
-        name:'Tăng Lượt Chia Sẻ', min: 10, icon:'fas fa-share', c:'#1877f2',
-        servers: [
-          { id: 'SV1', desc: 'Facebook Post Shares ~ Lên Nhanh Chóng ~ Random Group 🇻🇳', price: 20.0 },
-          { id: 'SV2', desc: 'Tăng Share Thật Tường Cá Nhân ~ Profile Có Ảnh Đại Diện', price: 35.0 }
-        ]
-      },
-      {
-        name:'Tăng Member Nhóm', min: 100, icon:'fas fa-user-group', c:'#1877f2',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Thành Viên Group Cực Tốc Độ ~ Mem Việt Nam 🇻🇳', price: 15.0 }
-        ]
-      },
-      {
-        name:'Tăng Bình Luận', min: 5, icon:'fas fa-comment', c:'#1877f2',
-        servers: [
-          { id: 'SV1', desc: 'Bình luận tùy chọn ~ Tài khoản người dùng Việt Nam 🇻🇳', price: 150.0 },
-          { id: 'SV2', desc: 'Tăng Bình Luận Facebook VIP ~ Có tick xanh / Account uy tín 👑', price: 450.0 }
-        ]
-      },
-      {
-        name:'Gói Like Tháng', min: 100, icon:'fas fa-calendar-check', c:'#f5c842',
-        servers: [
-          { id: 'SV1', desc: 'Gói Like Tự Động Mỗi Khi Đăng Bài ~ Tối đa 5 bài/ngày ~ 30 Ngày', price: 55.0 }
-        ]
-      }
+      { name:'Tăng Like Bài Viết', min: 100, icon:'fas fa-thumbs-up', c:'#1877f2', servers: [ { id: 'SV1', desc: 'Tăng Like Bài Viết + Có Chọn Cảm Xúc ~ Lên Nhanh: 1.000-10.000/Ngày ~ Mua Bằng UID ~ Tài Nguyên Việt Nam 🇻🇳', price: 14.99 }, { id: 'SV2', desc: 'Tăng Like Bài Viết + Chọn Nhiều Cảm Xúc ~ Tốc Độ Nhanh: 2.000-10.000/Ngày ~ Tài Nguyên Việt Nam 🇻🇳', price: 16.34 }, { id: 'SV3', desc: 'Tăng Like Bài Viết ~ Tốc Độ Nhanh: 1.000-5.000/Ngày ~ Ít Tụt ~ Giá Siêu Rẻ ~ Tài Nguyên Fanpage Việt Nam 🇻🇳', price: 5.13 }, { id: 'SV4', desc: 'Tăng Like Bài Viết ~ Có Chọn Cảm Xúc ~ Giá Rẻ ~ Tốc Độ Nhanh: 1.000-10.000/Ngày ~ Tài Nguyên Việt Nam 🇻🇳', price: 11.88 }, { id: 'SV5', desc: 'Tăng Like Bài Viết ~ Lên Bình Thường: 1000-5.000/Ngày ~ Tài Nguyên Ngoại + Việt Nam 🇻🇳', price: 4.46 }, { id: 'SV6', desc: 'Tăng Like Bài Viết + Chọn Nhiều Cảm Xúc ~ Lên Nhanh: 2.000-20.000/Ngày ~ Tài Nguyên Việt Nam 🇻🇳', price: 31.86 } ] },
+      { name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-users', c:'#1877f2', servers: [ { id: 'SV1', desc: 'Tăng Người Theo Dõi Trang Cá Nhân / Sub Vip ~ Người Dùng Thật ~ Lên Nhanh 🇻🇳', price: 25.5 }, { id: 'SV2', desc: 'Tăng Người Theo Dõi Giá Rẻ ~ Tốc Độ Trung Bình 🔥', price: 12.0 } ] },
+      { name:'Tăng Like Fanpage', min: 100, icon:'fas fa-flag', c:'#1877f2', servers: [ { id: 'SV1', desc: 'Tăng Like Fanpage Kèm Theo Dõi ~ Người Dùng Thật 🇻🇳', price: 35.0 }, { id: 'SV2', desc: 'Tăng Like Fanpage Giá Rẻ ~ Lên Chậm An Toàn', price: 22.0 } ] },
+      { name:'Tăng Mắt Livestream', min: 50, icon:'fas fa-video', c:'#1877f2', servers: [ { id: 'SV1', desc: 'Tăng Mắt Live Facebook 30 Phút ~ Server ổn định 🇻🇳', price: 12.0 }, { id: 'SV2', desc: 'Tăng Mắt Live VIP + Ổn Định ~ Duy Trì 60 Phút 🇻🇳', price: 25.0 } ] },
+      { name:'Tăng Lượt Chia Sẻ', min: 10, icon:'fas fa-share', c:'#1877f2', servers: [ { id: 'SV1', desc: 'Facebook Post Shares ~ Lên Nhanh Chóng ~ Random Group 🇻🇳', price: 20.0 }, { id: 'SV2', desc: 'Tăng Share Thật Tường Cá Nhân ~ Profile Có Ảnh Đại Diện', price: 35.0 } ] },
+      { name:'Tăng Member Nhóm', min: 100, icon:'fas fa-user-group', c:'#1877f2', servers: [ { id: 'SV1', desc: 'Tăng Thành Viên Group Cực Tốc Độ ~ Mem Việt Nam 🇻🇳', price: 15.0 } ] },
+      { name:'Tăng Bình Luận', min: 5, icon:'fas fa-comment', c:'#1877f2', servers: [ { id: 'SV1', desc: 'Bình luận tùy chọn ~ Tài khoản người dùng Việt Nam 🇻🇳', price: 150.0 }, { id: 'SV2', desc: 'Tăng Bình Luận Facebook VIP ~ Có tick xanh / Account uy tín 👑', price: 450.0 } ] },
+      { name:'Gói Like Tháng', min: 100, icon:'fas fa-calendar-check', c:'#f5c842', servers: [ { id: 'SV1', desc: 'Gói Like Tự Động Mỗi Khi Đăng Bài ~ Tối đa 5 bài/ngày ~ 30 Ngày', price: 55.0 } ] }
     ]
   },
   'tiktok': {
     name: 'VN TikTok', icon: 'fab fa-tiktok', color: '#000',
     services: [
-      {
-        name:'Tăng Lượt Xem Video', min: 1000, icon:'fas fa-play', c:'#ff0050',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Lượt Xem Video Tiktok ~ Lên Ngay ~ Tốc Độ: 1.000.000-2.000.000/Ngày 🇻🇳', price: 2.0 },
-          { id: 'SV2', desc: 'Tăng Lượt Xem Video Tiktok ~ Nguồn: Xu Hướng ~ Tốt Nhất Để Lên Xu Hướng 🔥', price: 5.0 },
-          { id: 'SV3', desc: 'Tăng Lượt Xem Video Tiktok ~ Giá Rẻ Nhất Tốc Độ Chậm', price: 1.0 }
-        ]
-      },
-      {
-        name:'Tăng Thả Tim Video', min: 50, icon:'fas fa-heart', c:'#ff0050',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Thả Tim Video Người Dùng Bấm Tay ~ Lên Nhanh: 1.000-10.000/Ngày 🇻🇳', price: 15.0 },
-          { id: 'SV2', desc: 'Tăng Thả Tim Video ~ Bảo Hành: 7 Ngày ~ Lên Ngay 🔥', price: 8.5 },
-          { id: 'SV3', desc: 'Tăng Thả Tim Video ~ Tốc Độ Siêu Nhanh Cho Video Cần Lượng Tim Lớn 🚀', price: 12.0 }
-        ]
-      },
-      {
-        name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-users', c:'#69c9d0',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Follow Tiktok ~ Tốc Độ Nhanh ~ Xịn Nhất ~ Tỉ Lệ Tụt Thấp Nhất 💎', price: 35.0 },
-          { id: 'SV2', desc: 'Tăng Follow Tiktok ~ Lên Ngay ~ Tỉ Lệ Tụt Cao ~ Tốc Độ Chậm 🇻🇳', price: 20.0 }
-        ]
-      },
-      {
-        name:'Tăng Mắt Livestream', min: 50, icon:'fas fa-broadcast-tower', c:'#ff0050',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Mắt Xem Live ~ Xem Live 30 Phút ~ Lên Siêu Nhanh 🇻🇳', price: 15.0 },
-          { id: 'SV2', desc: 'Tăng Mắt Xem Live ~ Xem Live 60 Phút ~ Máy Chủ Ổn Định 🇻🇳', price: 25.0 },
-          { id: 'SV3', desc: 'Tăng Mắt Xem Live ~ Xem Live 120 Phút ~ Chống Tụt Trực Tiếp', price: 45.0 }
-        ]
-      },
-      {
-        name:'Tăng Lượt Lưu Video', min: 50, icon:'fas fa-bookmark', c:'#69c9d0',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Lượt Yêu Thích (Lưu Video) ~ Tốc Độ Nhanh: 500-5.000 🇻🇳', price: 12.0 }
-        ]
-      },
-      {
-        name:'Tăng Chia Sẻ Video', min: 50, icon:'fas fa-share', c:'#69c9d0',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Lượt Chia Sẻ Video ~ Bắt Đầu Nhanh ~ Tốc Độ 1M/ Ngày 🚀', price: 5.0 }
-        ]
-      },
-      {
-        name:'Tăng Bình Luận', min: 10, icon:'fas fa-comment', c:'#ff0050',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Bình Luận (Comment) Tiktok ~ Lên Siêu Nhanh: 20-200 Cmt/Ngày 🇻🇳', price: 150.0 },
-          { id: 'SV2', desc: 'Tăng Bình Luận Video Nội Dung Ngẫu Nhiên Khen Video 🔥', price: 100.0 }
-        ]
-      },
-      {
-        name:'Gói Tim Tháng', min: 100, icon:'fas fa-calendar-alt', c:'#f5c842',
-        servers: [
-          { id: 'SV1', desc: 'Vip Thả Tim Video (Tự Động Lên Tim Mỗi Khi Đăng) ~ Tối Thiểu 5 Video 🇻🇳', price: 30.0 }
-        ]
-      }
+      { name:'Tăng Lượt Xem Video', min: 1000, icon:'fas fa-play', c:'#ff0050', servers: [ { id: 'SV1', desc: 'Tăng Lượt Xem Video Tiktok ~ Lên Ngay ~ Tốc Độ: 1.000.000-2.000.000/Ngày 🇻🇳', price: 2.0 }, { id: 'SV2', desc: 'Tăng Lượt Xem Video Tiktok ~ Nguồn: Xu Hướng ~ Tốt Nhất Để Lên Xu Hướng 🔥', price: 5.0 }, { id: 'SV3', desc: 'Tăng Lượt Xem Video Tiktok ~ Giá Rẻ Nhất Tốc Độ Chậm', price: 1.0 } ] },
+      { name:'Tăng Thả Tim Video', min: 50, icon:'fas fa-heart', c:'#ff0050', servers: [ { id: 'SV1', desc: 'Tăng Thả Tim Video Người Dùng Bấm Tay ~ Lên Nhanh: 1.000-10.000/Ngày 🇻🇳', price: 15.0 }, { id: 'SV2', desc: 'Tăng Thả Tim Video ~ Bảo Hành: 7 Ngày ~ Lên Ngay 🔥', price: 8.5 }, { id: 'SV3', desc: 'Tăng Thả Tim Video ~ Tốc Độ Siêu Nhanh Cho Video Cần Lượng Tim Lớn 🚀', price: 12.0 } ] },
+      { name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-users', c:'#69c9d0', servers: [ { id: 'SV1', desc: 'Tăng Follow Tiktok ~ Tốc Độ Nhanh ~ Xịn Nhất ~ Tỉ Lệ Tụt Thấp Nhất 💎', price: 35.0 }, { id: 'SV2', desc: 'Tăng Follow Tiktok ~ Lên Ngay ~ Tỉ Lệ Tụt Cao ~ Tốc Độ Chậm 🇻🇳', price: 20.0 } ] },
+      { name:'Tăng Mắt Livestream', min: 50, icon:'fas fa-broadcast-tower', c:'#ff0050', servers: [ { id: 'SV1', desc: 'Tăng Mắt Xem Live ~ Xem Live 30 Phút ~ Lên Siêu Nhanh 🇻🇳', price: 15.0 }, { id: 'SV2', desc: 'Tăng Mắt Xem Live ~ Xem Live 60 Phút ~ Máy Chủ Ổn Định 🇻🇳', price: 25.0 }, { id: 'SV3', desc: 'Tăng Mắt Xem Live ~ Xem Live 120 Phút ~ Chống Tụt Trực Tiếp', price: 45.0 } ] },
+      { name:'Tăng Lượt Lưu Video', min: 50, icon:'fas fa-bookmark', c:'#69c9d0', servers: [ { id: 'SV1', desc: 'Tăng Lượt Yêu Thích (Lưu Video) ~ Tốc Độ Nhanh: 500-5.000 🇻🇳', price: 12.0 } ] },
+      { name:'Tăng Chia Sẻ Video', min: 50, icon:'fas fa-share', c:'#69c9d0', servers: [ { id: 'SV1', desc: 'Tăng Lượt Chia Sẻ Video ~ Bắt Đầu Nhanh ~ Tốc Độ 1M/ Ngày 🚀', price: 5.0 } ] },
+      { name:'Tăng Bình Luận', min: 10, icon:'fas fa-comment', c:'#ff0050', servers: [ { id: 'SV1', desc: 'Tăng Bình Luận (Comment) Tiktok ~ Lên Siêu Nhanh: 20-200 Cmt/Ngày 🇻🇳', price: 150.0 }, { id: 'SV2', desc: 'Tăng Bình Luận Video Nội Dung Ngẫu Nhiên Khen Video 🔥', price: 100.0 } ] },
+      { name:'Gói Tim Tháng', min: 100, icon:'fas fa-calendar-alt', c:'#f5c842', servers: [ { id: 'SV1', desc: 'Vip Thả Tim Video (Tự Động Lên Tim Mỗi Khi Đăng) ~ Tối Thiểu 5 Video 🇻🇳', price: 30.0 } ] }
     ]
   },
   'instagram': {
     name: 'VN Instagram', icon: 'fab fa-instagram', color: '#c13584',
     services: [
-      {
-        name:'Tăng Tim Bài Viết', min: 50, icon:'fas fa-heart', c:'#e1306c',
-        servers: [
-          { id: 'SV1', desc: 'Tim Instagram Việt Nam Tự Nhiên ~ Tài khoản người dùng thật 🇻🇳', price: 18.0 },
-          { id: 'SV2', desc: 'Tim Instagram Siêu Rẻ ~ Lên Nhanh Random', price: 5.0 }
-        ]
-      },
-      {
-        name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-users', c:'#c13584',
-        servers: [
-          { id: 'SV1', desc: 'Follow Instagram Việt Nam Chất Lượng ~ Bảo Hành 30 Ngày ♻️', price: 55.0 },
-          { id: 'SV2', desc: 'Follow Instagram Nhanh Tốc Độ 🚀', price: 25.0 }
-        ]
-      },
-      {
-        name:'Tăng Bình Luận', min: 5, icon:'fas fa-comment', c:'#8b5cf6',
-        servers: [
-          { id: 'SV1', desc: 'Bình luận mồi Instagram Theo Yêu Cầu ~ Việt Nam 🇻🇳', price: 200.0 }
-        ]
-      },
-      {
-        name:'Tăng Lượt Xem Video', min: 100, icon:'fas fa-play', c:'#c13584',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Lượt Xem Video Reels / IGTV ~ Tốc độ siêu tốc 🚀', price: 3.0 }
-        ]
-      },
-      {
-        name:'Tăng Mắt Livestream', min: 50, icon:'fas fa-video', c:'#c13584',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Mắt Xem Live Instagram Duy Trì 30 Phút', price: 18.0 }
-        ]
-      }
+      { name:'Tăng Tim Bài Viết', min: 50, icon:'fas fa-heart', c:'#e1306c', servers: [ { id: 'SV1', desc: 'Tim Instagram Việt Nam Tự Nhiên ~ Tài khoản người dùng thật 🇻🇳', price: 18.0 }, { id: 'SV2', desc: 'Tim Instagram Siêu Rẻ ~ Lên Nhanh Random', price: 5.0 } ] },
+      { name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-users', c:'#c13584', servers: [ { id: 'SV1', desc: 'Follow Instagram Việt Nam Chất Lượng ~ Bảo Hành 30 Ngày ♻️', price: 55.0 }, { id: 'SV2', desc: 'Follow Instagram Nhanh Tốc Độ 🚀', price: 25.0 } ] },
+      { name:'Tăng Bình Luận', min: 5, icon:'fas fa-comment', c:'#8b5cf6', servers: [ { id: 'SV1', desc: 'Bình luận mồi Instagram Theo Yêu Cầu ~ Việt Nam 🇻🇳', price: 200.0 } ] },
+      { name:'Tăng Lượt Xem Video', min: 100, icon:'fas fa-play', c:'#c13584', servers: [ { id: 'SV1', desc: 'Tăng Lượt Xem Video Reels / IGTV ~ Tốc độ siêu tốc 🚀', price: 3.0 } ] },
+      { name:'Tăng Mắt Livestream', min: 50, icon:'fas fa-video', c:'#c13584', servers: [ { id: 'SV1', desc: 'Tăng Mắt Xem Live Instagram Duy Trì 30 Phút', price: 18.0 } ] }
     ]
   },
   'youtube': {
     name: 'VN YouTube', icon: 'fab fa-youtube', color: '#ff0000',
     services: [
-      {
-        name:'Tăng View Video', min: 1000, icon:'fas fa-eye', c:'#ff0000',
-        servers: [
-          { id: 'SV1', desc: 'Tăng View Video YouTube ~ Tốc Độ Tự Nhiên An Toàn SEO 🇻🇳', price: 18.0 },
-          { id: 'SV2', desc: 'Tăng View Video [ Social / Native Ads ] ~ Chạy Bằng Quảng Cáo Thật 🚀', price: 35.0 }
-        ]
-      },
-      {
-        name:'Tăng Đăng Ký Kênh', min: 100, icon:'fas fa-users', c:'#ff0000',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Subscribers YouTube ~ Không Tụt ~ Bảo Hành Trọn Đời ♻️', price: 55.0 }
-        ]
-      },
-      {
-        name:'Tăng Lượt Like', min: 50, icon:'fas fa-thumbs-up', c:'#ff0000',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Likes Video ⚠️ Không Tụt - Bảo Hành 30 Ngày', price: 25.0 }
-        ]
-      },
-      {
-        name:'Tăng Bình Luận', min: 10, icon:'fas fa-comment', c:'#f5c842',
-        servers: [
-          { id: 'SV1', desc: 'Bình luận Video Youtube ~ Tự soạn nội dung Tiếng Việt 🇻🇳', price: 250.0 }
-        ]
-      },
-      {
-        name:'Tăng 4000H Xem', min: 1000, icon:'fas fa-clock', c:'#ff0000',
-        servers: [
-          { id: 'SV1', desc: 'Cày 4000 Giờ Xem YouTube ~ Đủ Điều Kiện Bật Kiếm Tiền ~ Video > 15 phút 🕒', price: 120.0 }
-        ]
-      }
+      { name:'Tăng View Video', min: 1000, icon:'fas fa-eye', c:'#ff0000', servers: [ { id: 'SV1', desc: 'Tăng View Video YouTube ~ Tốc Độ Tự Nhiên An Toàn SEO 🇻🇳', price: 18.0 }, { id: 'SV2', desc: 'Tăng View Video [ Social / Native Ads ] ~ Chạy Bằng Quảng Cáo Thật 🚀', price: 35.0 } ] },
+      { name:'Tăng Đăng Ký Kênh', min: 100, icon:'fas fa-users', c:'#ff0000', servers: [ { id: 'SV1', desc: 'Tăng Subscribers YouTube ~ Không Tụt ~ Bảo Hành Trọn Đời ♻️', price: 55.0 } ] },
+      { name:'Tăng Lượt Like', min: 50, icon:'fas fa-thumbs-up', c:'#ff0000', servers: [ { id: 'SV1', desc: 'Tăng Likes Video ⚠️ Không Tụt - Bảo Hành 30 Ngày', price: 25.0 } ] },
+      { name:'Tăng Bình Luận', min: 10, icon:'fas fa-comment', c:'#f5c842', servers: [ { id: 'SV1', desc: 'Bình luận Video Youtube ~ Tự soạn nội dung Tiếng Việt 🇻🇳', price: 250.0 } ] },
+      { name:'Tăng 4000H Xem', min: 1000, icon:'fas fa-clock', c:'#ff0000', servers: [ { id: 'SV1', desc: 'Cày 4000 Giờ Xem YouTube ~ Đủ Điều Kiện Bật Kiếm Tiền ~ Video > 15 phút 🕒', price: 120.0 } ] }
     ]
   },
   'googlemaps': {
     name: 'VN Google Maps', icon: 'fas fa-map-marker-alt', color: '#34a853',
     services: [
-      {
-        name:'Tăng Đánh Giá Maps', min: 5, icon:'fas fa-star', c:'#f5c842',
-        servers: [
-          { id: 'SV1', desc: 'Đánh giá 5 Sao Google Maps Kèm Ảnh / Chữ ~ Nguồn Local Guide Uy Tín 🇻🇳', price: 8000.0 }
-        ]
-      }
+      { name:'Tăng Đánh Giá Maps', min: 5, icon:'fas fa-star', c:'#f5c842', servers: [ { id: 'SV1', desc: 'Đánh giá 5 Sao Google Maps Kèm Ảnh / Chữ ~ Nguồn Local Guide Uy Tín 🇻🇳', price: 8000.0 } ] }
     ]
   },
   'threads': {
     name: 'VN Threads', icon: 'fab fa-threads', color: '#000',
     services: [
-      {
-        name:'Tăng Like Bài Viết', min: 50, icon:'fas fa-heart', c:'#000',
-        servers: [ { id: 'SV1', desc: 'Tăng Like Bài Viết Threads ~ Acc Việt Nam Lên Đều 🇻🇳', price: 12.0 } ]
-      },
-      {
-        name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-users', c:'#000',
-        servers: [ { id: 'SV1', desc: 'Tăng Người Theo Dõi Threads ~ Nguồn Việt Nam Chất Lượng', price: 25.0 } ]
-      },
-      {
-        name:'Tăng Bình Luận', min: 10, icon:'fas fa-comment', c:'#000',
-        servers: [ { id: 'SV1', desc: 'Tăng Bình Luận Bài Viết Threads Mồi 🇻🇳', price: 180.0 } ]
-      }
+      { name:'Tăng Like Bài Viết', min: 50, icon:'fas fa-heart', c:'#000', servers: [ { id: 'SV1', desc: 'Tăng Like Bài Viết Threads ~ Acc Việt Nam Lên Đều 🇻🇳', price: 12.0 } ] },
+      { name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-users', c:'#000', servers: [ { id: 'SV1', desc: 'Tăng Người Theo Dõi Threads ~ Nguồn Việt Nam Chất Lượng', price: 25.0 } ] },
+      { name:'Tăng Bình Luận', min: 10, icon:'fas fa-comment', c:'#000', servers: [ { id: 'SV1', desc: 'Tăng Bình Luận Bài Viết Threads Mồi 🇻🇳', price: 180.0 } ] }
     ]
   },
   'shopee': {
     name: 'VN Shopee', icon: 'fas fa-shopping-bag', color: '#ee4d2d',
     services: [
-      {
-        name:'Tăng Lượt Thích Sản Phẩm', min: 50, icon:'fas fa-heart', c:'#ee4d2d',
-        servers: [ { id: 'SV1', desc: 'Tăng Lượt Thích (Tym) Sản Phẩm Shopee Việt Nam 🇻🇳', price: 55.0 } ]
-      },
-      {
-        name:'Tăng Theo Dõi Gian Hàng', min: 50, icon:'fas fa-store', c:'#ee4d2d',
-        servers: [ { id: 'SV1', desc: 'Tăng Lượt Theo Dõi Shop Shopee ~ Tốc độ vừa', price: 75.0 } ]
-      },
-      {
-        name:'Tăng Người Xem Live', min: 50, icon:'fas fa-video', c:'#ee4d2d',
-        servers: [ { id: 'SV1', desc: 'Mắt Xem Livestream Bán Hàng Shopee ~ Duy trì 60 phút', price: 20.0 } ]
-      }
+      { name:'Tăng Lượt Thích Sản Phẩm', min: 50, icon:'fas fa-heart', c:'#ee4d2d', servers: [ { id: 'SV1', desc: 'Tăng Lượt Thích (Tym) Sản Phẩm Shopee Việt Nam 🇻🇳', price: 55.0 } ] },
+      { name:'Tăng Theo Dõi Gian Hàng', min: 50, icon:'fas fa-store', c:'#ee4d2d', servers: [ { id: 'SV1', desc: 'Tăng Lượt Theo Dõi Shop Shopee ~ Tốc độ vừa', price: 75.0 } ] },
+      { name:'Tăng Người Xem Live', min: 50, icon:'fas fa-video', c:'#ee4d2d', servers: [ { id: 'SV1', desc: 'Mắt Xem Livestream Bán Hàng Shopee ~ Duy trì 60 phút', price: 20.0 } ] }
     ]
   },
   'spotify': {
     name: 'VN Spotify', icon: 'fab fa-spotify', color: '#1db954',
     services: [
-      {
-        name:'Tăng Lượt Nghe', min: 1000, icon:'fas fa-music', c:'#1db954',
-        servers: [ { id: 'SV1', desc: 'Tăng Lượt Nghe Track Spotify Theo Khu Vực VN 🇻🇳', price: 15.0 } ]
-      },
-      {
-        name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-user-plus', c:'#1db954',
-        servers: [ { id: 'SV1', desc: 'Tăng Theo Dõi Nghệ Sĩ / Playlist Spotify 🇻🇳', price: 40.0 } ]
-      }
+      { name:'Tăng Lượt Nghe', min: 1000, icon:'fas fa-music', c:'#1db954', servers: [ { id: 'SV1', desc: 'Tăng Lượt Nghe Track Spotify Theo Khu Vực VN 🇻🇳', price: 15.0 } ] },
+      { name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-user-plus', c:'#1db954', servers: [ { id: 'SV1', desc: 'Tăng Theo Dõi Nghệ Sĩ / Playlist Spotify 🇻🇳', price: 40.0 } ] }
     ]
   },
   'webtraffic': {
     name: 'VN Web Traffic', icon: 'fas fa-globe', color: '#00d4aa',
     services: [
-      {
-        name:'Tăng Truy Cập Web', min: 1000, icon:'fas fa-mouse-pointer', c:'#00d4aa',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Lượt Truy Cập Website Từ Google, Facebook... IP Việt Nam 🇻🇳', price: 10.0 },
-          { id: 'SV2', desc: 'Tăng Traffic Giả Lập Mobile (Iphone, Android...) ~ IP Việt Nam 🇻🇳', price: 15.0 }
-        ]
-      }
+      { name:'Tăng Truy Cập Web', min: 1000, icon:'fas fa-mouse-pointer', c:'#00d4aa', servers: [ { id: 'SV1', desc: 'Tăng Lượt Truy Cập Website Từ Google, Facebook... IP Việt Nam 🇻🇳', price: 10.0 }, { id: 'SV2', desc: 'Tăng Traffic Giả Lập Mobile (Iphone, Android...) ~ IP Việt Nam 🇻🇳', price: 15.0 } ] }
     ]
   },
   'twitter': {
     name: 'VN Twitter/X', icon: 'fa-brands fa-x-twitter', color: '#000',
     services: [
-      {
-        name:'Tăng Like Tweet', min: 50, icon:'fas fa-heart', c:'#000',
-        servers: [ { id: 'SV1', desc: 'Twitter Likes [VIETNAM 🇻🇳] [Speed: 100-500/Day]', price: 25.0 } ]
-      },
-      {
-        name:'Tăng Theo Dõi Twitter', min: 100, icon:'fas fa-users', c:'#000',
-        servers: [ { id: 'SV1', desc: 'Twitter Followers [VIETNAM 🇻🇳] [Speed: 100-500/Day]', price: 35.0 } ]
-      },
-      {
-        name:'Tăng Comment Twitter', min: 10, icon:'fas fa-comment', c:'#000',
-        servers: [ { id: 'SV1', desc: 'Twitter Custom Comments [VIETNAM 🇻🇳]', price: 200.0 } ]
-      },
-      {
-        name:'Tăng Retweet Twitter', min: 50, icon:'fas fa-retweet', c:'#000',
-        servers: [ { id: 'SV1', desc: 'Twitter Retweets / Reposts [VIETNAM 🇻🇳]', price: 30.0 } ]
-      },
-      {
-        name:'Tăng Lượt Tiếp Cận', min: 1000, icon:'fas fa-chart-line', c:'#000',
-        servers: [ { id: 'SV1', desc: 'Tăng Lượt Tiếp Cận (Impression) + Người Xem Hồ Sơ 🚀', price: 2.0 } ]
-      }
+      { name:'Tăng Like Tweet', min: 50, icon:'fas fa-heart', c:'#000', servers: [ { id: 'SV1', desc: 'Twitter Likes [VIETNAM 🇻🇳] [Speed: 100-500/Day]', price: 25.0 } ] },
+      { name:'Tăng Theo Dõi Twitter', min: 100, icon:'fas fa-users', c:'#000', servers: [ { id: 'SV1', desc: 'Twitter Followers [VIETNAM 🇻🇳] [Speed: 100-500/Day]', price: 35.0 } ] },
+      { name:'Tăng Comment Twitter', min: 10, icon:'fas fa-comment', c:'#000', servers: [ { id: 'SV1', desc: 'Twitter Custom Comments [VIETNAM 🇻🇳]', price: 200.0 } ] },
+      { name:'Tăng Retweet Twitter', min: 50, icon:'fas fa-retweet', c:'#000', servers: [ { id: 'SV1', desc: 'Twitter Retweets / Reposts [VIETNAM 🇻🇳]', price: 30.0 } ] },
+      { name:'Tăng Lượt Tiếp Cận', min: 1000, icon:'fas fa-chart-line', c:'#000', servers: [ { id: 'SV1', desc: 'Tăng Lượt Tiếp Cận (Impression) + Người Xem Hồ Sơ 🚀', price: 2.0 } ] }
     ]
   }
 };
@@ -1356,7 +1119,7 @@ window.openSvcModal = function(platKey, svcIdx) {
   } else {
     let cmtField = isCmt ? `<div class="form-group"><label class="form-label">Nội dung bình luận <span style="color:var(--text3);font-weight:400">(mỗi dòng 1 nội dung)</span></label><textarea class="form-input" id="svc-comments" rows="4" placeholder="Nhập nội dung..."></textarea><div style="font-size:11.5px;color:var(--text3);margin-top:4px"><i class="fas fa-info-circle" style="color:var(--accent3)"></i> Hệ thống tự đếm số dòng để tính số lượng.</div></div>` : '';
     
-    // GIAO DIỆN CHỌN CẢM XÚC - SỬ DỤNG ẢNH BẢO ĐẢM HIỂN THỊ TỐT
+    // GIAO DIỆN CHỌN CẢM XÚC 
     let reactionsHtml = `
       <div class="form-group" id="reactions-group-wrapper" style="display:none;">
         <label class="form-label">Chọn cảm xúc thay thế "Like"</label>
@@ -1376,7 +1139,7 @@ window.openSvcModal = function(platKey, svcIdx) {
       <div class="server-opt ${idx===0?'selected':''}" onclick="selectOpt(this, ${sv.price}, '${sv.desc.replace(/'/g, "\\'")}')">
         <input type="radio" name="sopt" ${idx===0?'checked':''}>
         <div class="server-opt-info">
-          <div class="server-opt-header"><div class="server-opt-name"><span class="sv-badge"><i class="${plat.icon}"></i> ${sv.id}</span></div><div class="server-opt-price">${sv.price} đ</div></div>
+          <div class="server-opt-header"><div class="server-opt-name"><span class="sv-badge"><i class="${plat.icon}"></i> <span class="sv-id-text">${sv.id}</span></span></div><div class="server-opt-price">${sv.price} đ</div></div>
           <div class="server-opt-desc">${sv.desc}</div>
         </div>
       </div>`).join('');
@@ -1469,7 +1232,7 @@ window.showSection = function(name){ document.getElementById('sec-home').style.d
 window.toggleMobileMenu = function(){ document.getElementById('mobileMenu').classList.toggle('open'); }
 window.toggleUserDropdown = function(e) { e.stopPropagation(); document.getElementById('userDropdown').classList.toggle('show'); };
 window.addEventListener('click', function(e) { const d = document.getElementById('userDropdown'); if (d) d.classList.remove('show'); });
-window.submitGeneric = function(btn){ const orig=btn.innerHTML; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';btn.disabled=true; setTimeout(()=>{ btn.innerHTML='<i class="fas fa-check"></i> Đặt thành công!'; btn.style.background='linear-gradient(135deg,var(--accent3),#00a876)'; setTimeout(()=>{btn.innerHTML=orig;btn.style.background='';btn.disabled=false; closeModal('svcModal'); closeModal('prodModal');},2500); },1500); }
+
 </script>
 
 <script type="module">
@@ -1492,7 +1255,7 @@ const db   = getFirestore(app);
 window.firebaseAuth = auth; 
 
 // ====================================================
-// CHỨC NĂNG LẤY GIÁ TỪ MÁY CHỦ BẢO VỆ GIAO DIỆN
+// CHỨC NĂNG LẤY GIÁ VÀ ID TỪ MÁY CHỦ
 // ====================================================
 window.globalPlatforms = null;
 window.globalProducts = null;
@@ -1503,18 +1266,33 @@ async function loadServicesData() {
       window.globalProducts = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
       const docRef = doc(db, 'settings', 'servicesData');
       const docSnap = await getDoc(docRef);
+      
       if (docSnap.exists()) {
           const data = docSnap.data();
           if(data.products) {
               data.products.forEach((p, i) => {
-                  if(window.globalProducts[i]) { p.packages.forEach((pkg, j) => { if(window.globalProducts[i].packages[j]) { window.globalProducts[i].packages[j].price = pkg.price; } }); }
+                  if(window.globalProducts[i]) { 
+                      p.packages.forEach((pkg, j) => { 
+                          if(window.globalProducts[i].packages[j]) { 
+                              window.globalProducts[i].packages[j].price = pkg.price; 
+                          } 
+                      }); 
+                  }
               });
           }
           if(data.platforms) {
               for(let key in data.platforms) {
                   if(window.globalPlatforms[key]) {
                       data.platforms[key].services.forEach((svc, sIdx) => {
-                          svc.servers.forEach((sv, svIdx) => { if(window.globalPlatforms[key].services[sIdx] && window.globalPlatforms[key].services[sIdx].servers[svIdx]) { window.globalPlatforms[key].services[sIdx].servers[svIdx].price = sv.price; } });
+                          svc.servers.forEach((sv, svIdx) => { 
+                              if(window.globalPlatforms[key].services[sIdx] && window.globalPlatforms[key].services[sIdx].servers[svIdx]) { 
+                                  // ĐÃ FIX: LẤY CẢ GIÁ VÀ MÃ ID TỪ FIREBASE XUỐNG
+                                  window.globalPlatforms[key].services[sIdx].servers[svIdx].price = sv.price; 
+                                  if(sv.id) {
+                                      window.globalPlatforms[key].services[sIdx].servers[svIdx].id = sv.id;
+                                  }
+                              } 
+                          });
                       });
                   }
               }
@@ -1547,7 +1325,7 @@ window.showGlobalAlert = function(msg, type='success') {
 }
 
 // ====================================================
-// HỆ THỐNG XỬ LÝ API VÀ TRỪ TIỀN TỰ ĐỘNG 100%
+// HỆ THỐNG XỬ LÝ API VÀ TRỪ TIỀN TỰ ĐỘNG
 // ====================================================
 window.submitGeneric = async function(btn) {
   if(!window.currentUserData) { openAuth('login'); return; }
@@ -1560,7 +1338,7 @@ window.submitGeneric = async function(btn) {
 
   try {
       if(isSmm) {
-          // 1. LẤY DỮ LIỆU FORM SMM
+          // 1. LẤY DỮ LIỆU SMM
           const linkInput = document.querySelector('#svcModalForm .form-input[type="text"]');
           if(!linkInput || !linkInput.value.trim()) { window.showGlobalAlert("Vui lòng nhập Link/ID cần tăng!", "error"); throw "Empty"; }
           
@@ -1570,30 +1348,27 @@ window.submitGeneric = async function(btn) {
 
           if(window.currentUserData.balance < totalCost) { window.showGlobalAlert("Số dư không đủ! Vui lòng nạp thêm.", "error"); throw "Low balance"; }
 
-          // Tách lấy ID Dịch Vụ từ tên Máy chủ (VD "SV105" -> lấy 105)
-          const selectedServerEl = document.querySelector('.server-opt.selected .sv-badge');
-          let serviceId = selectedServerEl ? selectedServerEl.textContent.replace(/[^0-9]/g, '') : "1";
-          if(!serviceId) serviceId = "1";
-          const serviceNameFull = selectedServerEl ? selectedServerEl.textContent.trim() : "SMM Service";
+          // Tách ID
+          const selectedServerEl = document.querySelector('.server-opt.selected .sv-id-text');
+          let serviceId = selectedServerEl ? selectedServerEl.textContent.trim() : "1";
+          const serviceNameFull = document.querySelector('.server-opt.selected .sv-badge').textContent.trim();
 
           const comments = document.getElementById('svc-comments') ? document.getElementById('svc-comments').value : "";
           const reactionEl = document.querySelector('.reaction-item.active input');
           const reaction = reactionEl ? reactionEl.value : "";
 
-          // 2. BẮN API SANG GOOGLE APPS SCRIPT (TINGTING)
+          // 2. GỬI LÊN APPS SCRIPT
           const GAS_URL = "https://script.google.com/macros/s/AKfycbylugvQNrxwkZU7Waee0TdekNrtu9Zvw7uXb_C6eG0MG9TRQeXc-a_XyPYiSaL4eY3HAw/exec";
           const payload = { action: "add", service: serviceId, link: link, quantity: quantity, comments: comments, reaction_type: reaction };
 
           const response = await fetch(GAS_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) });
           const result = await response.json();
 
-          // 3. NẾU TINGTING NHẬN ĐƠN THÀNH CÔNG
+          // 3. XỬ LÝ KẾT QUẢ TỪ TINGTING
           if(result.success && result.tingting_response && !result.tingting_response.error) {
-              // Trừ tiền ngay lập tức
               const userRef = doc(db, 'users', window.currentUserData.uid);
               await updateDoc(userRef, { balance: increment(-totalCost) });
 
-              // Ghi Lịch sử Đơn Hàng vào mây
               await addDoc(collection(db, 'orders'), {
                   uid: window.currentUserData.uid,
                   service_name: serviceNameFull,
@@ -1608,17 +1383,15 @@ window.submitGeneric = async function(btn) {
               btn.innerHTML = '<i class="fas fa-check"></i> Đặt thành công!';
               btn.style.background = 'linear-gradient(135deg,var(--accent3),#00a876)';
               window.showGlobalAlert(`Đã tạo đơn thành công! Trừ ${totalCost.toLocaleString('vi-VN')}đ`, 'success');
-
               setTimeout(() => { closeModal('svcModal'); window.showSection('orders'); }, 2000);
           } else {
-              // NẾU LỖI TỪ TINGTING (Ví dụ: Link sai, số lượng sai)
               const errorMsg = result.tingting_response ? result.tingting_response.error : "Không xác định";
               window.showGlobalAlert("Lỗi từ máy chủ API: " + errorMsg, "error");
               btn.innerHTML = origHTML; btn.disabled = false;
           }
 
       } else {
-          // XỬ LÝ MUA TÀI KHOẢN PREMIUM
+          // BÁN TÀI KHOẢN (Thủ công tạm thời)
           const infoInput = document.getElementById('pm-input').value;
           if(!infoInput.trim()) { window.showGlobalAlert("Vui lòng nhập thông tin liên hệ!", "error"); throw "Empty"; }
 
@@ -1626,12 +1399,9 @@ window.submitGeneric = async function(btn) {
           if(window.currentUserData.balance < totalCost) { window.showGlobalAlert("Số dư không đủ! Vui lòng nạp thêm.", "error"); throw "Low balance"; }
 
           const serviceName = document.getElementById('pm-title').textContent;
-
-          // Trừ tiền
           const userRef = doc(db, 'users', window.currentUserData.uid);
           await updateDoc(userRef, { balance: increment(-totalCost) });
 
-          // Lưu đơn hàng
           await addDoc(collection(db, 'orders'), {
               uid: window.currentUserData.uid,
               service_name: serviceName,
@@ -1645,7 +1415,6 @@ window.submitGeneric = async function(btn) {
           btn.innerHTML = '<i class="fas fa-check"></i> Mua thành công!';
           btn.style.background = 'linear-gradient(135deg,var(--accent3),#00a876)';
           window.showGlobalAlert(`Mua thành công! Trừ ${totalCost.toLocaleString('vi-VN')}đ`, 'success');
-
           setTimeout(() => { closeModal('prodModal'); window.showSection('orders'); }, 2000);
       }
   } catch(e) {
@@ -1798,5 +1567,3 @@ onAuthStateChanged(auth, async (user) => {
 });
 window.togglePwd = function(id){ const i = document.getElementById(id); i.type = i.type==='password'?'text':'password'; };
 </script>
-</body>
-</html>
