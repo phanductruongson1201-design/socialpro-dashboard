@@ -29,7 +29,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .topbar-announcement{background:linear-gradient(90deg,var(--accent),var(--accent2));padding:8px 20px;font-size:12.5px;font-weight:600;text-align:center;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;}
 .topbar-announcement a{color:#fff;text-decoration:underline;}
 
-/* NAVBAR (GỌN GÀNG) */
+/* NAVBAR */
 .navbar{height:var(--nav-h);background:rgba(13,15,26,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:1000;display:flex;align-items:center;padding:0 24px;gap:20px;}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:22px;font-weight:900;color:var(--text);white-space:nowrap;}
 .nav-logo-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;}
@@ -185,16 +185,20 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .server-opt-price { background: rgba(0,212,170,0.15); color: var(--accent3); padding: 4px 10px; border-radius: 8px; font-size: 12.5px; font-weight: 800; white-space: nowrap; flex-shrink:0;}
 .server-opt-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
 
-/* REACTION PICKER - GIAO DIỆN CHỌN CẢM XÚC */
+/* 🌟 REACTION PICKER - BẢNG CẢM XÚC CHUYÊN NGHIỆP 🌟 */
 .reactions-group { display: flex; gap: 15px; margin-bottom: 16px; border: 1px solid var(--border); border-radius: 12px; padding: 15px; background: var(--bg); justify-content: center; flex-wrap: wrap; }
-.reaction-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; opacity: 0.6; transition: opacity 0.2s; position: relative;}
-.reaction-item:hover, .reaction-item.active { opacity: 1; }
-.reaction-icon { font-size: 30px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
-.reaction-label { font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
-.reaction-item input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
-.reaction-check { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border2); display: flex; align-items: center; justify-content: center; background: var(--bg3); transition: border-color 0.2s; margin-top: 5px;}
-.reaction-item.active .reaction-check { border-color: var(--accent); background: var(--accent); color: #fff; font-size: 10px;}
-.reaction-item.active .reaction-check::after { content:'\f00c'; font-family:'Font Awesome 5 Free'; font-weight:900;}
+.reaction-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; opacity: 0.5; transition: all 0.2s ease; position: relative; }
+.reaction-item:hover { opacity: 0.8; transform: scale(1.05); }
+.reaction-item.active { opacity: 1; transform: scale(1.1); }
+.reaction-icon { font-size: 28px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); transition: transform 0.2s; }
+.reaction-label { font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.2s; }
+.reaction-item input[type="radio"] { position: absolute; opacity: 0; cursor: pointer; width: 0; height: 0; }
+
+/* Nút Radio Tùy chỉnh đổi màu theo Cảm xúc */
+.reaction-check { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border2); display: flex; align-items: center; justify-content: center; background: transparent; transition: all 0.2s; margin-top: 2px;}
+.reaction-item.active .reaction-check { border-color: var(--r-color); background: transparent; }
+.reaction-item.active .reaction-check::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--r-color); }
+.reaction-item.active .reaction-label { color: var(--r-color); }
 
 .modal-info{display:flex;flex-direction:column;gap:14px;}
 .info-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;}
@@ -916,143 +920,275 @@ window.copyToClipboard = function(text) {
   });
 };
 
+// MẢNG CẢM XÚC - CẬP NHẬT MÀU VÀ UNICODE MÀU SẮC CHUẨN
 const REACTION_TYPES = [
-  { key: 'like', name: 'Like', icon: '👍' }, { key: 'love', name: 'Love', icon: '❤️' },
-  { key: 'care', name: 'Care', icon: '🥰' }, { key: 'haha', name: 'Haha', icon: '😆' },
-  { key: 'wow', name: 'Wow', icon: '😮' }, { key: 'sad', name: 'Sad', icon: '😢' },
-  { key: 'angry', name: 'Angry', icon: '😡' }
+  { key: 'like', name: 'Like', icon: '&#x1F44D;', color: '#1877f2' },
+  { key: 'love', name: 'Love', icon: '&#x2764;&#xFE0F;', color: '#e0245e' },
+  { key: 'care', name: 'Care', icon: '&#x1F970;', color: '#ffb84c' },
+  { key: 'haha', name: 'Haha', icon: '&#x1F606;', color: '#f1c40f' },
+  { key: 'wow', name: 'Wow', icon: '&#x1F62E;', color: '#f1c40f' },
+  { key: 'sad', name: 'Sad', icon: '&#x1F622;', color: '#1da1f2' },
+  { key: 'angry', name: 'Angry', icon: '&#x1F620;', color: '#e74c3c' }
 ];
 
 // ═══════════════════════════════════════════════
-// DATA SẢN PHẨM PREMIUM & DỊCH VỤ SMM CHỈ VIỆT NAM (BẢN GỐC CHUẨN)
+// CÁC HÀM XỬ LÝ GIAO DIỆN CHÍNH
 // ═══════════════════════════════════════════════
+window.renderProducts = function(){
+  if(!window.globalProducts) return;
+  const grid = document.getElementById('products-grid');
+  grid.innerHTML = window.globalProducts.map((p, idx) => `
+    <div class="product-card" onclick="openProdModal(${idx})">
+      <div class="product-img"><div class="product-img-bg"></div><div class="product-img-icon">${p.icon}</div>${p.badge?`<div class="product-badge badge-${p.badge}">${p.badge==='hot'?'🔥 HOT':p.badge==='new'?'✨ MỚI':'💥 SALE'}</div>`:''}</div>
+      <div class="product-body"><div class="product-name">${p.name}</div><div class="product-desc">${p.desc.substring(0, 60)}...</div>
+        <div class="product-footer"><div><span class="product-price">${p.packages[0].price.toLocaleString('vi-VN')}đ</span></div><button class="product-btn" onclick="event.stopPropagation();openProdModal(${idx})">Mua</button></div>
+      </div>
+    </div>`).join('');
+}
+
+window.renderServices = function(){
+  if(!window.globalPlatforms) return;
+  const tabs = document.getElementById('services-tabs');
+  const content = document.getElementById('services-content');
+  tabs.innerHTML = Object.entries(window.globalPlatforms).map(([key,p],i)=>`<div class="svc-tab-btn${i===0?' active':''}" onclick="switchPlatform('${key}',this)"><i class="${p.icon}"></i> ${p.name}</div>`).join('');
+  content.innerHTML = Object.entries(window.globalPlatforms).map(([key,p],i)=>`
+    <div class="svc-platform-content${i===0?' active':''}" id="plat-${key}">
+      ${p.services.map((s, svcIdx)=>`
+        <div class="svc-card" onclick="openSvcModal('${key}', ${svcIdx})">
+          <div class="svc-card-icon" style="background:${s.c}22;color:${s.c}"><i class="${s.icon}"></i></div>
+          <div class="svc-card-info"><div class="svc-card-name">${s.name}</div><div class="svc-card-meta">Tối thiểu: ${s.min}</div></div>
+          <div class="svc-card-price">Từ ${s.servers[0].price}đ</div>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+let currentOpt = 12;
+window.openSvcModal = function(platKey, svcIdx) {
+  if(!window.currentUserData) { openAuth('login'); return; }
+  const plat = window.globalPlatforms[platKey]; const svc = plat.services[svcIdx];
+  const isCmt = svc.name.toLowerCase().includes('bình luận') || svc.name.toLowerCase().includes('đánh giá');
+  const isThang = svc.name.toLowerCase().includes('tháng') || svc.name.toLowerCase().includes('vip');
+  
+  document.getElementById('svcModalTitle').innerHTML=`<span style="color:${svc.c}">${svc.name}</span>`;
+
+  let formHtml = '';
+  if(isThang) {
+    formHtml = `
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:16px;">
+        <strong style="color:var(--text); font-size:14px; display:block; margin-bottom:8px;">${svc.name}</strong>
+        - Min - Max: ${svc.min} - 10,000<br>
+        - Thời gian xử lý: 00:00:00<br>
+        Máy chủ sử dụng nguồn tài khoản Việt Nam - Người dùng bấm tay.
+      </div>
+      <div class="form-group"><label class="form-label">Link Profile/Page cần cài đặt</label><input class="form-input" type="text" placeholder="Dán link vào đây..."></div>
+      <div class="form-group"><label class="form-label">Thời gian (Ngày)</label><select class="form-input" id="svc-days" onchange="calcPriceThang(${svc.servers[0].price})"><option value="7">7 Ngày</option><option value="30" selected>30 Ngày</option></select></div>
+      <div class="form-group"><label class="form-label">Số bài viết / Ngày</label><input class="form-input" type="number" id="svc-posts" value="5" oninput="calcPriceThang(${svc.servers[0].price})"></div>
+      <div class="form-group"><label class="form-label">Số lượng</label><input class="form-input" type="number" id="svc-qty" value="${svc.min}" oninput="calcPriceThang(${svc.servers[0].price})"></div>
+      <div class="form-group"><label class="form-label">Giá tiền</label><div class="price-box"><span class="price-box-label">Tổng thanh toán</span><span class="price-box-value" id="svc-price">0 đ</span></div></div>
+      <button class="submit-btn" onclick="submitGeneric(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>
+    `;
+  } else {
+    let cmtField = isCmt ? `<div class="form-group"><label class="form-label">Nội dung bình luận <span style="color:var(--text3);font-weight:400">(mỗi dòng 1 nội dung)</span></label><textarea class="form-input" id="svc-comments" rows="4" placeholder="Nhập nội dung..."></textarea><div style="font-size:11.5px;color:var(--text3);margin-top:4px"><i class="fas fa-info-circle" style="color:var(--accent3)"></i> Hệ thống tự đếm số dòng để tính số lượng.</div></div>` : '';
+    
+    // Giao diện chọn cảm xúc MỚI ĐẸP HƠN
+    let reactionsHtml = `
+      <div class="form-group" id="reactions-group-wrapper" style="display:none;">
+        <label class="form-label">Chọn cảm xúc thay thế "Like"</label>
+        <div class="reactions-group">
+          ${REACTION_TYPES.map((rx, idx) => `
+            <div class="reaction-item ${idx===0?'active':''}" onclick="selectReaction(this, '${rx.color}')" style="--r-color: ${rx.color}">
+              <input type="radio" name="reaction_type" value="${rx.key}" ${idx===0?'checked':''}>
+              <div class="reaction-icon">${rx.icon}</div>
+              <div class="reaction-label">${rx.name}</div>
+              <div class="reaction-check"></div>
+            </div>
+          `).join('')}
+        </div>
+      </div>`;
+    
+    let serverOptionsHtml = svc.servers.map((sv, idx) => `
+      <div class="server-opt ${idx===0?'selected':''}" onclick="selectOpt(this, ${sv.price}, '${sv.desc.replace(/'/g, "\\'")}')">
+        <input type="radio" name="sopt" ${idx===0?'checked':''}>
+        <div class="server-opt-info">
+          <div class="server-opt-header"><div class="server-opt-name"><span class="sv-badge"><i class="${plat.icon}"></i> ${sv.id}</span></div><div class="server-opt-price">${sv.price} đ</div></div>
+          <div class="server-opt-desc">${sv.desc}</div>
+        </div>
+      </div>`).join('');
+
+    formHtml = `
+      <div class="form-group"><label class="form-label">Link hoặc ID cần tăng</label><input class="form-input" type="text" placeholder="Dán link vào đây..."></div>
+      ${cmtField}
+      <div class="form-group"><label class="form-label">Chọn máy chủ (Server)</label><div class="server-options">${serverOptionsHtml}</div></div>
+      ${reactionsHtml}
+      <div class="form-group"><label class="form-label">Số lượng</label><input class="form-input" type="number" id="svc-qty" value="${svc.min}" oninput="calcPrice()"></div>
+      <div class="form-group"><label class="form-label">Giá tiền</label><div class="price-box"><span class="price-box-label">Tổng thanh toán</span><span class="price-box-value" id="svc-price">0 đ</span></div></div>
+      <button class="submit-btn" onclick="submitGeneric(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>`;
+  }
+
+  document.getElementById('svcModalForm').innerHTML = formHtml;
+  document.getElementById('svcModalInfo').innerHTML=`<div class="info-card"><div class="info-card-title"><i class="fas fa-info-circle"></i> Lưu ý</div><ul class="info-list"><li>Link/trang phải <strong>công khai</strong></li><li>Không đặt 2 đơn cùng lúc cho 1 link</li><li>Kết quả tăng dần, <strong>không đột ngột</strong></li></ul></div><div class="info-card"><div class="info-card-title"><i class="fas fa-bolt"></i> Số dư hiện tại</div><div style="font-size:22px;font-weight:800;color:var(--accent3)">${(window.currentUserData.balance||0).toLocaleString('vi-VN')} đ</div><a href="#" onclick="closeModal('svcModal');showSection('deposit');return false" style="font-size:12px;color:var(--accent);text-decoration:none;display:block;margin-top:6px">+ Nạp thêm →</a></div>`;
+  document.getElementById('svcModal').classList.add('open');
+  
+  if(isThang) {
+    window.calcPriceThang(svc.servers[0].price);
+  } else {
+    currentOpt = svc.servers[0].price; window.calcPrice();
+    window.updateReactionVisibility(svc.servers[0].desc);
+    if(isCmt) { document.getElementById('svc-comments').addEventListener('input', function() { const lines = this.value.split('\n').filter(line => line.trim() !== '').length; if(lines > 0) { document.getElementById('svc-qty').value = lines; calcPrice(); }}); }
+  }
+}
+
+window.updateReactionVisibility = function(description) {
+  const wrapper = document.getElementById('reactions-group-wrapper');
+  if(!wrapper) return;
+  const hasReactions = description.includes('Chọn Cảm Xúc') || description.includes('Chọn Nhiều Cảm Xúc');
+  wrapper.style.display = hasReactions ? 'block' : 'none';
+}
+
+window.calcPriceThang = function(basePrice) {
+  const days = parseInt(document.getElementById('svc-days')?.value) || 30; const posts = parseInt(document.getElementById('svc-posts')?.value) || 1; const qty = parseInt(document.getElementById('svc-qty')?.value) || 0;
+  const total = basePrice * days * posts * qty; const el = document.getElementById('svc-price'); if(el) el.textContent = total.toLocaleString('vi-VN', {maximumFractionDigits: 2}) + ' đ';
+}
+window.selectOpt = function(el, price, description){
+  document.querySelectorAll('.server-opt').forEach(o=>{o.classList.remove('selected');o.querySelector('input').checked=false;});
+  el.classList.add('selected'); el.querySelector('input').checked=true; currentOpt=price; calcPrice(); window.updateReactionVisibility(description);
+}
+window.selectReaction = function(el) {
+  document.querySelectorAll('.reaction-item').forEach(r => {r.classList.remove('active'); r.querySelector('input').checked=false;});
+  el.classList.add('active'); el.querySelector('input').checked=true;
+}
+window.calcPrice = function(){
+  const qty=parseInt(document.getElementById('svc-qty')?.value)||0; const total = qty * currentOpt;
+  const el=document.getElementById('svc-price'); if(el)el.textContent=total.toLocaleString('vi-VN', {maximumFractionDigits: 2})+' đ';
+}
+
+let selectedProdPackagePrice = 0;
+window.openProdModal = function(idx) {
+  if(!window.currentUserData) { openAuth('login'); return; }
+  if(!window.globalProducts) return;
+  const prod = window.globalProducts[idx];
+  
+  document.getElementById('pm-icon').innerHTML = prod.icon; document.getElementById('pm-title').textContent = prod.name;
+  document.getElementById('pm-desc').textContent = prod.desc;
+  
+  let noteText = 'Vui Lòng Nhập Thông Tin Tài Khoản...';
+  if (prod.name.includes('YouTube') || prod.name.includes('Canva')) noteText = 'Vui Lòng Nhập Gmail Cần Đăng Kí (Không yêu cầu Password)';
+  if (prod.name.includes('Netflix') || prod.name.includes('Capcut')) noteText = 'Tài khoản sẽ được gửi qua Zalo/Email của bạn.';
+  document.getElementById('pm-note').innerHTML = noteText;
+  
+  document.getElementById('pm-packages').innerHTML = prod.packages.map((pkg, i) => {
+    let tagsHtml = (pkg.tags || []).map(t => `<div class="ptag ${t==='Giao ngay'?'ptag-giao':t==='Bán chạy'?'ptag-hot':'ptag-bao'}">${t==='Giao ngay'?'⚡':t==='Bán chạy'?'🔥':'♻️'} ${t}</div>`).join('');
+    return `<div class="pkg-card ${i===0?'active':''}" onclick="selProdPkg(this, ${pkg.price})"><div class="pkg-info"><h4>${pkg.name}</h4><p>${pkg.desc}</p><div class="pkg-tags">${tagsHtml}</div></div><div class="pkg-price-col">${pkg.price.toLocaleString('vi-VN')}đ</div></div>`;
+  }).join('');
+  
+  selectedProdPackagePrice = prod.packages[0].price; document.getElementById('pm-total').textContent = selectedProdPackagePrice.toLocaleString('vi-VN') + 'đ';
+  document.getElementById('pm-input').value = ''; document.getElementById('prodModal').classList.add('open');
+}
+window.selProdPkg = function(el, price) {
+  document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('active')); el.classList.add('active');
+  selectedProdPackagePrice = price; document.getElementById('pm-total').textContent = selectedProdPackagePrice.toLocaleString('vi-VN') + 'đ';
+}
+
+window.switchPlatform = function(key,btn){
+  document.querySelectorAll('.svc-tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.svc-platform-content').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active'); document.getElementById('plat-'+key)?.classList.add('active');
+}
+
+window.openAuth = function(tab){ document.getElementById('authModal').classList.add('open'); switchAuth(tab); }
+window.closeModal = function(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+window.switchAuth = function(tab){ document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active')); document.querySelectorAll('.auth-content').forEach(c=>c.classList.remove('active')); document.querySelector(`.auth-tab:nth-child(${tab==='login'?1:2})`).classList.add('active'); document.getElementById(`auth-${tab}`).classList.add('active'); }
+window.showSection = function(name){ document.getElementById('sec-home').style.display = name==='home'?'block':'none'; ['deposit','account','orders','transactions'].forEach(s=>{ const el=document.getElementById('sec-'+s); if(el)el.style.display=s===name?'block':'none'; }); document.getElementById('userDropdown')?.classList.remove('show'); window.scrollTo(0,0); }
+window.toggleMobileMenu = function(){ document.getElementById('mobileMenu').classList.toggle('open'); }
+window.toggleUserDropdown = function(e) { e.stopPropagation(); document.getElementById('userDropdown').classList.toggle('show'); };
+window.addEventListener('click', function(e) { const d = document.getElementById('userDropdown'); if (d) d.classList.remove('show'); });
+window.submitGeneric = function(btn){ const orig=btn.innerHTML; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';btn.disabled=true; setTimeout(()=>{ btn.innerHTML='<i class="fas fa-check"></i> Đặt thành công!'; btn.style.background='linear-gradient(135deg,var(--accent3),#00a876)'; setTimeout(()=>{btn.innerHTML=orig;btn.style.background='';btn.disabled=false; closeModal('svcModal'); closeModal('prodModal');},2500); },1500); }
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, serverTimestamp, onSnapshot, collection, query, where, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAccwBvfUMMsrt4HHLB9EYJSKQq_nchtjA",
+  authDomain: "socialpro-db-c2654.firebaseapp.com",
+  projectId: "socialpro-db-c2654",
+  storageBucket: "socialpro-db-c2654.firebasestorage.app",
+  messagingSenderId: "821789877824",
+  appId: "1:821789877824:web:99d69aa828b4609babe1a5"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+window.firebaseAuth = auth; 
+
+// ====================================================
+// CHỨC NĂNG LẤY GIÁ TỪ MÁY CHỦ BẢO VỆ GIAO DIỆN
+// ====================================================
+// KHAI BÁO DỮ LIỆU CỨNG ĐỂ BẢO VỆ GIAO DIỆN & HÌNH ẢNH TRANG CHỦ
 const DEFAULT_PRODUCTS = [
   {
     name: 'YouTube Premium', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#ff0000', badge: 'hot', 
     desc: 'Nâng Cấp Tài Khoản Youtube Premium Chính Chủ Đăng Ký Gmail Của Bạn + Tặng Kèm Canva Pro 1 Năm',
-    note: 'Vui Lòng Nhập Gmail Cần Đăng Kí Gói Youtube Premium của bạn (Không yêu cầu Password) - Gia Hạn Vui Lòng Note Mail + Gia Hạn Để Tránh Bị Lỗi Mail - Ví Dụ: aaa@gmail.com gia hạn',
-    packages: [
-      { name: '1 Tháng', desc: 'Nâng Cấp Chính Chủ Không Kèm Canva Pro Edu 1 Năm', price: 37800, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '3 Tháng', desc: 'Nâng Cấp Chính Chủ Không Kèm Canva Pro Edu 1 Năm', price: 98550, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '6 Tháng', desc: 'Nâng Cấp Chính Chủ + Tặng Kèm Canva Pro Edu 1 Năm', price: 189000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '12 Tháng', desc: 'Nâng Cấp Chính Chủ + Tặng Kèm Canva Pro Edu 1 Năm', price: 324000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '24 Tháng', desc: 'Nâng Cấp Chính Chủ + Tặng Kèm Canva Pro Edu 2 Năm', price: 580500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '36 Tháng', desc: 'Nâng Cấp Chính Chủ + Tặng Kèm Canva Pro Edu 3 Năm', price: 837000, tags: ['Giao ngay', 'Bảo hành'] }
-    ]
+    packages: [ { name: '1 Tháng', desc: 'Không Kèm Canva Pro Edu', price: 37800, tags: ['Giao ngay', 'Bảo hành'] }, { name: '6 Tháng', desc: 'Tặng Kèm Canva Pro Edu 1 Năm', price: 189000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] }, { name: '12 Tháng', desc: 'Tặng Kèm Canva Pro Edu 1 Năm', price: 324000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
   },
   {
     name: 'ChatGPT Plus', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#10a37f', badge: 'hot', 
     desc: 'Tài khoản ChatGPT Plus Chính Chủ dùng GPT-4o, DALL-E 3',
-    note: 'Nhập email để nhận tài khoản ChatGPT Plus. Đảm bảo email chưa từng vi phạm chính sách của OpenAI.',
-    packages: [
-      { name: '1 Tháng', desc: 'Tài Khoản Chatgpt Plus Dùng Chung - Chỉ Đăng Nhập 1 Máy', price: 91800, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '1 Tháng', desc: 'Tài Khoản Chatgpt Plus Dùng Riêng Mình Bạn - Đăng Nhập 4-5 Máy', price: 162000, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '1 Tháng', desc: 'Nâng Cấp Tài Khoản Chatgpt Plus Chính Chủ - Đăng Nhập 4-5 Máy', price: 175500, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '3 Tháng', desc: 'Tài Khoản Chatgpt Plus Dùng Riêng Mình Bạn - Đăng Nhập 4-5 Máy', price: 445500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '3 Tháng', desc: 'Nâng Cấp Tài Khoản Chatgpt Plus Chính Chủ - Đăng Nhập 4-5 Máy', price: 513000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '6 Tháng', desc: 'Tài Khoản Chatgpt Plus Dùng Riêng Mình Bạn - Đăng Nhập 4-5 Máy', price: 836750, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '6 Tháng', desc: 'Nâng Cấp Tài Khoản Chatgpt Plus Chính Chủ - Đăng Nhập 4-5 Máy', price: 850500, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '12 Tháng', desc: 'Tài Khoản Chatgpt Go Dùng Riêng Mình Bạn - Đăng Nhập 4-5 Máy', price: 351000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] }
-    ]
+    packages: [ { name: '1 Tháng', desc: 'Tài Khoản Chatgpt Plus Dùng Chung', price: 91800, tags: ['Giao ngay', 'Bảo hành'] }, { name: '1 Tháng', desc: 'Tài Khoản Dùng Riêng', price: 162000, tags: ['Giao ngay', 'Bảo hành'] }, { name: '3 Tháng', desc: 'Nâng Cấp Tài Khoản Chính Chủ', price: 513000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
   },
   {
     name: 'Netflix Ultra 4K', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#e50914', badge: 'sale', 
     desc: 'Tài Khoản Netflix Ultra 4K Profile Riêng + Pin Riêng',
-    note: 'Tài khoản cấp mới hoàn toàn. Vui lòng điền Zalo/Email để nhận thông tin đăng nhập.',
-    packages: [
-      { name: '1 Tháng', desc: 'Tài Khoản Netflix Ultra 4K Profile Riêng + Pin Riêng', price: 125550, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '3 Tháng', desc: 'Tài Khoản Netflix Ultra 4K Profile Riêng + Pin Riêng', price: 337500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '6 Tháng', desc: 'Tài Khoản Netflix Ultra 4K Profile Riêng + Pin Riêng', price: 661500, tags: ['Giao ngay', 'Bảo hành'] }
-    ]
+    packages: [ { name: '1 Tháng', desc: 'Profile Riêng + Pin Riêng', price: 125550, tags: ['Giao ngay', 'Bảo hành'] }, { name: '3 Tháng', desc: 'Profile Riêng + Pin Riêng', price: 337500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
   },
   {
     name: 'Canva Pro', icon: '<img src="https://www.google.com/s2/favicons?domain=canva.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#00C4CC', badge: 'new',
-    desc: 'Nâng Cấp Tài Khoản Canva Pro Education Chính Chủ Đăng Ký Bằng Mail Của Bạn - Canva Pro Full Có Quyền Up Bộ Thương Hiệu',
-    note: 'Vui lòng điền Email của bạn để nâng cấp.',
-    packages: [
-      { name: '12 Tháng', desc: 'Canva Education', price: 24300, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '12 Tháng', desc: 'Canva Pro Full Tính Năng', price: 121500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '24 Tháng', desc: 'Canva Education', price: 44550, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '24 Tháng', desc: 'Canva Pro Full Tính Năng', price: 243000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '36 Tháng', desc: 'Canva Education', price: 62100, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '36 Tháng', desc: 'Canva Pro Full Tính Năng', price: 351000, tags: ['Giao ngay', 'Bảo hành'] }
-    ]
+    desc: 'Nâng Cấp Tài Khoản Canva Pro Education Chính Chủ Đăng Ký Bằng Mail Của Bạn',
+    packages: [ { name: '12 Tháng', desc: 'Canva Education', price: 24300, tags: ['Giao ngay', 'Bảo hành'] }, { name: '12 Tháng', desc: 'Canva Pro Full Tính Năng', price: 121500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
   },
   {
     name: 'Spotify Premium', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#1db954', badge: '',
     desc: 'Tài Khoản Spotify Premium Giá Rẻ',
-    note: 'Vui lòng điền Email của bạn.',
-    packages: [
-      { name: '4 Tháng', desc: 'Tài Khoản Spotify Premium Hạn 4 Tháng', price: 189000, tags: [] },
-      { name: '4 Tháng', desc: 'Nâng Cấp Chính Chủ Spotify Premium Hạn 4 Tháng', price: 229500, tags: [] }
-    ]
+    packages: [ { name: '4 Tháng', desc: 'Tài Khoản Spotify Premium Hạn 4 Tháng', price: 189000, tags: [] } ]
   },
   {
     name: 'Adobe Full Apps', icon: '<img src="https://www.google.com/s2/favicons?domain=adobe.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#ff0000', badge: 'hot',
-    desc: 'Tài Khoản Adobe Full 20+ Apps + 100GB Cloud Lưu Trữ Dùng Trên 2 Thiết Bị Chính Chủ',
-    note: 'Nhập Mail Adobe Cần Nâng Cấp Hoặc Mail Cần Cấp Tài Khoản Mới Của Bạn.',
-    packages: [
-      { name: '4 Tháng', desc: 'Tài Khoản Adobe Dùng 2 Thiết Bị Full 20+ Apps + 100GB Cloud Lưu Trữ', price: 216000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '1 Năm', desc: 'Tài Khoản Adobe Dùng 2 Thiết Bị Full 20+ Apps + 100GB Cloud Lưu Trữ', price: 607500, tags: ['Giao ngay', 'Bảo hành'] }
-    ]
+    desc: 'Tài Khoản Adobe Full 20+ Apps + 100GB Cloud Lưu Trữ Dùng Trên 2 Thiết Bị',
+    packages: [ { name: '4 Tháng', desc: 'Tài Khoản Adobe Dùng 2 Thiết Bị', price: 216000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] }, { name: '1 Năm', desc: 'Tài Khoản Adobe Dùng 2 Thiết Bị', price: 607500, tags: ['Giao ngay', 'Bảo hành'] } ]
   },
   {
     name: 'Microsoft Office 365', icon: '<img src="https://www.google.com/s2/favicons?domain=office.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#d83b01', badge: '',
-    desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 Copilot (Bộ Cung Cụ Exel, Work, Powerpoin..) + One Driver 1 Tb',
-    note: 'Vui lòng điền Email Microsoft của bạn.',
-    packages: [
-      { name: '6 Tháng', desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 1 Năm + OneDrive 1 TB', price: 148500, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '12 Tháng', desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 2 Năm + OneDrive 1 TB', price: 243000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '24 Tháng', desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 2 Năm + OneDrive 1 TB', price: 445500, tags: ['Giao ngay', 'Bảo hành'] }
-    ]
+    desc: 'Nâng Cấp Chính Chủ Microsoft Office 365 Copilot + One Driver 1 Tb',
+    packages: [ { name: '6 Tháng', desc: 'Microsoft Office 365 1 Năm + OneDrive 1 TB', price: 148500, tags: ['Giao ngay', 'Bảo hành'] }, { name: '12 Tháng', desc: 'Microsoft Office 365 2 Năm + OneDrive 1 TB', price: 243000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
   },
   {
     name: 'Cursor Pro AI', icon: '<img src="https://cdn.simpleicons.org/cursor/ffffff" style="width:48px;height:48px;object-fit:contain;">', color: '#000000', badge: 'new',
     desc: 'Tài Khoản Cursor Pro AI + Cursor Pro Plus',
-    note: 'Tài khoản cấp sẵn.',
-    packages: [
-      { name: '1 Tháng', desc: 'Tài Khoản Cursor Pro Dùng Riêng', price: 513000, tags: [] }
-    ]
+    packages: [ { name: '1 Tháng', desc: 'Tài Khoản Cursor Pro Dùng Riêng', price: 513000, tags: [] } ]
   },
   {
     name: 'Google Gemini Pro', icon: '<img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg" style="width:48px;height:48px;object-fit:contain;">', color: '#4285f4', badge: 'new',
-    desc: 'Tài Khoản Gemini Pro AI + Google One Drive 2 TB +Google Antigravity Chính Chủ',
-    note: 'Nhập Mail cần nâng cấp của bạn.',
-    packages: [
-      { name: '6 Tháng', desc: 'Nâng Cấp Gemini Pro AI + Google One Drive 2 TB + Google Antigravity Chính Chủ', price: 148500, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '12 Tháng', desc: 'Nâng Cấp Gemini Pro AI + Google One Drive 2 TB + Google Antigravity Chính Chủ', price: 229500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '12 Tháng', desc: 'Nâng Cấp Chính Chủ Chủ Nhóm + 5 Slot Gemini Pro AI + 2 TB + Google Antigravity = 6 Slot', price: 540000, tags: ['Giao ngay', 'Bảo hành'] }
-    ]
+    desc: 'Tài Khoản Gemini Pro AI + Google One Drive 2 TB Chính Chủ',
+    packages: [ { name: '6 Tháng', desc: 'Nâng Cấp Gemini Pro AI', price: 148500, tags: ['Giao ngay', 'Bảo hành'] }, { name: '12 Tháng', desc: 'Nâng Cấp Gemini Pro AI', price: 229500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
   },
   {
     name: 'Capcut Pro', icon: '<img src="https://www.google.com/s2/favicons?domain=capcut.com&sz=128" style="width:48px;height:48px;object-fit:contain;border-radius:10px;">', color: '#fff', badge: '',
-    desc: 'Tài Khoản CapCut Pro Dùng Riêng Biệt (Đăng Nhập Được 3-4 Máy) - Loại Cá Nhân 6 Tháng Có Kèm Credit AI',
-    note: 'Tài khoản cấp sẵn dùng riêng tư.',
-    packages: [
-      { name: '1 Tháng', desc: 'Tài Khoản Có Sẵn Dùng Riêng Tư 3 Máy Đăng Nhập', price: 45900, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '3 Tháng', desc: 'Tài Khoản Có Sẵn Dùng Riêng Tư 3 Máy Đăng Nhập - Đổi Tài Khoản Hàng Tháng', price: 137700, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '6 Tháng', desc: 'Tài Khoản Có Sẵn Cá Nhân Riêng Tư Đủ Hạn 3 Máy Đăng Nhập + Có Credit AI Đi Kèm Ổn Định', price: 391500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '6 Tháng', desc: 'Nâng Cấp Tài Khoản Cá Nhân Chính Chủ Đủ Hạn 3 Máy Đăng Nhập + Có Credit AI Đi Kèm Ổn Định', price: 445500, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '6 Tháng', desc: 'Tài Khoản Có Sẵn Hàng Đội Nhóm Đủ Hạn 3 Máy Đăng Nhập Riêng Tư', price: 297000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] },
-      { name: '12 Tháng', desc: 'Tài Khoản Có Sẵn Hàng Đội Nhóm Đủ Hạn 3 Máy Đăng Nhập Riêng Tư', price: 513000, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] }
-    ]
+    desc: 'Tài Khoản CapCut Pro Dùng Riêng Biệt - Loại Cá Nhân',
+    packages: [ { name: '1 Tháng', desc: 'Tài Khoản Có Sẵn Dùng Riêng Tư 3 Máy', price: 45900, tags: ['Giao ngay', 'Bảo hành'] }, { name: '6 Tháng', desc: 'Tài Khoản Cá Nhân Riêng Tư Đủ Hạn', price: 391500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
   },
   {
     name: 'Super Grok AI', icon: '<img src="https://cdn.simpleicons.org/x/ffffff" style="width:48px;height:48px;object-fit:contain;">', color: '#1a1a1a', badge: 'new',
     desc: 'Tài Khoản Super Grok AI Có Sẵn Dùng Riêng Tư',
-    note: 'Nhập thông tin Zalo để nhận.',
-    packages: [
-      { name: '1 Tháng', desc: 'Tài Khoản Super Grok AI Có Sẵn Dùng Riêng Tư Hạn Chỉ 7 Ngày', price: 89100, tags: ['Giao ngay', 'Bảo hành'] },
-      { name: '1 Tháng', desc: 'Tài Khoản Super Grok AI Có Sẵn Dùng Riêng Tư Hạn Đầy Đủ 1 Tháng', price: 175500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] }
-    ]
+    packages: [ { name: '1 Tháng', desc: 'Tài Khoản Super Grok AI Hạn Chỉ 7 Ngày', price: 89100, tags: ['Giao ngay', 'Bảo hành'] }, { name: '1 Tháng', desc: 'Tài Khoản Super Grok AI Đầy Đủ 1 Tháng', price: 175500, tags: ['Giao ngay', 'Bán chạy', 'Bảo hành'] } ]
   },
   {
     name: 'Meitu SVip', icon: '<i class="fas fa-wand-magic-sparkles" style="font-size:42px;color:#ff4d9e"></i>', color: '#ff4d9e', badge: '',
-    desc: 'Tài Khoản Meitu SVip Svip Cấp Sẵn Dùng Riêng Giá Rẻ',
-    note: 'Cấp sẵn tài khoản.',
-    packages: [
-      { name: '1 Tháng', desc: 'Tài Khoản Meitu SVip Cấp Sẵn Dùng Riêng Giá Rẻ', price: 91800, tags: [] }
-    ]
+    desc: 'Tài Khoản Meitu SVip Svip Cấp Sẵn Dùng Riêng',
+    packages: [ { name: '1 Tháng', desc: 'Tài Khoản Meitu SVip Cấp Sẵn Dùng Riêng', price: 91800, tags: [] } ]
   }
 ];
 
@@ -1351,193 +1487,6 @@ const DEFAULT_PLATFORMS = {
   }
 };
 
-// ═══════════════════════════════════════════════
-// HÀM XỬ LÝ GIAO DIỆN CHÍNH
-// ═══════════════════════════════════════════════
-window.renderProducts = function(){
-  if(!window.globalProducts) return;
-  const grid = document.getElementById('products-grid');
-  grid.innerHTML = window.globalProducts.map((p, idx) => `
-    <div class="product-card" onclick="openProdModal(${idx})">
-      <div class="product-img"><div class="product-img-bg"></div><div class="product-img-icon">${p.icon}</div>${p.badge?`<div class="product-badge badge-${p.badge}">${p.badge==='hot'?'🔥 HOT':p.badge==='new'?'✨ MỚI':'💥 SALE'}</div>`:''}</div>
-      <div class="product-body"><div class="product-name">${p.name}</div><div class="product-desc">${p.desc.substring(0, 60)}...</div>
-        <div class="product-footer"><div><span class="product-price">${p.packages[0].price.toLocaleString('vi-VN')}đ</span></div><button class="product-btn" onclick="event.stopPropagation();openProdModal(${idx})">Mua</button></div>
-      </div>
-    </div>`).join('');
-}
-
-window.renderServices = function(){
-  if(!window.globalPlatforms) return;
-  const tabs = document.getElementById('services-tabs');
-  const content = document.getElementById('services-content');
-  tabs.innerHTML = Object.entries(window.globalPlatforms).map(([key,p],i)=>`<div class="svc-tab-btn${i===0?' active':''}" onclick="switchPlatform('${key}',this)"><i class="${p.icon}"></i> ${p.name}</div>`).join('');
-  content.innerHTML = Object.entries(window.globalPlatforms).map(([key,p],i)=>`
-    <div class="svc-platform-content${i===0?' active':''}" id="plat-${key}">
-      ${p.services.map((s, svcIdx)=>`
-        <div class="svc-card" onclick="openSvcModal('${key}', ${svcIdx})">
-          <div class="svc-card-icon" style="background:${s.c}22;color:${s.c}"><i class="${s.icon}"></i></div>
-          <div class="svc-card-info"><div class="svc-card-name">${s.name}</div><div class="svc-card-meta">Tối thiểu: ${s.min}</div></div>
-          <div class="svc-card-price">Từ ${s.servers[0].price}đ</div>
-        </div>`).join('')}
-    </div>`).join('');
-}
-
-let currentOpt = 12;
-window.openSvcModal = function(platKey, svcIdx) {
-  if(!window.currentUserData) { openAuth('login'); return; }
-  const plat = window.globalPlatforms[platKey]; const svc = plat.services[svcIdx];
-  const isCmt = svc.name.toLowerCase().includes('bình luận') || svc.name.toLowerCase().includes('đánh giá');
-  const isThang = svc.name.toLowerCase().includes('tháng') || svc.name.toLowerCase().includes('vip');
-  
-  document.getElementById('svcModalTitle').innerHTML=`<span style="color:${svc.c}">${svc.name}</span>`;
-
-  let formHtml = '';
-  if(isThang) {
-    formHtml = `
-      <div style="background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:16px;">
-        <strong style="color:var(--text); font-size:14px; display:block; margin-bottom:8px;">${svc.name}</strong>
-        - Min - Max: ${svc.min} - 10,000<br>
-        - Thời gian xử lý: 00:00:00<br>
-        Máy chủ sử dụng nguồn tài khoản Việt Nam - Người dùng bấm tay.
-      </div>
-      <div class="form-group"><label class="form-label">Link Profile/Page cần cài đặt</label><input class="form-input" type="text" placeholder="Dán link vào đây..."></div>
-      <div class="form-group"><label class="form-label">Thời gian (Ngày)</label><select class="form-input" id="svc-days" onchange="calcPriceThang(${svc.servers[0].price})"><option value="7">7 Ngày</option><option value="30" selected>30 Ngày</option></select></div>
-      <div class="form-group"><label class="form-label">Số bài viết / Ngày</label><input class="form-input" type="number" id="svc-posts" value="5" oninput="calcPriceThang(${svc.servers[0].price})"></div>
-      <div class="form-group"><label class="form-label">Số lượng</label><input class="form-input" type="number" id="svc-qty" value="${svc.min}" oninput="calcPriceThang(${svc.servers[0].price})"></div>
-      <div class="form-group"><label class="form-label">Giá tiền</label><div class="price-box"><span class="price-box-label">Tổng thanh toán</span><span class="price-box-value" id="svc-price">0 đ</span></div></div>
-      <button class="submit-btn" onclick="submitGeneric(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>
-    `;
-  } else {
-    let cmtField = isCmt ? `<div class="form-group"><label class="form-label">Nội dung bình luận <span style="color:var(--text3);font-weight:400">(mỗi dòng 1 nội dung)</span></label><textarea class="form-input" id="svc-comments" rows="4" placeholder="Nhập nội dung..."></textarea><div style="font-size:11.5px;color:var(--text3);margin-top:4px"><i class="fas fa-info-circle" style="color:var(--accent3)"></i> Hệ thống tự đếm số dòng để tính số lượng.</div></div>` : '';
-    let reactionsHtml = `
-      <div class="form-group" id="reactions-group-wrapper" style="display:none;">
-        <label class="form-label">Chọn cảm xúc thay thế "Like"</label>
-        <div class="reactions-group">
-          ${REACTION_TYPES.map((rx, idx) => `<div class="reaction-item ${idx===0?'active':''}" onclick="selectReaction(this)"><input type="radio" name="reaction_type" value="${rx.key}" ${idx===0?'checked':''}><div class="reaction-icon">${rx.icon}</div><div class="reaction-label">${rx.name}</div><div class="reaction-check"></div></div>`).join('')}
-        </div>
-      </div>`;
-    
-    let serverOptionsHtml = svc.servers.map((sv, idx) => `
-      <div class="server-opt ${idx===0?'selected':''}" onclick="selectOpt(this, ${sv.price}, '${sv.desc.replace(/'/g, "\\'")}')">
-        <input type="radio" name="sopt" ${idx===0?'checked':''}>
-        <div class="server-opt-info">
-          <div class="server-opt-header"><div class="server-opt-name"><span class="sv-badge"><i class="${plat.icon}"></i> ${sv.id}</span></div><div class="server-opt-price">${sv.price} đ</div></div>
-          <div class="server-opt-desc">${sv.desc}</div>
-        </div>
-      </div>`).join('');
-
-    formHtml = `
-      <div class="form-group"><label class="form-label">Link hoặc ID cần tăng</label><input class="form-input" type="text" placeholder="Dán link vào đây..."></div>
-      ${cmtField}
-      <div class="form-group"><label class="form-label">Chọn máy chủ (Server)</label><div class="server-options">${serverOptionsHtml}</div></div>
-      ${reactionsHtml}
-      <div class="form-group"><label class="form-label">Số lượng</label><input class="form-input" type="number" id="svc-qty" value="${svc.min}" oninput="calcPrice()"></div>
-      <div class="form-group"><label class="form-label">Giá tiền</label><div class="price-box"><span class="price-box-label">Tổng thanh toán</span><span class="price-box-value" id="svc-price">0 đ</span></div></div>
-      <button class="submit-btn" onclick="submitGeneric(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>`;
-  }
-
-  document.getElementById('svcModalForm').innerHTML = formHtml;
-  document.getElementById('svcModalInfo').innerHTML=`<div class="info-card"><div class="info-card-title"><i class="fas fa-info-circle"></i> Lưu ý</div><ul class="info-list"><li>Link/trang phải <strong>công khai</strong></li><li>Không đặt 2 đơn cùng lúc cho 1 link</li><li>Kết quả tăng dần, <strong>không đột ngột</strong></li></ul></div><div class="info-card"><div class="info-card-title"><i class="fas fa-bolt"></i> Số dư hiện tại</div><div style="font-size:22px;font-weight:800;color:var(--accent3)">${(window.currentUserData.balance||0).toLocaleString('vi-VN')} đ</div><a href="#" onclick="closeModal('svcModal');showSection('deposit');return false" style="font-size:12px;color:var(--accent);text-decoration:none;display:block;margin-top:6px">+ Nạp thêm →</a></div>`;
-  document.getElementById('svcModal').classList.add('open');
-  
-  if(isThang) {
-    window.calcPriceThang(svc.servers[0].price);
-  } else {
-    currentOpt = svc.servers[0].price; window.calcPrice();
-    window.updateReactionVisibility(svc.servers[0].desc);
-    if(isCmt) { document.getElementById('svc-comments').addEventListener('input', function() { const lines = this.value.split('\n').filter(line => line.trim() !== '').length; if(lines > 0) { document.getElementById('svc-qty').value = lines; calcPrice(); }}); }
-  }
-}
-
-window.updateReactionVisibility = function(description) {
-  const wrapper = document.getElementById('reactions-group-wrapper');
-  if(!wrapper) return;
-  const hasReactions = description.includes('Chọn Cảm Xúc') || description.includes('Chọn Nhiều Cảm Xúc');
-  wrapper.style.display = hasReactions ? 'block' : 'none';
-}
-
-window.calcPriceThang = function(basePrice) {
-  const days = parseInt(document.getElementById('svc-days')?.value) || 30; const posts = parseInt(document.getElementById('svc-posts')?.value) || 1; const qty = parseInt(document.getElementById('svc-qty')?.value) || 0;
-  const total = basePrice * days * posts * qty; const el = document.getElementById('svc-price'); if(el) el.textContent = total.toLocaleString('vi-VN', {maximumFractionDigits: 2}) + ' đ';
-}
-window.selectOpt = function(el, price, description){
-  document.querySelectorAll('.server-opt').forEach(o=>{o.classList.remove('selected');o.querySelector('input').checked=false;});
-  el.classList.add('selected'); el.querySelector('input').checked=true; currentOpt=price; calcPrice(); window.updateReactionVisibility(description);
-}
-window.selectReaction = function(el) {
-  document.querySelectorAll('.reaction-item').forEach(r => {r.classList.remove('active'); r.querySelector('input').checked=false;});
-  el.classList.add('active'); el.querySelector('input').checked=true;
-}
-window.calcPrice = function(){
-  const qty=parseInt(document.getElementById('svc-qty')?.value)||0; const total = qty * currentOpt;
-  const el=document.getElementById('svc-price'); if(el)el.textContent=total.toLocaleString('vi-VN', {maximumFractionDigits: 2})+' đ';
-}
-
-let selectedProdPackagePrice = 0;
-window.openProdModal = function(idx) {
-  if(!window.currentUserData) { openAuth('login'); return; }
-  if(!window.globalProducts) return;
-  const prod = window.globalProducts[idx];
-  
-  document.getElementById('pm-icon').innerHTML = prod.icon; document.getElementById('pm-title').textContent = prod.name;
-  document.getElementById('pm-desc').textContent = prod.desc;
-  
-  let noteText = 'Vui Lòng Nhập Thông Tin Tài Khoản...';
-  if (prod.name.includes('YouTube') || prod.name.includes('Canva')) noteText = 'Vui Lòng Nhập Gmail Cần Đăng Kí (Không yêu cầu Password)';
-  if (prod.name.includes('Netflix') || prod.name.includes('Capcut')) noteText = 'Tài khoản sẽ được gửi qua Zalo/Email của bạn.';
-  document.getElementById('pm-note').innerHTML = noteText;
-  
-  document.getElementById('pm-packages').innerHTML = prod.packages.map((pkg, i) => {
-    return `<div class="pkg-card ${i===0?'active':''}" onclick="selProdPkg(this, ${pkg.price})"><div class="pkg-info"><h4>${pkg.name}</h4><p>${pkg.desc}</p></div><div class="pkg-price-col">${pkg.price.toLocaleString('vi-VN')}đ</div></div>`;
-  }).join('');
-  
-  selectedProdPackagePrice = prod.packages[0].price; document.getElementById('pm-total').textContent = selectedProdPackagePrice.toLocaleString('vi-VN') + 'đ';
-  document.getElementById('pm-input').value = ''; document.getElementById('prodModal').classList.add('open');
-}
-window.selProdPkg = function(el, price) {
-  document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('active')); el.classList.add('active');
-  selectedProdPackagePrice = price; document.getElementById('pm-total').textContent = selectedProdPackagePrice.toLocaleString('vi-VN') + 'đ';
-}
-
-window.switchPlatform = function(key,btn){
-  document.querySelectorAll('.svc-tab-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.svc-platform-content').forEach(c=>c.classList.remove('active'));
-  btn.classList.add('active'); document.getElementById('plat-'+key)?.classList.add('active');
-}
-
-window.openAuth = function(tab){ document.getElementById('authModal').classList.add('open'); switchAuth(tab); }
-window.closeModal = function(id){document.getElementById(id).classList.remove('open');}
-document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
-window.switchAuth = function(tab){ document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active')); document.querySelectorAll('.auth-content').forEach(c=>c.classList.remove('active')); document.querySelector(`.auth-tab:nth-child(${tab==='login'?1:2})`).classList.add('active'); document.getElementById(`auth-${tab}`).classList.add('active'); }
-window.showSection = function(name){ document.getElementById('sec-home').style.display = name==='home'?'block':'none'; ['deposit','account','orders','transactions'].forEach(s=>{ const el=document.getElementById('sec-'+s); if(el)el.style.display=s===name?'block':'none'; }); document.getElementById('userDropdown')?.classList.remove('show'); window.scrollTo(0,0); }
-window.toggleMobileMenu = function(){ document.getElementById('mobileMenu').classList.toggle('open'); }
-window.toggleUserDropdown = function(e) { e.stopPropagation(); document.getElementById('userDropdown').classList.toggle('show'); };
-window.addEventListener('click', function(e) { const d = document.getElementById('userDropdown'); if (d) d.classList.remove('show'); });
-window.submitGeneric = function(btn){ const orig=btn.innerHTML; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';btn.disabled=true; setTimeout(()=>{ btn.innerHTML='<i class="fas fa-check"></i> Đặt thành công!'; btn.style.background='linear-gradient(135deg,var(--accent3),#00a876)'; setTimeout(()=>{btn.innerHTML=orig;btn.style.background='';btn.disabled=false; closeModal('svcModal'); closeModal('prodModal');},2500); },1500); }
-</script>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, serverTimestamp, onSnapshot, collection, query, where, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAccwBvfUMMsrt4HHLB9EYJSKQq_nchtjA",
-  authDomain: "socialpro-db-c2654.firebaseapp.com",
-  projectId: "socialpro-db-c2654",
-  storageBucket: "socialpro-db-c2654.firebasestorage.app",
-  messagingSenderId: "821789877824",
-  appId: "1:821789877824:web:99d69aa828b4609babe1a5"
-};
-
-const app  = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db   = getFirestore(app);
-window.firebaseAuth = auth; 
-
-// ====================================================
-// CHỨC NĂNG LẤY GIÁ TỪ MÁY CHỦ BẢO VỆ GIAO DIỆN
-// ====================================================
 window.globalPlatforms = null;
 window.globalProducts = null;
 
