@@ -1358,7 +1358,7 @@ window.submitGeneric = async function(btn) {
           const reaction = reactionEl ? reactionEl.value : "";
 
           // 2. GỬI LÊN APPS SCRIPT
-          const GAS_URL = "https://script.google.com/macros/s/AKfycbxMMv3H4kdCwSRgGSbzpo20r7iXvaGPmXtaH7DGh1VMEo-55nUjbl0aKYVcmU3HkddLSw/exec";
+          const GAS_URL = "https://script.google.com/macros/s/AKfycbz_I7-JVLRNL6hewgJPpDKpAlUu01HzFv9GE-UZ4rtTUg-JS9VwG6eiEhKFMZ5yGXMozg/exec";
           const payload = { action: "add", service: serviceId, link: link, quantity: quantity, comments: comments, reaction_type: reaction };
 
           const response = await fetch(GAS_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) });
