@@ -185,6 +185,17 @@ textarea.form-input{resize:vertical;min-height:90px;line-height:1.5;}
 .server-opt-price { background: rgba(0,212,170,0.15); color: var(--accent3); padding: 4px 10px; border-radius: 8px; font-size: 12.5px; font-weight: 800; white-space: nowrap; flex-shrink:0;}
 .server-opt-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
 
+/* REACTION PICKER - GIAO DIỆN CHỌN CẢM XÚC MỚI */
+.reactions-group { display: flex; gap: 15px; margin-bottom: 16px; border: 1px solid var(--border); border-radius: 12px; padding: 15px; background: var(--bg); justify-content: center; flex-wrap: wrap; }
+.reaction-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; opacity: 0.6; transition: opacity 0.2s; position: relative;}
+.reaction-item:hover, .reaction-item.active { opacity: 1; }
+.reaction-icon { font-size: 30px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+.reaction-label { font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+.reaction-item input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+.reaction-check { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border2); display: flex; align-items: center; justify-content: center; background: var(--bg3); transition: border-color 0.2s; margin-top: 5px;}
+.reaction-item.active .reaction-check { border-color: var(--accent); background: var(--accent); color: #fff; font-size: 10px;}
+.reaction-item.active .reaction-check::after { content:'\f00c'; font-family:'Font Awesome 5 Free'; font-weight:900;}
+
 .modal-info{display:flex;flex-direction:column;gap:14px;}
 .info-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;}
 .info-card-title{font-size:12px;font-weight:700;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
@@ -794,7 +805,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
       </div>
       <div class="modal-info">
         <div class="order-box">
-          <div class="order-title">Thông-tin đơn hàng</div>
+          <div class="order-title">Thông tin đơn hàng</div>
           <div class="order-note" id="pm-note">Vui Lòng Nhập Gmail...</div>
           <div class="form-group" style="margin-top:0">
             <textarea class="form-input" id="pm-input" placeholder="Nhập thông tin tại đây..." style="min-height:120px"></textarea>
@@ -1344,8 +1355,19 @@ const PLATFORMS = {
   }
 };
 
+// DATA REACTION - DANH SÁCH CẢM XÚC FACEBOOK
+const REACTION_TYPES = [
+  { key: 'like', name: 'Like', icon: '👍' },
+  { key: 'love', name: 'Love', icon: '❤️' },
+  { key: 'care', name: 'Care', icon: '🥰' },
+  { key: 'haha', name: 'Haha', icon: '😆' },
+  { key: 'wow', name: 'Wow', icon: '😮' },
+  { key: 'sad', name: 'Sad', icon: '😢' },
+  { key: 'angry', name: 'Angry', icon: '😡' }
+];
+
 // ═══════════════════════════════════════════════
-// CÁC HÀM XỬ LÝ GIAO DIỆN TƯƠNG TỰ BẢN GỐC
+// CÁC HÀM XỬ LÝ GIAO DIỆN CHÍNH
 // ═══════════════════════════════════════════════
 function renderProducts(){
   const grid = document.getElementById('products-grid');
@@ -1374,7 +1396,8 @@ function renderServices(){
 }
 
 let currentOpt = 12;
-// HÀM MỞ MODAL DỊCH VỤ VÀ LOAD DANH SÁCH SERVER MỚI NHẤT
+
+// HÀM MỞ MODAL DỊCH VỤ VÀ LOAD DANH SÁCH SERVER + CẢM XÚC
 window.openSvcModal = function(platKey, svcIdx) {
   if(!window.currentUserData) { openAuth('login'); return; }
   
@@ -1388,6 +1411,7 @@ window.openSvcModal = function(platKey, svcIdx) {
   let formHtml = '';
   
   if(isThang) {
+    // Giao diện gói tháng (giữ nguyên)
     formHtml = `
       <div style="background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:16px;">
         <strong style="color:var(--text); font-size:14px; display:block; margin-bottom:8px;">${svc.name}</strong>
@@ -1403,14 +1427,32 @@ window.openSvcModal = function(platKey, svcIdx) {
       <button class="submit-btn" onclick="submitGeneric(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>
     `;
   } else {
+    // Giao diện tăng lẻ (có thêm phần chọn cảm xúc)
     let cmtField = '';
     if(isCmt) {
       cmtField = `<div class="form-group"><label class="form-label">Nội dung bình luận <span style="color:var(--text3);font-weight:400">(mỗi dòng 1 nội dung)</span></label><textarea class="form-input" id="svc-comments" rows="4" placeholder="Nhập nội dung..."></textarea><div style="font-size:11.5px;color:var(--text3);margin-top:4px"><i class="fas fa-info-circle" style="color:var(--accent3)"></i> Hệ thống tự đếm số dòng để tính số lượng.</div></div>`;
     }
+
+    // TẠO GIAO DIỆN CHỌN CẢM XÚC FACEBOOK
+    let reactionsHtml = `
+      <div class="form-group" id="reactions-group-wrapper" style="display:none;">
+        <label class="form-label">Chọn cảm xúc thay thế "Like"</label>
+        <div class="reactions-group">
+          ${REACTION_TYPES.map((rx, idx) => `
+            <div class="reaction-item ${idx===0?'active':''}" onclick="selectReaction(this)">
+              <input type="radio" name="reaction_type" value="${rx.key}" ${idx===0?'checked':''}>
+              <div class="reaction-icon">${rx.icon}</div>
+              <div class="reaction-label">${rx.name}</div>
+              <div class="reaction-check"></div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
     
-    // RENDER DANH SÁCH SERVER CHUẨN TỪ OBJECT
+    // RENDER DANH SÁCH SERVER
     let serverOptionsHtml = svc.servers.map((sv, idx) => `
-      <div class="server-opt ${idx===0?'selected':''}" onclick="selectOpt(this, ${sv.price})">
+      <div class="server-opt ${idx===0?'selected':''}" onclick="selectOpt(this, ${sv.price}, '${sv.desc}')">
         <input type="radio" name="sopt" ${idx===0?'checked':''}>
         <div class="server-opt-info">
           <div class="server-opt-header">
@@ -1428,6 +1470,7 @@ window.openSvcModal = function(platKey, svcIdx) {
       <div class="form-group"><label class="form-label">Chọn máy chủ (Server)</label>
         <div class="server-options">${serverOptionsHtml}</div>
       </div>
+      ${reactionsHtml}
       <div class="form-group"><label class="form-label">Số lượng</label><input class="form-input" type="number" id="svc-qty" value="${svc.min}" oninput="calcPrice()"></div>
       <div class="form-group"><label class="form-label">Giá tiền</label><div class="price-box"><span class="price-box-label">Tổng thanh toán</span><span class="price-box-value" id="svc-price">0 đ</span></div></div>
       <button class="submit-btn" onclick="submitGeneric(this)"><i class="fas fa-bolt"></i> Đặt Ngay</button>`;
@@ -1441,12 +1484,28 @@ window.openSvcModal = function(platKey, svcIdx) {
     window.calcPriceThang(svc.servers[0].price);
   } else {
     currentOpt = svc.servers[0].price; window.calcPrice();
+    // Tự động kiểm tra server đầu tiên có hỗ trợ cảm xúc không
+    updateReactionVisibility(svc.servers[0].desc);
+    
     if(isCmt) {
       document.getElementById('svc-comments').addEventListener('input', function() {
         const lines = this.value.split('\n').filter(line => line.trim() !== '').length;
         if(lines > 0) { document.getElementById('svc-qty').value = lines; calcPrice(); }
       });
     }
+  }
+}
+
+// HÀM HIỆN/ẨN BẢNG CHỌN CẢM XÚC DỰA TRÊN MÔ TẢ SERVER
+function updateReactionVisibility(description) {
+  const wrapper = document.getElementById('reactions-group-wrapper');
+  if(!wrapper) return;
+  
+  const hasReactions = description.includes('Chọn Cảm Xúc') || description.includes('Chọn Nhiều Cảm Xúc');
+  if(hasReactions) {
+    wrapper.style.display = 'block';
+  } else {
+    wrapper.style.display = 'none';
   }
 }
 
@@ -1458,10 +1517,19 @@ window.calcPriceThang = function(basePrice) {
   const el = document.getElementById('svc-price'); if(el) el.textContent = total.toLocaleString('vi-VN', {maximumFractionDigits: 2}) + ' đ';
 }
 
-window.selectOpt = function(el,price){
+// CẬP NHẬT HÀM CHỌN SERVER ĐỂ KÈM THEO MÔ TẢ
+window.selectOpt = function(el, price, description){
   document.querySelectorAll('.server-opt').forEach(o=>{o.classList.remove('selected');o.querySelector('input').checked=false;});
-  el.classList.add('selected');el.querySelector('input').checked=true;
-  currentOpt=price;calcPrice();
+  el.classList.add('selected'); el.querySelector('input').checked=true;
+  currentOpt=price; calcPrice();
+  // Kiểm tra cảm xúc khi đổi server
+  updateReactionVisibility(description);
+}
+
+// HÀM CHỌN CẢM XÚC
+window.selectReaction = function(el) {
+  document.querySelectorAll('.reaction-item').forEach(r => {r.classList.remove('active'); r.querySelector('input').checked=false;});
+  el.classList.add('active'); el.querySelector('input').checked=true;
 }
 
 window.calcPrice = function(){
