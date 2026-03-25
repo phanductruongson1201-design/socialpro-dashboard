@@ -87,7 +87,7 @@
   .admin-svc-box { background: var(--bg3); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
   .admin-svc-name { font-size: 15px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
   .admin-sv-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; flex-wrap: wrap;}
-  .admin-sv-id { font-weight: 800; color: var(--accent3); width: 50px; flex-shrink: 0; }
+  .admin-sv-id { font-weight: 800; color: var(--accent3); width: auto; min-width: 50px; flex-shrink: 0; }
   .admin-sv-desc { flex: 1; font-size: 12.5px; color: var(--text2); min-width: 250px; }
   .admin-input-price { padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(108,99,255,0.3); background: var(--bg2); color: var(--text); font-weight: bold; width: 120px; text-align: right; outline: none; transition: 0.2s;}
   .admin-input-price:focus { border-color: var(--accent); background: var(--bg); }
@@ -258,7 +258,7 @@
     'facebook': {
       name: 'VN Facebook', icon: 'fab fa-facebook-f', color: '#1877f2',
       services: [
-        { name:'Tăng Like Bài Viết', min: 100, servers: [ { id: 'SV1', desc: 'Tăng Like Có Chọn Cảm Xúc 🇻🇳', price: 14.99 }, { id: '157960', desc: 'Tăng Like Giá Siêu Rẻ 🇻🇳', price: 5.13 } ] },
+        { name:'Tăng Like Bài Viết', min: 100, servers: [ { id: 'SV1', desc: 'Tăng Like Có Chọn Cảm Xúc 🇻🇳', price: 14.99 }, { id: 'SV3', desc: 'Tăng Like Giá Siêu Rẻ 🇻🇳', price: 5.13 } ] },
         { name:'Tăng Người Theo Dõi', min: 100, servers: [ { id: 'SV1', desc: 'Tăng Người Theo Dõi Trang Cá Nhân 🇻🇳', price: 25.5 }, { id: 'SV2', desc: 'Tăng Người Theo Dõi Giá Rẻ', price: 12.0 } ] }
       ]
     },
@@ -443,7 +443,7 @@
     }
   }
 
-  // VẼ GIAO DIỆN CHỈNH SỬA GIÁ
+  // VẼ GIAO DIỆN CHỈNH SỬA GIÁ VÀ ID MÁY CHỦ
   window.renderAdminPricingPanel = function() {
     if(!window.globalPlatforms || !window.globalProducts) return;
     
@@ -456,10 +456,10 @@
                     <div class="admin-svc-box">`;
         prod.packages.forEach((pkg, pkgIdx) => {
             html += `<div class="admin-sv-row">
-                        <div class="admin-sv-id" style="width:auto; min-width:80px; color:var(--accent2);">${pkg.name}</div>
+                        <div class="admin-sv-id" style="width:auto; min-width:80px; color:var(--accent2); font-weight:bold;">${pkg.name}</div>
                         <div class="admin-sv-desc">${pkg.desc}</div>
                         <div style="display:flex; align-items:center; gap:8px;">
-                          <input type="number" step="1" value="${pkg.price}" id="price-prod-${pIdx}-${pkgIdx}" class="admin-input-price"> 
+                          <input type="number" step="1" value="${pkg.price}" id="price-prod-${pIdx}-${pkgIdx}" class="admin-input-price" title="Sửa giá bán"> 
                           <span style="color:var(--text2);font-weight:bold;">đ</span>
                         </div>
                      </div>`;
@@ -467,8 +467,8 @@
         html += `</div></div>`;
     });
 
-    // 2. RENDER DỊCH VỤ SMM
-    html += '<h3 style="color:var(--accent); margin-top:40px; margin-bottom:20px; font-size:20px; padding-bottom:10px; border-bottom:1px solid var(--border);"><i class="fas fa-chart-line"></i> 2. Quản Lý Giá Dịch Vụ SMM</h3>';
+    // 2. RENDER DỊCH VỤ SMM (CÓ THÊM Ô SỬA ID TINGTING)
+    html += '<h3 style="color:var(--accent); margin-top:40px; margin-bottom:20px; font-size:20px; padding-bottom:10px; border-bottom:1px solid var(--border);"><i class="fas fa-chart-line"></i> 2. Quản Lý Giá & ID Dịch Vụ SMM</h3>';
 
     for (const [pKey, plat] of Object.entries(window.globalPlatforms)) {
         html += `<div class="admin-pricing-card">
@@ -477,11 +477,17 @@
             html += `<div class="admin-svc-box"><div class="admin-svc-name" style="color:var(--accent3)">${svc.name}</div>`;
             svc.servers.forEach((sv, svIdx) => {
                 html += `<div class="admin-sv-row">
-                            <div class="admin-sv-id">${sv.id}</div>
+                            <div style="display:flex; flex-direction:column; gap:4px;">
+                                <span style="font-size:10px; color:var(--text3); font-weight:bold; text-transform:uppercase;">MÃ ID (TingTing)</span>
+                                <input type="text" value="${sv.id}" id="id-smm-${pKey}-${sIdx}-${svIdx}" style="padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255,107,157,0.3); background: var(--bg2); color: var(--accent2); font-weight: bold; width: 100px; outline: none; text-align:center;" title="Nhập ID từ TingTing">
+                            </div>
                             <div class="admin-sv-desc">${sv.desc}</div>
-                            <div style="display:flex; align-items:center; gap:8px;">
-                              <input type="number" step="0.01" value="${sv.price}" id="price-smm-${pKey}-${sIdx}-${svIdx}" class="admin-input-price"> 
-                              <span style="color:var(--text2);font-weight:bold;">đ</span>
+                            <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-end;">
+                              <span style="font-size:10px; color:var(--text3); font-weight:bold; text-transform:uppercase;">GIÁ BÁN (VNĐ)</span>
+                              <div style="display:flex; align-items:center; gap:8px;">
+                                <input type="number" step="0.01" value="${sv.price}" id="price-smm-${pKey}-${sIdx}-${svIdx}" class="admin-input-price" title="Sửa giá bán"> 
+                                <span style="color:var(--text2);font-weight:bold;">đ</span>
+                              </div>
                             </div>
                          </div>`;
             });
@@ -492,7 +498,7 @@
     document.getElementById('admin-pricing-content').innerHTML = html;
   }
 
-  // LƯU GIÁ MỚI LÊN ĐÁM MÂY
+  // LƯU GIÁ VÀ ID MỚI LÊN ĐÁM MÂY
   window.saveAdminPrices = async function() {
     const btn = document.getElementById('btn-save-prices');
     const orig = btn.innerHTML;
@@ -503,18 +509,21 @@
         let newProducts = JSON.parse(JSON.stringify(window.globalProducts));
         newProducts.forEach((prod, pIdx) => {
             prod.packages.forEach((pkg, pkgIdx) => {
-                const input = document.getElementById(`price-prod-${pIdx}-${pkgIdx}`);
-                if(input) { pkg.price = parseFloat(input.value) || pkg.price; }
+                const inputPrice = document.getElementById(`price-prod-${pIdx}-${pkgIdx}`);
+                if(inputPrice) { pkg.price = parseFloat(inputPrice.value) || pkg.price; }
             });
         });
 
-        // Lấy dữ liệu SMM
+        // Lấy dữ liệu SMM (Lấy cả Giá và ID)
         let newPlatforms = JSON.parse(JSON.stringify(window.globalPlatforms));
         for (const [pKey, plat] of Object.entries(newPlatforms)) {
             plat.services.forEach((svc, sIdx) => {
                 svc.servers.forEach((sv, svIdx) => {
-                    const input = document.getElementById(`price-smm-${pKey}-${sIdx}-${svIdx}`);
-                    if(input) { sv.price = parseFloat(input.value) || sv.price; }
+                    const inputPrice = document.getElementById(`price-smm-${pKey}-${sIdx}-${svIdx}`);
+                    if(inputPrice) { sv.price = parseFloat(inputPrice.value) || sv.price; }
+                    
+                    const inputId = document.getElementById(`id-smm-${pKey}-${sIdx}-${svIdx}`);
+                    if(inputId && inputId.value.trim() !== '') { sv.id = inputId.value.trim(); }
                 });
             });
         }
@@ -524,7 +533,7 @@
         window.globalPlatforms = newPlatforms;
         window.globalProducts = newProducts;
         
-        showToast('Lưu bảng giá thành công!');
+        showToast('Lưu cấu hình thành công!');
         btn.innerHTML = orig; btn.disabled = false;
     } catch(e) {
         alert('Lỗi khi lưu bảng giá: ' + e.message);
