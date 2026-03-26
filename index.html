@@ -25,11 +25,11 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px;}
 
-/* TOPBAR ANNOUNCEMENT */
+/* TOPBAR */
 .topbar-announcement{background:linear-gradient(90deg,var(--accent),var(--accent2));padding:8px 20px;font-size:12.5px;font-weight:600;text-align:center;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;}
 .topbar-announcement a{color:#fff;text-decoration:underline;}
 
-/* NAVBAR (GỌN GÀNG) */
+/* NAVBAR */
 .navbar{height:var(--nav-h);background:rgba(13,15,26,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:1000;display:flex;align-items:center;padding:0 24px;gap:20px;}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:22px;font-weight:900;color:var(--text);white-space:nowrap;}
 .nav-logo-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;}
@@ -40,7 +40,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--te
 .nav-spacer{flex:1;}
 .nav-actions{display:flex;align-items:center;gap:10px;}
 
-/* Buttons */
 .btn{padding:9px 20px;border-radius:9px;font-size:13.5px;font-weight:600;cursor:pointer;transition:all .2s;border:none;font-family:'Be Vietnam Pro',sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;}
 .btn-ghost{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid var(--border);}
 .btn-ghost:hover{background:rgba(255,255,255,0.1);}
@@ -659,9 +658,23 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:48px 24p
 </div>
 
 <div id="sec-orders" style="display:none;padding:40px 24px;max-width:1000px;margin:0 auto">
-  <h2 style="font-size:26px;font-weight:800;margin-bottom:24px"><i class="fas fa-receipt" style="color:var(--accent)"></i> Tiến Trình Đơn Hàng</h2>
-  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:20px">
-    <div style="font-size:14px;color:var(--text2);text-align:center;padding:40px">Chưa có đơn hàng nào. <a href="#" onclick="showSection('home');return false" style="color:var(--accent)">Đặt dịch vụ ngay →</a></div>
+  <h2 style="font-size:26px;font-weight:800;margin-bottom:24px"><i class="fas fa-receipt" style="color:var(--accent)"></i> Lịch Sử Đơn Hàng</h2>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;text-align:left;">
+      <thead style="background:rgba(255,255,255,0.02);border-bottom:1px solid var(--border);">
+        <tr>
+          <th style="padding:16px;font-size:12px;color:var(--text2);">DỊCH VỤ</th>
+          <th style="padding:16px;font-size:12px;color:var(--text2);">LINK / THÔNG TIN</th>
+          <th style="padding:16px;font-size:12px;color:var(--text2);">SỐ LƯỢNG</th>
+          <th style="padding:16px;font-size:12px;color:var(--text2);">SỐ TIỀN</th>
+          <th style="padding:16px;font-size:12px;color:var(--text2);">TRẠNG THÁI</th>
+          <th style="padding:16px;font-size:12px;color:var(--text2);">THỜI GIAN</th>
+        </tr>
+      </thead>
+      <tbody id="orders-tbody">
+        <tr><td colspan="6" style="text-align:center;padding:30px;"><i class="fas fa-spinner fa-spin"></i> Đang tải đơn hàng...</td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -1584,9 +1597,17 @@ window.submitGeneric = async function(btn) {
 
           if(window.currentUserData.balance < totalCost) { window.showGlobalAlert("Số dư không đủ! Vui lòng nạp thêm.", "error"); throw "Low balance"; }
 
-          // Tách ID chuẩn xác
+          // Tách ID chuẩn xác (Chỉ lấy số để tránh lỗi máy chủ không xác định)
           const selectedServerEl = document.querySelector('.server-opt.selected .sv-id-text');
-          let serviceId = selectedServerEl ? selectedServerEl.textContent.trim() : "1";
+          let rawId = selectedServerEl ? selectedServerEl.textContent.trim() : "";
+          let serviceId = rawId.replace(/[^0-9]/g, ''); // Ép lấy số, xóa chữ SV
+          
+          if(!serviceId) {
+              window.showGlobalAlert("Lỗi: Mã ID không hợp lệ (" + rawId + ")", "error");
+              btn.innerHTML = origHTML; btn.disabled = false;
+              return;
+          }
+
           const serviceNameFull = document.querySelector('.server-opt.selected .sv-badge').textContent.trim();
 
           const comments = document.getElementById('svc-comments') ? document.getElementById('svc-comments').value : "";
@@ -1618,7 +1639,8 @@ window.submitGeneric = async function(btn) {
           try {
               result = JSON.parse(rawText);
           } catch (e) {
-              console.error("Lỗi giải mã phản hồi:", rawText);
+              // NẾU LỖI NẶNG SẼ HIỆN BẢNG GỠ LỖI NÀY LÊN
+              alert("[GỠ LỖI HỆ THỐNG - CHỤP GỬI MÌNH NHÉ]\n\nPhản hồi gốc từ Google Apps Script bị lỗi:\n\n" + rawText);
               window.showGlobalAlert("Lỗi phản hồi từ hệ thống Google!", "error");
               throw "JSON Error";
           }
@@ -1649,7 +1671,10 @@ window.submitGeneric = async function(btn) {
               window.showGlobalAlert(`Đã tạo đơn thành công! Trừ ${totalCost.toLocaleString('vi-VN')}đ`, 'success');
               setTimeout(() => { closeModal('svcModal'); window.showSection('orders'); }, 2000);
           } else {
+              // NẾU TINGTING TRẢ VỀ LỖI, SẼ BẬT BẢNG THÔNG BÁO NÀY LÊN ĐỂ MÌNH ĐỌC BỆNH
               const errorMsg = finalRes ? finalRes.error : "Máy chủ không phản hồi";
+              alert(`[HỆ THỐNG GỠ LỖI - CHỤP GỬI MÌNH NHÉ]\n\n1. ID vừa gửi cho TingTing: ${serviceId}\n2. TingTing trả về lỗi:\n${JSON.stringify(finalRes, null, 2)}`);
+              
               window.showGlobalAlert("Lỗi từ máy chủ API: " + errorMsg, "error");
               btn.innerHTML = origHTML; btn.disabled = false;
           }
