@@ -1017,68 +1017,109 @@ const DEFAULT_PRODUCTS = [
 
 const DEFAULT_PLATFORMS = {
   'facebook': {
-    name: 'VN Facebook', icon: 'fab fa-facebook-f', color: '#1877f2',
-    services: [
-      {
-        name:'Tăng Like Bài Viết', min: 100, icon:'fas fa-thumbs-up', c:'#1877f2',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Like Bài Viết + Có Chọn Cảm Xúc ~ Lên Nhanh: 1.000-10.000/Ngày ~ Mua Bằng UID ~ Tài Nguyên Việt Nam 🇻🇳', price: 14.99 },
-          { id: 'SV2', desc: 'Tăng Like Bài Viết + Chọn Nhiều Cảm Xúc ~ Tốc Độ Nhanh: 2.000-10.000/Ngày ~ Tài Nguyên Việt Nam 🇻🇳', price: 16.34 },
-          { id: 'SV3', desc: 'Tăng Like Bài Viết ~ Tốc Độ Nhanh: 1.000-5.000/Ngày ~ Ít Tụt ~ Giá Siêu Rẻ ~ Tài Nguyên Fanpage Việt Nam 🇻🇳', price: 5.13 },
-          { id: 'SV4', desc: 'Tăng Like Bài Viết ~ Có Chọn Cảm Xúc ~ Giá Rẻ ~ Tốc Độ Nhanh: 1.000-10.000/Ngày ~ Tài Nguyên Việt Nam 🇻🇳', price: 11.88 },
-          { id: 'SV5', desc: 'Tăng Like Bài Viết ~ Lên Bình Thường: 1000-5.000/Ngày ~ Tài Nguyên Ngoại + Việt Nam 🇻🇳', price: 4.46 },
-          { id: 'SV6', desc: 'Tăng Like Bài Viết + Chọn Nhiều Cảm Xúc ~ Lên Nhanh: 2.000-20.000/Ngày ~ Tài Nguyên Việt Nam 🇻🇳', price: 31.86 }
-        ]
-      },
-      {
-        name:'Tăng Người Theo Dõi', min: 100, icon:'fas fa-users', c:'#1877f2',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Người Theo Dõi Trang Cá Nhân / Sub Vip ~ Người Dùng Thật ~ Lên Nhanh 🇻🇳', price: 25.5 },
-          { id: 'SV2', desc: 'Tăng Người Theo Dõi Giá Rẻ ~ Tốc Độ Trung Bình 🔥', price: 12.0 }
-        ]
-      },
-      {
-        name:'Tăng Like Fanpage', min: 100, icon:'fas fa-flag', c:'#1877f2',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Like Fanpage Kèm Theo Dõi ~ Người Dùng Thật 🇻🇳', price: 35.0 },
-          { id: 'SV2', desc: 'Tăng Like Fanpage Giá Rẻ ~ Lên Chậm An Toàn', price: 22.0 }
-        ]
-      },
-      {
-        name:'Tăng Mắt Livestream', min: 50, icon:'fas fa-video', c:'#1877f2',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Mắt Live Facebook 30 Phút ~ Server ổn định 🇻🇳', price: 12.0 },
-          { id: 'SV2', desc: 'Tăng Mắt Live VIP + Ổn Định ~ Duy Trì 60 Phút 🇻🇳', price: 25.0 }
-        ]
-      },
-      {
-        name:'Tăng Lượt Chia Sẻ', min: 10, icon:'fas fa-share', c:'#1877f2',
-        servers: [
-          { id: 'SV1', desc: 'Facebook Post Shares ~ Lên Nhanh Chóng ~ Random Group 🇻🇳', price: 20.0 },
-          { id: 'SV2', desc: 'Tăng Share Thật Tường Cá Nhân ~ Profile Có Ảnh Đại Diện', price: 35.0 }
-        ]
-      },
-      {
-        name:'Tăng Member Nhóm', min: 100, icon:'fas fa-user-group', c:'#1877f2',
-        servers: [
-          { id: 'SV1', desc: 'Tăng Thành Viên Group Cực Tốc Độ ~ Mem Việt Nam 🇻🇳', price: 15.0 }
-        ]
-      },
-      {
-        name:'Tăng Bình Luận', min: 5, icon:'fas fa-comment', c:'#1877f2',
-        servers: [
-          { id: 'SV1', desc: 'Bình luận tùy chọn ~ Tài khoản người dùng Việt Nam 🇻🇳', price: 150.0 },
-          { id: 'SV2', desc: 'Tăng Bình Luận Facebook VIP ~ Có tick xanh / Account uy tín 👑', price: 450.0 }
-        ]
-      },
-      {
-        name:'Gói Like Tháng', min: 100, icon:'fas fa-calendar-check', c:'#f5c842',
-        servers: [
-          { id: 'SV1', desc: 'Gói Like Tự Động Mỗi Khi Đăng Bài ~ Tối đa 5 bài/ngày ~ 30 Ngày', price: 55.0 }
-        ]
-      }
-    ]
-  },
+  name: 'VN Facebook', icon: 'fab fa-facebook-f', color: '#1877f2',
+  services: [
+    {
+      name: 'Theo Dõi Siêu Rẻ', min: 100, icon: 'fas fa-users', c: '#1877f2',
+      servers: [
+        { id: 'SV1', desc: 'Theo Dõi Siêu Rẻ ~ Tốc Độ: 500-2.000/Ngày ~ Nguồn Việt Nam 🇻🇳', price: 4.5 },
+        { id: 'SV2', desc: 'Theo Dõi Siêu Rẻ ~ Tốc Độ Chậm ~ Giá Thấp Nhất 💸', price: 3.0 }
+      ]
+    },
+    {
+      name: 'Theo Dõi Xịn', min: 100, icon: 'fas fa-user-check', c: '#1877f2',
+      servers: [
+        { id: 'SV3', desc: 'Theo Dõi Xịn ~ Tài Khoản Thật VN ~ Bảo Hành 30 Ngày ♻️', price: 25.0 },
+        { id: 'SV4', desc: 'Theo Dõi Xịn ~ Profile Đẹp ~ Ít Tụt Nhất Thị Trường 💎', price: 32.0 }
+      ]
+    },
+    {
+      name: 'Cảm Xúc Giá Rẻ', min: 100, icon: 'fas fa-face-smile', c: '#1877f2',
+      servers: [
+        { id: 'SV5', desc: 'Cảm Xúc Bài Viết Giá Rẻ ~ Có Chọn Loại Cảm Xúc ~ Tốc Độ: 1.000-5.000/Ngày 🇻🇳', price: 4.46 },
+        { id: 'SV6', desc: 'Cảm Xúc Giá Rẻ ~ Random Loại ~ Tốc Độ Nhanh: 5.000-10.000/Ngày 🚀', price: 3.5 }
+      ]
+    },
+    {
+      name: 'Cảm Xúc Việt Nam', min: 50, icon: 'fas fa-heart', c: '#e0245e',
+      servers: [
+        { id: 'SV7', desc: 'Cảm Xúc Việt Nam ~ Tài Khoản Người Dùng Thật ~ Chọn Được Loại 🇻🇳', price: 14.99 },
+        { id: 'SV8', desc: 'Cảm Xúc VN Chất Lượng Cao ~ Có Chọn Nhiều Loại ~ Tốc Độ: 2.000-10.000/Ngày 🇻🇳', price: 16.34 },
+        { id: 'SV9', desc: 'Cảm Xúc VN Premium ~ Lên Nhanh: 2.000-20.000/Ngày ~ Profile Đẹp 💎', price: 31.86 }
+      ]
+    },
+    {
+      name: 'Thành Viên Nhóm', min: 100, icon: 'fas fa-user-group', c: '#1877f2',
+      servers: [
+        { id: 'SV10', desc: 'Thêm Thành Viên Vào Nhóm ~ Nguồn Việt Nam ~ Tốc Độ: 500-2.000/Ngày 🇻🇳', price: 15.0 },
+        { id: 'SV11', desc: 'Thành Viên Nhóm Chất Lượng ~ Tài Khoản Thật ~ Ít Rời Nhóm Nhất ♻️', price: 25.0 }
+      ]
+    },
+    {
+      name: 'Like + Follow Fanpage', min: 100, icon: 'fas fa-flag', c: '#1877f2',
+      servers: [
+        { id: 'SV12', desc: 'Like + Follow Fanpage Cùng Lúc ~ Tài Khoản VN Thật ~ Tốc Độ: 1.000-3.000/Ngày 🇻🇳', price: 35.0 },
+        { id: 'SV13', desc: 'Like Fanpage Giá Rẻ ~ Lên Chậm An Toàn ~ Nguồn Ngoại', price: 22.0 }
+      ]
+    },
+    {
+      name: 'Chia Sẻ', min: 10, icon: 'fas fa-share-nodes', c: '#1877f2',
+      servers: [
+        { id: 'SV14', desc: 'Chia Sẻ Bài Viết ~ Random Group ~ Tốc Độ Nhanh 🇻🇳', price: 20.0 },
+        { id: 'SV15', desc: 'Chia Sẻ Bài Viết Lên Tường Cá Nhân ~ Profile Có Ảnh Đại Diện 🇻🇳', price: 35.0 }
+      ]
+    },
+    {
+      name: 'Lượt Xem Video Reels', min: 1000, icon: 'fas fa-play', c: '#1877f2',
+      servers: [
+        { id: 'SV16', desc: 'View Video / Reels Facebook ~ Tốc Độ: 10.000-50.000/Ngày ~ Lên Siêu Nhanh 🚀', price: 2.0 },
+        { id: 'SV17', desc: 'View Video Reels Tự Nhiên ~ Giữ Tỉ Lệ Xem ~ An Toàn SEO 🇻🇳', price: 3.5 }
+      ]
+    },
+    {
+      name: 'Bình Luận', min: 5, icon: 'fas fa-comment', c: '#1877f2',
+      servers: [
+        { id: 'SV18', desc: 'Bình Luận Tùy Chọn Nội Dung ~ Tài Khoản Người Dùng Việt Nam 🇻🇳', price: 150.0 },
+        { id: 'SV19', desc: 'Bình Luận VIP ~ Có Tick Xanh / Account Uy Tín 👑', price: 450.0 }
+      ]
+    },
+    {
+      name: 'View Story', min: 500, icon: 'fas fa-circle-play', c: '#1877f2',
+      servers: [
+        { id: 'SV20', desc: 'Tăng Lượt Xem Story Facebook ~ Tốc Độ Nhanh ~ Nguồn VN 🇻🇳', price: 1.5 },
+        { id: 'SV21', desc: 'View Story Premium ~ Tài Khoản Thật ~ Ổn Định 💎', price: 3.0 }
+      ]
+    },
+    {
+      name: 'Mắt Xem Live', min: 50, icon: 'fas fa-video', c: '#1877f2',
+      servers: [
+        { id: 'SV22', desc: 'Mắt Live Facebook 30 Phút ~ Server Ổn Định ~ Lên Nhanh 🇻🇳', price: 12.0 },
+        { id: 'SV23', desc: 'Mắt Live VIP 60 Phút ~ Duy Trì Ổn Định Suốt Buổi 🇻🇳', price: 25.0 },
+        { id: 'SV24', desc: 'Mắt Live 120 Phút ~ Chống Tụt ~ Phù Hợp Livestream Bán Hàng 🛒', price: 45.0 }
+      ]
+    },
+    {
+      name: 'Đánh Giá Fanpage', min: 5, icon: 'fas fa-star', c: '#f5c842',
+      servers: [
+        { id: 'SV25', desc: 'Đánh Giá 5 Sao Fanpage ~ Tài Khoản Người Dùng VN Thật ~ Kèm Nội Dung 🇻🇳', price: 350.0 },
+        { id: 'SV26', desc: 'Đánh Giá Fanpage Giá Rẻ ~ Không Kèm Nội Dung ~ Lên Nhanh', price: 180.0 }
+      ]
+    },
+    {
+      name: 'Cảm Xúc Story', min: 50, icon: 'fas fa-face-laugh-beam', c: '#e0245e',
+      servers: [
+        { id: 'SV27', desc: 'Thả Tim / Cảm Xúc Story Facebook ~ Tài Khoản VN Thật 🇻🇳', price: 10.0 }
+      ]
+    },
+    {
+      name: 'Lời Mời Kết Bạn', min: 50, icon: 'fas fa-user-plus', c: '#1877f2',
+      servers: [
+        { id: 'SV28', desc: 'Gửi Lời Mời Kết Bạn Đến Profile ~ Nguồn VN Thật ~ Chấp Nhận Tự Nhiên 🇻🇳', price: 20.0 },
+        { id: 'SV29', desc: 'Lời Mời Kết Bạn Xịn ~ Profile Đẹp ~ Tỉ Lệ Chấp Nhận Cao 💎', price: 35.0 }
+      ]
+    }
+  ]
+},
   'tiktok': {
     name: 'VN TikTok', icon: 'fab fa-tiktok', color: '#000',
     services: [
